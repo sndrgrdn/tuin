@@ -65,6 +65,11 @@ A new RFC starts as draft and becomes approved when the user approves its pull r
 
 ## Changing an RFC
 
-- When the decision stays the same, edit the RFC in place, such as for a rename or a clarification. Git keeps the history.
-- When the decision changes, write a new RFC, set the old one to `superseded`, and point `superseded_by` at the new one.
+An RFC is a living document. Every change is an edit to the RFC, in the pull request that needs it, and the pull request records why. That covers rewording, tightening, loosening, adding, and removing a statement, and changing the decision itself.
+
+- **Same rule, new wording or strictness: keep the number.** A statement keeps its number while it still governs the same thing, so citations, waivers, and review history stay attached to it.
+- **A different rule: new number.** When the statement would now govern something else, delete it and add the new rule under the next free number. Old citations then point at a gap instead of at a rule they never meant.
+- **A changed decision: move the old choice into `## Considered options`.** Say why it was dropped, so the RFC still answers "why not the old way?".
+- **A tightened or new MUST in an enforced RFC blocks at once.** If the code does not meet it yet, write it as SHOULD first and make it MUST in the change that brings the code in line.
+- **Supersede only to replace a whole RFC.** Set the old one to `superseded`, point `superseded_by` at the new one, and leave its statements unchanged.
 - Run `bin/rfcs --write` after every edit, then `bin/rfcs`.

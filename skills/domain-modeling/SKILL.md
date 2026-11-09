@@ -60,6 +60,6 @@ Offer an RFC in two cases:
 - **A decision** that is hard to reverse, surprising without context, and the result of a real trade-off. If any of the three is missing, skip it: an easy decision gets reversed, an obvious one needs no record, and a choice with no alternative has nothing to explain.
 - **A rule** that applies across the codebase and that no tool can check. When a linter, a type, or a test could check the rule, write the check instead, because a prose copy drifts from it.
 
-Before writing, read the statements of the domain in `docs/rfcs/INDEX.md`. When the new rule contradicts one, say so in the open and ask the user. Write the RFC with [RFC-FORMAT.md](./RFC-FORMAT.md). The project's own `docs/rfcs/0001-*.md` wins where it differs.
+Before writing, read the statements of the domain in `docs/rfcs/INDEX.md`. When the new rule contradicts one, say so in the open and ask the user. Write or change the RFC with [RFC-FORMAT.md](./RFC-FORMAT.md). Changing a rule is an edit to its RFC, never a new RFC. The project's own `docs/rfcs/0001-*.md` wins where it differs.
 
 The RFC is done when `bin/rfcs --write` and then `bin/rfcs` pass, and the change that applies the decision lands in the same pull request.

@@ -25,6 +25,16 @@ Derived from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/p
 | `handoff`, `retro`, `reprompt` | Hand work to a fresh session, learn from a finished one, and sharpen a prompt. |
 | `writing-for-agents` | How to write skills, `AGENTS.md` files and briefs. |
 
+## Install in Pi
+
+The repo is a Pi package. Install it from the local checkout, which loads in place without copying:
+
+```sh
+pi install ~/Developer/mori
+```
+
+This loads every skill, the `mori-agent` subagent (for `pi-subagents`), and the `mori-mode` extension. `/mori-mode` toggles mori mode for the session and shows `mori` in the status bar. While it is on, every request follows the skill, and after a compaction the agent rereads the skill, the run log and the active playbook.
+
 ## Install into a project
 
 Copy the skills into the folder your harness reads, usually `.agents/skills/`:

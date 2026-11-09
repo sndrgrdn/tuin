@@ -1,0 +1,27 @@
+{
+  "name": "mori",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Sander's harness-neutral agent skill kit, with a Pi extension and subagent for mori-mode.",
+  "keywords": [
+    "pi-package"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "pi": {
+    "skills": [
+      "./skills"
+    ],
+    "extensions": [
+      "./pi/extensions"
+    ],
+    "subagents": {
+      "agents": [
+        "./pi/agents"
+      ]
+    }
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*"
+  }
+}

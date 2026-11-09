@@ -29,6 +29,9 @@ Dir.glob("#{dir}/[0-9]*.md", base: root).sort.each do |path|
   failures << "#{path}: status is one of #{statuses.join(", ")}" unless statuses.include?(meta["status"])
   failures << "#{path}: the heading repeats the title" unless body.lines.find { it.start_with?("# ") }&.chomp == "# #{meta["title"]}"
 
+  headings = body.scan(/^## .+$/)
+  failures << "#{path}: repeats the heading #{headings.find { headings.count(it) > 1 }}" if headings.uniq.size != headings.size
+
   statements = []
   body.lines.map(&:chomp).each do |line|
     if (match = line.match(statement_pattern))

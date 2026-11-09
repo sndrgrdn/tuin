@@ -1,5 +1,5 @@
 ---
-name: mori-architect
+name: architect
 description: Sketch types, signatures and module structure before writing code, compare competing designs from different models, then implement against the chosen sketch.
 disable-model-invocation: true
 ---
@@ -12,7 +12,7 @@ Copy these phases into your todo list before starting: Ground, Sketch, Agree, Im
 
 ## Phase A: Ground
 
-Build a real mental model of every system the new code touches. Run `mori-how` over each affected subsystem and produce its explanation; naming a file is not grounding. When the design changes ownership or layering, also read the history of the current shape (`git log`, blame, the project's decision records), so the reasons behind it become constraints instead of guesses.
+Build a real mental model of every system the new code touches. Run `how` over each affected subsystem and produce its explanation; naming a file is not grounding. When the design changes ownership or layering, also read the history of the current shape (`git log`, blame, the project's decision records), so the reasons behind it become constraints instead of guesses.
 
 Skip this phase only for greenfield work with no surrounding system.
 
@@ -35,7 +35,7 @@ By default, continue straight to implementation.
 
 When the user asks for a checkpoint ("show me before implementing"), present the design and wait for sign-off.
 
-Either way, the sketch can land as its own commit (scaffold first, Foundational Thinking). Planned, scoped breakage during fill-in is fine (Outcome-Oriented Execution). For adversarial pressure on the design before implementing, run `mori-interrogate` on the sketch.
+Either way, the sketch can land as its own commit (scaffold first, Foundational Thinking). Planned, scoped breakage during fill-in is fine (Outcome-Oriented Execution). For adversarial pressure on the design before implementing, run `interrogate` on the sketch.
 
 When the user pushes back on the shape, treat it as new Phase A evidence: re-ground and rerun Phase B before writing more code.
 
@@ -60,7 +60,7 @@ Use judgement. A few edge cases do not condemn a design, and complexity in the d
 
 To scrap:
 
-1. Run `mori-how` over what has been built.
+1. Run `how` over what has been built.
 2. Redesign as if the new constraints had been there from day one.
 3. Subtract first: the new sketch is smaller than the old one before it grows.
 4. Return to Phase B.

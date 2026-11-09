@@ -141,17 +141,17 @@ Playbooks call these by name. They live beside this skill, at `<skills>/<name>/S
 
 | Skill | Does |
 |---|---|
-| `mori-how` | Explains how a part of the codebase works, through parallel read-only explorers |
-| `mori-architect` | Sketches types and module structure with competing designs from several models, then implements against the sketch |
-| `mori-interrogate` | Adversaries on different models try to break a change; only findings proven by a run survive |
-| `mori-tdd` | Fixes a bug test-first when a cheap test path exists |
-| `mori-deslop` | Removes AI slop from a diff before commit |
-| `mori-no-comments` | A fresh reviewer deletes needless comments and flags the code they excuse |
-| `mori-unslop` | Removes AI tells from prose |
-| `mori-technical-writing` | The standard for docs, PR descriptions and commit messages |
-| `mori-create-verification` | Generates a project skill that drives the app like a user, with a feature map |
-| `mori-maintain-verification` | Keeps that skill and its feature map in line with the app |
-| `mori-create-formal-verification` | Generates a project skill that formally verifies a costly, hard-to-test property |
-| `mori-maintain-formal-verification` | Brings formal verification back in line after the code changed |
+| `how` | Explains how a part of the codebase works, through parallel read-only explorers |
+| `architect` | Sketches types and module structure with competing designs from several models, then implements against the sketch |
+| `interrogate` | Adversaries on different models try to break a change; only findings proven by a run survive |
+| `tdd` | Fixes a bug test-first when a cheap test path exists |
+| `deslop` | Removes AI slop from a diff before commit |
+| `no-comments` | A fresh reviewer deletes needless comments and flags the code they excuse |
+| `unslop` | Removes AI tells from prose |
+| `technical-writing` | The standard for docs, PR descriptions and commit messages |
+| `create-verification` | Generates a project skill that drives the app like a user, with a feature map |
+| `maintain-verification` | Keeps that skill and its feature map in line with the app |
+| `create-formal-verification` | Generates a project skill that formally verifies a costly, hard-to-test property |
+| `maintain-formal-verification` | Brings formal verification back in line after the code changed |
 
-When the project has no scripted way to prove behaviour on its real surface, propose `mori-create-verification` before relying on Prove It Works.
+When the project has no scripted way to prove behaviour on its real surface, propose `create-verification` before relying on Prove It Works.

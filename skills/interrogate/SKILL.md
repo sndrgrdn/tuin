@@ -1,5 +1,5 @@
 ---
-name: mori-interrogate
+name: interrogate
 description: Adversarial review. Several agents on different models try to break a change or design, and only findings proven by a run survive. Reports findings and applies no fixes.
 disable-model-invocation: true
 ---

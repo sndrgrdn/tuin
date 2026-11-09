@@ -1,12 +1,12 @@
 ---
-name: mori-maintain-verification
+name: maintain-verification
 description: Periodic pass that keeps a project's verification skill and feature map honest. Read-only source readers per feature, one live session driving every feature, and at most one PR of proven corrections.
 disable-model-invocation: true
 ---
 
 # Maintain a verification skill
 
-A feature map starts to rot the moment the app changes. This is the upkeep loop for a skill made by `mori-create-verification`, or any project-local verification skill with a feature map.
+A feature map starts to rot the moment the app changes. This is the upkeep loop for a skill made by `create-verification`, or any project-local verification skill with a feature map.
 
 The unit of rigour is the feature, not the sentence: cover every feature file from source, and use every feature live, without turning every bullet into a terminal command.
 
@@ -24,7 +24,7 @@ Edit only the verification skill's own folder: its `SKILL.md`, `features/`, and 
 
 ## Pass
 
-0. **Find the target:** the project-local skill whose body has launch and drive sections and a feature map (usually `<skills>/verify-*/`). Several candidates: ask which one. None: stop and point at `mori-create-verification` instead of inventing a target.
+0. **Find the target:** the project-local skill whose body has launch and drive sections and a feature map (usually `<skills>/verify-*/`). Several candidates: ask which one. None: stop and point at `create-verification` instead of inventing a target.
 
 1. **Index hygiene.** Read the feature map README and list its sibling files. Fix missing, extra, duplicate and dead entries. Keep this light; generate no inventory.
 

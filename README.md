@@ -14,11 +14,11 @@ Derived from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/p
 | `mori-mode/principles/` | The other principles, grouped by when they apply: `design.md`, `change.md`, `evidence.md`. |
 | `mori-mode/playbooks/` | Feature, bug fix, refactoring, investigation, prototype, perf issue, multi-phase plan, babysit, authoring a skill, opening a PR, session pickup. |
 | `mori-agent` | The brief every subagent reads first. |
-| `mori-how`, `mori-architect`, `mori-interrogate` | Understand, design and attack a change. |
-| `mori-tdd`, `mori-deslop`, `mori-no-comments` | Fix test-first, and clean a diff before commit and review. |
-| `mori-unslop`, `mori-technical-writing` | Prose and documentation standards. |
-| `mori-create-verification`, `mori-maintain-verification` | Build and maintain a project skill that drives the app like a user. |
-| `mori-create-formal-verification`, `mori-maintain-formal-verification` | Build and maintain formal verification for costly, hard-to-test properties. |
+| `how`, `architect`, `interrogate` | Understand, design and attack a change. |
+| `tdd`, `deslop`, `no-comments` | Fix test-first, and clean a diff before commit and review. |
+| `unslop`, `technical-writing` | Prose and documentation standards. |
+| `create-verification`, `maintain-verification` | Build and maintain a project skill that drives the app like a user. |
+| `create-formal-verification`, `maintain-formal-verification` | Build and maintain formal verification for costly, hard-to-test properties. |
 
 ## Install into a project
 

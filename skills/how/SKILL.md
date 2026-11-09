@@ -1,5 +1,5 @@
 ---
-name: mori-how
+name: how
 description: Explain how a part of the codebase works, at the level a senior engineer needs to start working in it. Also answers where something should live and which layer owns it.
 disable-model-invocation: true
 ---

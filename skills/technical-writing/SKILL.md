@@ -1,12 +1,12 @@
 ---
-name: mori-technical-writing
+name: technical-writing
 description: A layered standard for docs, RFCs, READMEs, PR descriptions and commit messages. Diátaxis structure, Google developer style sentences, STE instruction rules, Global English syntax.
 disable-model-invocation: true
 ---
 
 # Technical writing
 
-Write so a tired engineer understands on the first read. Apply all four layers below, then `mori-unslop`. The project's own writing rules win where they differ.
+Write so a tired engineer understands on the first read. Apply all four layers below, then `unslop`. The project's own writing rules win where they differ.
 
 Three rules sit above the layers:
 
@@ -16,7 +16,7 @@ Three rules sit above the layers:
 
 The codebase is the word list. Write the real symbol, file, flag or command, not a synonym or a description of it.
 
-Use the words a developer would say out loud: "move", "delete", "a budget that only decreases". A named pattern is fine when the doc says what it means the first time it appears. When you meet a new jargon word worth banning, propose it and its replacement for `mori-unslop` rule 26 in your reply.
+Use the words a developer would say out loud: "move", "delete", "a budget that only decreases". A named pattern is fine when the doc says what it means the first time it appears. When you meet a new jargon word worth banning, propose it and its replacement for `unslop` rule 26 in your reply.
 
 ## Vary the rhythm
 

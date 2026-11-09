@@ -1,5 +1,5 @@
 ---
-name: mori-deslop
+name: deslop
 description: Remove AI-generated slop from a branch's code diff before committing, keeping behaviour unchanged.
 disable-model-invocation: true
 ---
@@ -10,7 +10,7 @@ Check the branch's diff against its base and remove the AI-generated slop it int
 
 ## Look for
 
-- Comments that narrate the code, restate a name, or do not match the file's style. (`mori-no-comments` is the thorough pass; this one catches the obvious.)
+- Comments that narrate the code, restate a name, or do not match the file's style. (`no-comments` is the thorough pass; this one catches the obvious.)
 - Defensive checks, rescue or try/catch blocks, and nil or null guards that are unusual for a trusted internal path (Boundary Discipline).
 - Type escapes used only to silence the checker: `any`, casts, `T.unsafe`, `# type: ignore`, `rubocop:disable` and the like.
 - Deep nesting that early returns would flatten.

@@ -1,5 +1,5 @@
 ---
-name: mori-tdd
+name: tdd
 description: Fix a bug test-first. Write a focused regression test that fails before the fix and passes after it, when a cheap local test path exists.
 disable-model-invocation: true
 ---

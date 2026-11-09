@@ -1,5 +1,5 @@
 ---
-name: mori-unslop
+name: unslop
 description: Remove AI tells from any prose, including replies, docs, PR descriptions and commit messages.
 disable-model-invocation: true
 ---

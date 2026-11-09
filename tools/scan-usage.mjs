@@ -19,7 +19,7 @@ const principles = [
   "Build the Lever", "Encode Lessons in Structure",
 ];
 
-const fileRe = /mori-[a-z-]+\/(?:SKILL\.md|principles\/[a-z-]+\.md|playbooks\/[a-z-]+\.md|references\/[a-z-]+\.md)|tmp\/runs\/[^"\s\\]+\.md/g;
+const fileRe = /(?<!upstream\/skills\/)(?<!team-kit\/)(?<![a-z-])(?:mori-mode|mori-agent|how|architect|interrogate|tdd|deslop|no-comments|unslop|technical-writing|create-verification|maintain-verification|create-formal-verification|maintain-formal-verification)\/(?:SKILL\.md|principles\/[a-z-]+\.md|playbooks\/[a-z-]+\.md|references\/[a-z-]+\.md)|tmp\/runs\/[^"\s\\]+\.md/g;
 
 function walk(dir, acc = []) {
   for (const name of readdirSync(dir)) {

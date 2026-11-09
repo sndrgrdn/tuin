@@ -6,7 +6,7 @@ You own the plan, not the code. The plan is a checklist that subagents run box b
 2. **Settle open questions by prototype before writing.** Run `prototype.md` for each. Keep the branch, the commit and the screenshots for Appendix A. Ask the user only about a product or preference call no run can settle, with options (Never Block on the Human).
 3. **Explore through subagents** (Guard the Context Window). Each returns file pointers, conventions, test commands and entry points, not pasted file contents.
 4. **Read `principles/change.md`.** Then copy the skeleton below into the plan file and fill every placeholder. Unless the user names a path, write it to the project's scratch folder (default `tmp/plans/<slug>.md`). Keep every heading and sub-block, in the order shown. One section per PR, and one PR is one change with its own evidence (Sequence Work into Verifiable Units).
-5. **Write it** under `mori-technical-writing`, then `mori-unslop`. The body is a how-to; the appendices hold explanation and reference. Each heading states the task or the finding. No long dashes, no mid-sentence colons.
+5. **Write it** under `technical-writing`, then `unslop`. The body is a how-to; the appendices hold explanation and reference. Each heading states the task or the finding. No long dashes, no mid-sentence colons.
 6. **Run the check:** `node <skills>/mori-mode/scripts/check-plan.mjs <plan.md>`, and fix every line it prints (Encode Lessons in Structure).
 7. **Hand back.** Post the plan path and the script's output, then stop. Execution starts on the user's explicit go. Record that go, and any grants that come with it, in the run log.
 
@@ -57,7 +57,7 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 ### PR mechanics
 
 - [ ] Each owner works in its own worktree or branch.
-- [ ] Run `mori-deslop` before each commit and `mori-no-comments` before review.
+- [ ] Run `deslop` before each commit and `no-comments` before review.
 - [ ] Run the project's linters and merge gate before the PR-facing push.
 - [ ] Open each PR ready for review, per `opening-a-pr.md`. A stack child targets its parent branch.
 - [ ] Triage review-bot comments per `mori-mode/references/bot-triage.md`.
@@ -143,7 +143,7 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 
 ## Appendix D. Links and reading list
 
-<Docs to read before editing. Which PRs get `mori-how`, `mori-architect` or `mori-interrogate`.>
+<Docs to read before editing. Which PRs get `how`, `architect` or `interrogate`.>
 ````
 
 **Reply:** the plan path, the PR ids with their dependencies and the review-gated set, what the prototypes proved and what stays unproven, and the check script's output.

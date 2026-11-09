@@ -1,5 +1,5 @@
 ---
-name: mori-maintain-formal-verification
+name: maintain-formal-verification
 description: Bring a project's formal verification back in line after the code changed. Find the commits that touched verified code, update the model, harness or properties to describe the code as it is now, rerun, and say whether each failure is drift in the verification or a bug in the code.
 disable-model-invocation: true
 ---
@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 A formal check proves a property of what it describes. When the code changes and the verification does not, the check can keep passing while it describes code that no longer exists. That pass is the dangerous case, because it looks like a proof.
 
-This is the upkeep loop for a verify skill made by `mori-create-formal-verification`, or any project-local skill that runs a model checker, prover or code-level verifier against named code. The project-local skill handles changes made while an agent uses it. This skill handles the changes that skipped it: merges, edits made without the skill, and drift built up across many commits.
+This is the upkeep loop for a verify skill made by `create-formal-verification`, or any project-local skill that runs a model checker, prover or code-level verifier against named code. The project-local skill handles changes made while an agent uses it. This skill handles the changes that skipped it: merges, edits made without the skill, and drift built up across many commits.
 
 ## Outcomes
 
@@ -27,7 +27,7 @@ Edit only the verification: models, harnesses, property files and the verify ski
 
 ## Pass
 
-1. **Find the checks.** A verify skill has no fixed name, so find it by what it does: a project skill that runs a model checker, prover or other verifier against named code. Read each one, or the one the user named. For each check, collect the property, the code it covers, the bounds and assumptions, the command that runs it, and the commit where it was last confirmed to describe the code. When no verify skill exists, stop and point at `mori-create-formal-verification`. When the skill records no sync commit, use the last commit that changed the verification files, and say so.
+1. **Find the checks.** A verify skill has no fixed name, so find it by what it does: a project skill that runs a model checker, prover or other verifier against named code. Read each one, or the one the user named. For each check, collect the property, the code it covers, the bounds and assumptions, the command that runs it, and the commit where it was last confirmed to describe the code. When no verify skill exists, stop and point at `create-formal-verification`. When the skill records no sync commit, use the last commit that changed the verification files, and say so.
 
 2. **Run it as it is.** Run each check once before changing anything, and record the result. A pass here does not say the code is correct; it says the old description still holds. A failure here can be drift or a bug. Decide which only in step 5.
 

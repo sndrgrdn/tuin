@@ -1,5 +1,5 @@
 ---
-name: mori-create-formal-verification
+name: create-formal-verification
 description: Generate a project-local skill that formally verifies the code where a bug costs most and tests reach least, in any language, with the verification tool that fits. Use for races, invariants, retries, state machines, parsers and unsafe code that need more than tests.
 disable-model-invocation: true
 ---
@@ -59,4 +59,4 @@ A verify skill that has never run is a draft. When the skill misses the break or
 
 ## Hand off
 
-Tell the user what you verified, which tool you used and why, the bounds, what the check found in plain words, how to run it, and what it does not cover. Suggest a second target only when you found a close one. Point the user at `mori-maintain-formal-verification` for bringing the verification back in line after changes that skipped the check.
+Tell the user what you verified, which tool you used and why, the bounds, what the check found in plain words, how to run it, and what it does not cover. Suggest a second target only when you found a close one. Point the user at `maintain-formal-verification` for bringing the verification back in line after changes that skipped the check.

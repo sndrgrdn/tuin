@@ -1,5 +1,5 @@
 ---
-name: mori-create-verification
+name: create-verification
 description: Generate a project-local verification skill that drives the app the way a user does, in any language, framework or platform, with a feature map. Use when a project has no scripted way to prove UI, CLI or service behaviour.
 disable-model-invocation: true
 ---
@@ -58,4 +58,4 @@ When you proved it in a stand-in for the real target (a container instead of a f
 
 ## 5. Hand over the maintenance loop
 
-Point the user at `mori-maintain-verification` for keeping the map honest as the app changes. Suggest a schedule only when they ask.
+Point the user at `maintain-verification` for keeping the map honest as the app changes. Suggest a schedule only when they ask.

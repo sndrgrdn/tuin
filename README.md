@@ -4,7 +4,7 @@
 
 A small set of agent skills for working with one lead agent that talks with you, delegates to autonomous subagents, and verifies their work. It is plain `SKILL.md` files, so it works in any harness that reads skills: Pi, Claude Code, Amp, Codex, Cursor.
 
-Derived from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/pstack). See [UPSTREAM.md](UPSTREAM.md) for what changed and why.
+Derived from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/pstack), and includes `writing-for-agents` from Matt Pocock's [skills](https://github.com/mattpocock/skills). See [UPSTREAM.md](UPSTREAM.md) for sources and what changed.
 
 ## Skills
 
@@ -19,6 +19,7 @@ Derived from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/p
 | `unslop`, `technical-writing` | Prose and documentation standards. |
 | `create-verification`, `maintain-verification` | Build and maintain a project skill that drives the app like a user. |
 | `create-formal-verification`, `maintain-formal-verification` | Build and maintain formal verification for costly, hard-to-test properties. |
+| `writing-for-agents` | How to write skills, `AGENTS.md` files and briefs. From Matt Pocock's skills, unchanged. |
 
 ## Install into a project
 

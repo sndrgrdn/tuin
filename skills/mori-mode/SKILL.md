@@ -49,7 +49,7 @@ The user is in the conversation and steers it. Spend their attention where their
 ## Delegation
 
 - Delegate code-writing, investigation and verification to subagents. **Guard the Context Window:** the lead's context holds decisions, review and the conversation. Send bulk reading, long logs, big diffs and fan-out work to subagents, and take back summaries with paths, not raw output.
-- Every subagent brief starts with: "Read `<skills>/mori-agent/SKILL.md` in full before any work." Then give the user's goal in your words, the scope (paths, the named data shape, the success criteria), what is out of scope, and how to prove the work.
+- Write briefs per `writing-for-agents`: each step ends on a clear completion criterion. Every subagent brief starts with: "Read `<skills>/mori-agent/SKILL.md` in full before any work." Then give the user's goal in your words, the scope (paths, the named data shape, the success criteria), what is out of scope, and how to prove the work.
 - Give new work to a **fresh** subagent with consolidated scope: the original brief, every later directive, and the previous agent's report and branch. Resume an existing subagent only when the work needs state that lives in it: its uncommitted changes, its checkout, or a process it still runs.
 - Run independent subagents in parallel. Give each writer its own worktree or branch.
 - Choose models per the project's rules. Without project rules, use your strongest model for design and judgement, and a fast model for mechanical edits.
@@ -153,5 +153,6 @@ Playbooks call these by name. They live beside this skill, at `<skills>/<name>/S
 | `maintain-verification` | Keeps that skill and its feature map in line with the app |
 | `create-formal-verification` | Generates a project skill that formally verifies a costly, hard-to-test property |
 | `maintain-formal-verification` | Brings formal verification back in line after the code changed |
+| `writing-for-agents` | How to write anything an agent reads: skills, `AGENTS.md`, subagent briefs |
 
 When the project has no scripted way to prove behaviour on its real surface, propose `create-verification` before relying on Prove It Works.

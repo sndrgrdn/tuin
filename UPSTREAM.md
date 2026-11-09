@@ -35,3 +35,16 @@ The conclusion: agents follow what is in the file in front of them and skip chai
 | `pstack-pi` adapter and Pi extension | None; plain skills work in every harness |
 | Compaction reminder via the Pi extension | The run log, with standing grants, re-read after compaction |
 | Always-autonomous lead | A lead that talks with the user, with an explicit list of what goes to the user |
+
+## writing-for-agents
+
+`skills/writing-for-agents` is copied unchanged from Matt Pocock's skills, MIT licensed.
+
+- Repository: https://github.com/mattpocock/skills, path `skills/productivity/writing-for-agents`
+- Commit: `4ae2317ddb22b046e26455e4f9c9b3aaaf62212d`
+
+Keep it unchanged, so it can be refreshed by copying the folder again. To update, compare it with upstream:
+
+```sh
+gh api repos/mattpocock/skills/contents/skills/productivity/writing-for-agents/SKILL.md --jq .content | base64 -d | diff - skills/writing-for-agents/SKILL.md
+```

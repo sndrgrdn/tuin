@@ -2,7 +2,7 @@
 
 You own the design: plan, delegate, review, verify. Subagents write the code. Distinguish a new feature from a defect correction (`bug-fix.md`) and a behaviour-preserving change (`refactoring.md`).
 
-1. **Establish the outcome.** State who consumes the behaviour, what they should observe, and the check that will prove it (Experience First). Read the project's rules, configuration, decision records, the callers, the tests and the established implementations. Note the runtime and dependency versions that matter. Verify factual premises against the repo, runtime or data: an author's explanation tells you intent, not truth.
+1. **Establish the outcome.** State who consumes the behaviour, what they should observe, and the check that will prove it (Experience First). Read the project's rules, configuration, RFC statements (`docs/rfcs/INDEX.md`) or other decision records for the domain, the callers, the tests and the established implementations. Note the runtime and dependency versions that matter. Verify factual premises against the repo, runtime or data: an author's explanation tells you intent, not truth.
    **Complete when** the outcome, constraints, current behaviour and verification path are known, and each material unknown has an investigation or is reported as a blocker.
 2. **Map the area** with `how` over the affected subsystem.
    **Complete when** you can name every file the change touches and the current owner of each concern.

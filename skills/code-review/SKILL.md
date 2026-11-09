@@ -7,7 +7,7 @@ Review thoroughly within the requested scope. Find defects and simpler designs t
 
 ## Review procedure
 
-1. **Establish scope and purpose.** Resolve the requested files or comparison, including staged, unstaged, and untracked work when requested. Read the applicable repository instructions, requirements, and decisions. Ask when ambiguity changes the review target or required behavior; distinguish missing evidence from inferred intent.
+1. **Establish scope and purpose.** Resolve the requested files or comparison, including staged, unstaged, and untracked work when requested. Read the applicable repository instructions, requirements, and decisions, including the RFC statements of each changed domain in `docs/rfcs/INDEX.md` when the project keeps RFCs. Cite a broken statement by its number, such as `RFC-0404.2`. Ask when ambiguity changes the review target or required behavior; distinguish missing evidence from inferred intent.
 
 2. **Understand the change.** Read every changed part in scope and the surrounding callers, implementations, and tests needed to understand it. Trace caller-visible behavior, guarantees, state transitions, failures, and effects, including what the change now does differently that the diff does not spell out. Verify material premises rather than treating the author's explanation as proof.
 

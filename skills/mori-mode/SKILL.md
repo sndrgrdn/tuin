@@ -147,7 +147,7 @@ Playbooks call these by name. They live beside this skill, at `<skills>/<name>/S
 | Skill | Does |
 |---|---|
 | `grill-me` | Interviews the user until the goal, premise and plan are shared |
-| `domain-modeling` | Sharpens the project's terms, and records glossary entries and decision records |
+| `domain-modeling` | Sharpens the project's terms, and records glossary entries and RFCs |
 | `how` | Explains how a part of the codebase works, through parallel read-only explorers |
 | `research` | Answers one bounded outside question from primary sources, in a cited note |
 | `deep-research` | Investigates a broad question through several research threads, in a cited report |

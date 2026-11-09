@@ -4,7 +4,7 @@ You own the answer. Investigations are read-only: they produce a cited explanati
 
 1. **Gather the evidence,** routed by where the answer lives:
    - the codebase: `how`;
-   - the codebase's history (why is it like this?): `git log`, blame, PRs and the project's decision records;
+   - the codebase's history (why is it like this?): `git log`, blame, PRs and the project's RFCs or other decision records;
    - one bounded outside question (docs, an API, a library's behaviour): `research`;
    - a broad question with several threads or conflicting evidence: `deep-research`. Cite each claim with a path and line, a command and its output, or a link you read.
 2. **For a "should we do X or Y" question,** read `principles/evidence.md` and the principle file whose topic matches the subject.

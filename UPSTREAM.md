@@ -66,7 +66,7 @@ From https://github.com/sndrgrdn/skills, branch `master` at `1fb1bec`.
 | `deep-research` | Unchanged except a harness-neutral note on dispatching research subagents. |
 | `research` | Unchanged. Originally derived from Matt Pocock's `research`. |
 | `show-me` | Unchanged. |
-| `domain-modeling` | Unchanged; identical to Matt Pocock's `skills/engineering/domain-modeling`. |
+| `domain-modeling` | Taken from the local version, which replaces ADRs with RFCs: numbered MUST and SHOULD statements, a generated `docs/rfcs/INDEX.md`, setup and migration steps, and a `bin/rfcs` check (`scripts/rfcs`). The glossary part is unchanged from Matt Pocock's `skills/engineering/domain-modeling`. |
 | `code-review` | Principle links repointed from `standards/references/` to `mori-mode`'s routing table, keeping the review notes per topic. Absorbed pstack's `blast-radius`: look where search stops, and the evidence ladder for the fact a change's safety rests on. Runs only when asked; no playbook calls it, since pstack gets good results without a review step. |
 | `retro` | Kept its categories; absorbed pstack's `reflect` (three parallel reviewers and a synthesizer, prompts in `references/`, made harness-neutral) and the proof rule from pstack's `correct` (a new check must fail on a real past mistake). Links repointed from `standards` to `mori-mode/principles/`. |
 | `reprompt` | Unchanged. Covers pstack's `sharpen`, which is left out. |

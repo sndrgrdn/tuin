@@ -63,7 +63,7 @@ Foundations decide the order of the work. Experience decides its target.
 
 ## Encode Lessons in Structure
 
-When a demonstrated mistake recurs, or the user corrects the same thing twice, look first for an owning representation, interface, constraint or existing enforcement path that prevents it (see Mistake-proofing). Add a focused regression test when prevention is impractical. Change written instructions only when the lesson needs judgement the system cannot enforce, and then put it where it will be read, with an example of the mistake. Keep the mechanism proportional to the demonstrated recurrence, and verify it rejects the mistake without rejecting required behaviour.
+When a demonstrated mistake recurs, or the user corrects the same thing twice, look first for an owning representation, interface, constraint or existing enforcement path that prevents it (see Mistake-proofing). Add a focused regression test when prevention is impractical. Change written instructions only when the lesson needs judgement the system cannot enforce. Record a rule that applies across the codebase as an RFC statement with `domain-modeling` when the project keeps RFCs; otherwise put it where it will be read, with an example of the mistake. Keep the mechanism proportional to the demonstrated recurrence, and verify it rejects the mistake without rejecting required behaviour.
 
 ## Complete when
 

@@ -14,7 +14,7 @@ Derived from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/p
 | `mori-mode/principles/` | The engineering principles, one file per topic: `design`, `data`, `change`, `runtime`, `security`, `testing`, `evidence`. |
 | `mori-mode/playbooks/` | Feature, bug fix, refactoring, investigation, prototype, perf issue, multi-phase plan, babysit, authoring a skill, opening a PR, session pickup. |
 | `mori-agent` | The brief every subagent reads first. |
-| `grill-me`, `domain-modeling` | Align with the user on the goal, the plan and the words. |
+| `grill-me`, `domain-modeling` | Align with the user on the goal, the plan and the words, and record the project's rules as RFCs. |
 | `how`, `research`, `deep-research`, `show-me` | Understand the codebase and the outside world, and explain it visually. |
 | `architect`, `interrogate` | Design a change with competing models, and try to break it. |
 | `tdd`, `simplify`, `no-comments` | Fix test-first, and clean a diff before commit and review. |

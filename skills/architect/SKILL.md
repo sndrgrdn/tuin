@@ -12,7 +12,7 @@ Copy these phases into your todo list before starting: Ground, Sketch, Agree, Im
 
 ## Phase A: Ground
 
-Build a real mental model of every system the new code touches. Run `how` over each affected subsystem and produce its explanation; naming a file is not grounding. When the design changes ownership or layering, also read the history of the current shape (`git log`, blame, the project's decision records), so the reasons behind it become constraints instead of guesses.
+Build a real mental model of every system the new code touches. Run `how` over each affected subsystem and produce its explanation; naming a file is not grounding. When the design changes ownership or layering, also read the history of the current shape (`git log`, blame, the project's RFCs or other decision records), so the reasons behind it become constraints instead of guesses.
 
 Skip this phase only for greenfield work with no surrounding system.
 

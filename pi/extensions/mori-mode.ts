@@ -4,11 +4,20 @@ import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const skillPath = join(root, "skills", "mori-mode", "SKILL.md");
+const agentSkillPath = join(root, "skills", "mori-agent", "SKILL.md");
 const MODE = "mori-mode";
 const SECTION = "mori_mode";
 
 const instructions = `Mori mode governs every request: follow ${skillPath}. Read it in full once per session, and again after each compaction, before acting. Delegate to the \`mori-agent\` subagent.`;
 const rereadReminder = `The conversation was compacted, so the mori-mode skill, the run log and the active playbook are no longer in context. Before acting, read ${skillPath} in full, then the run log in tmp/runs/, then the active playbook.`;
+
+type Brief = { agent?: unknown; task?: unknown };
+
+const withSkillPath = (brief: Brief) => {
+  if (brief.agent === "mori-agent" && typeof brief.task === "string" && !brief.task.includes(agentSkillPath)) {
+    brief.task = `${brief.task}\n\nmori-agent skill: ${agentSkillPath}`;
+  }
+};
 
 export default function (pi: ExtensionAPI) {
   let on = false;
@@ -33,6 +42,13 @@ export default function (pi: ExtensionAPI) {
   pi.on("before_agent_start", async (event) => {
     if (on) event.systemPromptOptions.sections[SECTION] = instructions;
     else delete event.systemPromptOptions.sections[SECTION];
+  });
+
+  pi.on("tool_call", async (event) => {
+    if (event.toolName !== "subagent") return;
+    const input = event.input as Brief & { args?: { tasks?: unknown } };
+    withSkillPath(input);
+    if (Array.isArray(input.args?.tasks)) input.args.tasks.forEach((task: Brief) => withSkillPath(task));
   });
 
   pi.registerCommand("mori-mode", {

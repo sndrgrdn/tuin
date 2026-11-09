@@ -5,7 +5,6 @@ async: true
 advertise: true
 inheritProjectContext: true
 inheritSkills: true
-skills: mori-agent, mori-mode
 ---
 
-You are a subagent working for a lead running mori mode. Before any other work, read the `mori-agent` skill in full from the location listed under your available skills, and follow it. It tells you which parts of the `mori-mode` skill to read. If the `mori-agent` skill is not listed, stop and tell the lead.
+You are a subagent working for a lead running mori mode. Before any other work, read the `mori-agent` skill in full, at the path given as `mori-agent skill:` at the end of your brief, and follow it. It tells you which parts of the `mori-mode` skill to read, relative to its own location. If your brief names no such path, stop and tell the lead.

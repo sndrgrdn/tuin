@@ -4,22 +4,25 @@
 
 A small set of agent skills for working with one lead agent that talks with you, delegates to autonomous subagents, and verifies their work. It is plain `SKILL.md` files, so it works in any harness that reads skills: Pi, Claude Code, Amp, Codex, Cursor.
 
-Derived from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/pstack), and includes `writing-for-agents` from Matt Pocock's [skills](https://github.com/mattpocock/skills). See [UPSTREAM.md](UPSTREAM.md) for sources and what changed.
+Derived from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/pstack) and Sander's [skills](https://github.com/sndrgrdn/skills), with skills from Matt Pocock's [skills](https://github.com/mattpocock/skills). See [UPSTREAM.md](UPSTREAM.md) for sources and what changed.
 
 ## Skills
 
 | Skill | Role |
 |---|---|
 | `mori-mode` | The lead. You invoke it with `/mori-mode`. Holds the working agreement, delegation rules, the six always-on principles, the run log and the playbook index. |
-| `mori-mode/principles/` | The other principles, grouped by when they apply: `design.md`, `change.md`, `evidence.md`. |
+| `mori-mode/principles/` | The engineering principles, one file per topic: `design`, `data`, `change`, `runtime`, `security`, `testing`, `evidence`. |
 | `mori-mode/playbooks/` | Feature, bug fix, refactoring, investigation, prototype, perf issue, multi-phase plan, babysit, authoring a skill, opening a PR, session pickup. |
 | `mori-agent` | The brief every subagent reads first. |
-| `how`, `architect`, `interrogate` | Understand, design and attack a change. |
-| `tdd`, `deslop`, `no-comments` | Fix test-first, and clean a diff before commit and review. |
-| `unslop`, `technical-writing` | Prose and documentation standards. |
-| `create-verification`, `maintain-verification` | Build and maintain a project skill that drives the app like a user. |
-| `create-formal-verification`, `maintain-formal-verification` | Build and maintain formal verification for costly, hard-to-test properties. |
-| `writing-for-agents` | How to write skills, `AGENTS.md` files and briefs. From Matt Pocock's skills, unchanged. |
+| `grill-me`, `domain-modeling` | Align with the user on the goal, the plan and the words. |
+| `how`, `research`, `deep-research`, `show-me` | Understand the codebase and the outside world, and explain it visually. |
+| `architect`, `interrogate` | Design a change with competing models, and try to break it. |
+| `tdd`, `simplify`, `no-comments` | Fix test-first, and clean a diff before commit and review. |
+| `prove-it`, `create-verification`, `maintain-verification` | Prove work on the real surface, and build and maintain the project skill that drives it. |
+| `create-formal-verification`, `maintain-formal-verification` | Formal verification for costly, hard-to-test properties. |
+| `pr-description`, `technical-writing`, `unslop` | PR bodies, docs and commits, and prose without AI tells. |
+| `handoff` | Hands the work to a fresh session through the run log. |
+| `writing-for-agents` | How to write skills, `AGENTS.md` files and briefs. |
 
 ## Install into a project
 

@@ -1,28 +1,58 @@
 # Evidence principles
 
-Read this file in full before you measure something or act on a number, when two fixes in a row have failed, when a product or UX tradeoff comes up, when work is big enough to deserve a tool, and when you notice a correction you have seen before. Apply every principle whose situation matches, and name it in your reply with the choice it changed.
+Read this file in full when debugging, when two fixes in a row have failed, before you measure something or act on a number, when a product or UX tradeoff comes up, and when you notice a mistake or correction you have seen before. Apply every section whose situation matches, and name the principle in your reply with the choice it changed.
+
+## Fix Root Causes
+
+Fix the first broken contract or unhandled legitimate state, not the place where the symptom surfaced. A symptom fix hides the evidence and leaves the fault free to surface elsewhere.
+
+- **Reproduce first,** before changing production code, when practical.
+- **Ask "why"** until the answer is a wrong decision in the code, not a consequence of an earlier one.
+- **Instrument when stuck.** Read the actual error and the actual state; add instrumentation on the real path when evidence is missing.
+- **Is the state legitimate?** A guard is correct when it handles a legitimate state owned by that location. When the state breaks an established producer invariant, correct the producer instead of hiding its output. Guards, retries, swallowed errors, clamped values and discarded state are the usual ways to hide a bug.
+- **After a restart,** suspect persisted state first: config files, caches, lock files, serialised state.
+- **Fix the pattern,** not only the instance: find every place with the same fault.
+- A workaround that needs a paragraph-long comment means the code is wrong.
+- When the deciding fact took a deep dig to find, propose the cheap, always-on signal that would have shown it at first look.
+
+**Regression test first** when there is a reliable, proportionate path through a real interface (`tdd`): confirm it fails for the intended reason, fix, and rerun. When that path is impractical, use the closest trustworthy reproduction or executable check and report the coverage gap. An inconvenient harness does not silently waive the coverage `testing.md` requires.
+
+## Mistake-proofing
+
+When correcting a defect, identify the condition that made it possible, and where practical remove it at the narrowest owner shared by every demonstrated recurrence path. Prefer the smallest enforceable mechanism, in this order:
+
+1. an existing domain representation or invariant;
+2. a narrower API or workflow;
+3. a storage or configuration constraint;
+4. existing compiler, static-analysis or CI enforcement;
+5. detection through an existing test seam, when prevention is impractical.
+
+Prevent the demonstrated failure class, not hypothetical variants. New mechanisms still pass YAGNI and the deletion test (`design.md`).
+
+## Attack the Premise
+
+When two or more fixes that share an assumption have failed the same check, stop patching and suspect the assumption.
+
+- Write the shared premise down as one sentence.
+- Find an observation that would come out differently if the premise were false, and make it before the next fix. Look at how the failures are distributed, not only how big they are.
+- Follow the evidence. If it contradicts the premise, the cause is elsewhere. If it confirms it, ask the next "why". Unsupported does not mean disproved, and repeated failure does not by itself identify the cause.
+- Remove the condition that causes the failure, instead of adding a mechanism that cleans up after it.
 
 ## Explain the Number
 
 Apply before you measure, and before you trust, report or act on a measured number: a speedup, a regression, a latency, a count, an eval result.
 
-- **Write the decision down before the run.** Name the result that would change a decision, and the noise level. Stop when run-to-run spread is larger than the effect.
-- **Ask "why not double?"** Name what limits the result (a core, a lock, the disk, the network, the load generator), taken from a profile or counters during the run, not from reading code.
-- **List what else the number could be measuring,** and rule out each with evidence: errors, skipped or cached work, code that never ran, an untuned side, noise, a part too small to matter overall.
-- **Keep the evidence with the number:** run count, spread and the limiter.
+- **State the claim and the decision first.** Name the result that would change a decision, and the noise level. Inspect what the harness actually measures.
+- **Check the work ran.** Confirm the intended work executed, its outputs are correct, and errors, skipped or cached work did not produce the result.
+- **Ask "why not double?"** Name what limits the result (a core, a lock, the disk, the network, the load generator itself) from runtime evidence such as a profile or counters, not from reading code.
+- **Compare like with like.** Use equivalent workloads and production-like settings. Repeat and interleave comparisons to expose noise and drift. Stop when run-to-run spread is larger than the effect.
+- **Report the evidence with the number:** units, sample count, spread, relevant settings and the limiter. Check that the result is physically plausible and matters end to end before extrapolating from a microbenchmark.
 
-## Attack the Premise
-
-When two or more fixes that share one assumption have failed the same check, suspect the assumption, not the fixes.
-
-- Write the assumption down as one sentence.
-- Find an observation that would come out differently if the assumption were false, and make it before the next fix. Look at how the failures are distributed, not only how big they are.
-- If the evidence contradicts the assumption, the cause is elsewhere. If it confirms it, ask the next "why" (Fix Root Causes).
-- Remove the condition that causes the failure, instead of adding a mechanism that cleans up after it.
+A requested ballpark may use one run labelled as such, but still needs correct output and proof the work ran. Call close, confounded or unexplained comparisons inconclusive instead of picking a winner.
 
 ## Experience First
 
-When implementation convenience conflicts with the experience of whoever uses the work, choose the experience.
+When implementation convenience conflicts with the experience of whoever uses the work, choose the experience. State who consumes the behaviour, what they should observe, and the check that will show it; include the maintainer's burden when structure changes.
 
 - Every feature, control and option justifies its place. Ship fewer things, finished well.
 - Get the details right: alignment, spacing, transitions, feedback, error and empty states.
@@ -31,19 +61,10 @@ When implementation convenience conflicts with the experience of whoever uses th
 
 Foundations decide the order of the work. Experience decides its target.
 
-## Build the Lever
-
-When the work is more than a couple of obvious edits, build the tool that does it or proves it: a codemod, a script, a generator, a rerunnable check, or a skill your subagents follow. A tool does the work the same way every time, and a reviewer can rerun it instead of trusting you.
-
-- Do the first unit by hand to learn the recipe, then build the tool, and prove it by rerunning it on that unit.
-- One script that processes every unit beats many subagents editing by hand.
-- When subagents share a recipe, write it as one file they all read, kept outside what they may edit.
-- Build the smallest script that does the job, not a framework. Commit it when the work outlives the session.
-
-If you cite this principle and the diff contains no tool, you did not apply it.
-
 ## Encode Lessons in Structure
 
-When you catch yourself giving the same instruction a second time, or the user corrects the same mistake twice, encode the rule as structure: a lint rule, a CI check, a test, a script, a type. Text in a doc is the weakest form. Propose the structural fix in the project's own checks, and once it exists, rely on it instead of the instruction.
+When a demonstrated mistake recurs, or the user corrects the same thing twice, look first for an owning representation, interface, constraint or existing enforcement path that prevents it (see Mistake-proofing). Add a focused regression test when prevention is impractical. Change written instructions only when the lesson needs judgement the system cannot enforce, and then put it where it will be read, with an example of the mistake. Keep the mechanism proportional to the demonstrated recurrence, and verify it rejects the mistake without rejecting required behaviour.
 
-When the lesson needs judgement and cannot be checked by a machine, put it where it will be read, with an example of the mistake.
+## Complete when
+
+The enabling condition of each defect is corrected, or its remaining recurrence path is explicit, and the reproduction passes after the fix with before and after evidence, or its absence reported. Each failed-twice premise was written down and tested. Every reported number is no stronger than its measurements, with the evidence needed to reproduce or challenge it. Each recurring lesson has an enforceable fix or a specific, justified judgement rule.

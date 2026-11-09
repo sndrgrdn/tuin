@@ -1,7 +1,6 @@
 ---
 name: unslop
-description: Remove AI tells from any prose, including replies, docs, PR descriptions and commit messages.
-disable-model-invocation: true
+description: Remove AI tells from prose. Use whenever drafting, rewriting, editing or reviewing prose, including replies, docs, PR descriptions and commit messages.
 ---
 
 # Unslop
@@ -26,7 +25,7 @@ Rule numbers are stable ids that other skills cite. A removed rule leaves a gap 
 
 ## Style
 
-13. **Em dashes.** Use none. End the sentence or use a comma.
+13. **Em dashes.** Use none. When a sentence reaches for one, rewrite it with a comma, a period, parentheses, a conjunction, or a colon before a list or example (rule 14), whichever the sentence actually wants. Choose from the sentence's meaning and structure, not by swapping the character.
 14. **Colon as a connector.** A colon before a list or an example is fine. Mid-sentence, it is a crutch: rewrite so the point stands on its own.
 15. **Bold overuse.** Do not bold every proper noun or acronym.
 16. **Inline-header lists.** The tell is a bold label and colon that restates the line: "**Performance:** Performance improved...". Turn those into prose. A bold lead-in that names the item, ends in a period, and is followed by new detail ("**Schema in one file.** Tables live in `schema.rb`.") is fine.

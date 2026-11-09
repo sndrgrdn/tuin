@@ -25,10 +25,10 @@ The conclusion: agents follow what is in the file in front of them and skip chai
 
 | pstack | mori |
 |---|---|
-| `poteto-mode` core, ~3,400 words, about 20 triggers routing to other skills | `mori-mode` core: working agreement, delegation, six principles in full, run log, playbook index |
-| 24 principle files behind "read the leaf for any principle you apply" | Six principles in the core; the other 18 grouped into `design.md`, `change.md`, `evidence.md`, each read as a playbook step |
+| `poteto-mode` core, ~3,400 words, about 20 triggers routing to other skills | `mori-mode` core: working agreement, delegation, six always-on principles, run log, playbook index |
+| 24 principle files behind "read the leaf for any principle you apply" | Merged with Sander's `standards` skill into seven topic files (`design`, `data`, `change`, `runtime`, `security`, `testing`, `evidence`), each read as a playbook step and ending on a completion criterion. pstack's principle names are kept as headings. |
 | 23 playbooks | 11 that were used at least once: feature, bug fix, refactoring, investigation, prototype, perf issue, multi-phase plan, babysit, authoring a skill, opening a PR, session pickup |
-| 40 non-principle skills | 12 that were used at least once, under their upstream names: how, architect, interrogate, tdd, deslop, no-comments, unslop, technical-writing, and the four verification skills. Playbook steps call them by name. |
+| 40 non-principle skills | 12 that were used at least once, under their upstream names: how, architect, interrogate, tdd, no-comments, unslop, technical-writing, the four verification skills, and deslop (merged into `simplify`). Playbook steps call them by name. |
 | `arena`, `swarm`, `statechart`, `why`, `benchmark-checklist` and the `comment-sicko` agent | Not ported. The parts other skills relied on are written into those skills: parallel runners and grafting in `architect`, adversary fan-out in `interrogate`, history reading for why questions, Explain the Number for benchmarks, the reviewer brief in `no-comments`, plain-words counterexamples in the formal verification skills |
 | `watch-pr` script, Origin forge, `/loop`, cloud-VM swarm lanes | `gh` commands, and live lanes through the project's own verify method |
 | Model tiers and `/setup-pstack` | The project's rules, or a one-line default |
@@ -48,3 +48,22 @@ Keep it unchanged, so it can be refreshed by copying the folder again. To update
 ```sh
 gh api repos/mattpocock/skills/contents/skills/productivity/writing-for-agents/SKILL.md --jq .content | base64 -d | diff - skills/writing-for-agents/SKILL.md
 ```
+
+
+## sndrgrdn/skills
+
+From https://github.com/sndrgrdn/skills, branch `master` at `1fb1bec`.
+
+| Skill | How it came in |
+|---|---|
+| `standards` | Merged into `mori-mode/principles/`; the working loop became the completion criteria in the `feature`, `bug-fix` and `refactoring` playbooks. No longer a separate skill. |
+| `simplify` | Kept its name; absorbed pstack's `deslop` checklist. |
+| `no-em-dashes` | Merged into `unslop` rule 13, which now triggers on its own whenever prose is written. |
+| `pr-description` | Unchanged except one line deferring to project PR rules; it now owns the PR body for `opening-a-pr`. |
+| `handoff` | Rewritten to write the `mori-mode` run log. Originally derived from Matt Pocock's `handoff`. |
+| `prove-it` | Rewritten to hand the check to an independent agent and report proven, proven elsewhere and unproven. |
+| `grill-me` | Copied from the local version. Originally derived from Matt Pocock's `grill-me`. |
+| `deep-research` | Unchanged except a harness-neutral note on dispatching research subagents. |
+| `research` | Unchanged. Originally derived from Matt Pocock's `research`. |
+| `show-me` | Unchanged. |
+| `domain-modeling` | Unchanged; identical to Matt Pocock's `skills/engineering/domain-modeling`. |

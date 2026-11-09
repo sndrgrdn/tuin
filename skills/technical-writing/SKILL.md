@@ -82,15 +82,15 @@ Keep modes apart: no reference tables inside a tutorial, no hand-holding inside 
 - Keep the small words that show structure, such as "that" in "Ensure that the switch is off".
 - Repeat the article in a series when it prevents a misread: "the client and the host" when they are two things.
 - Say which parts "and" or "or" join when a sentence can group two ways. "Both...and", "either...or" and "if...then" disambiguate for free.
-- Use periods, not semicolons. Replace an em dash with a new sentence.
+- Use periods, not semicolons. Rewrite em dashes per `unslop` rule 13.
 - Make text in parentheses a full grammatical unit, or its own sentence. Never form plurals with "(s)".
 - No slashes: write "a, b, or both" instead of "a/b" or "and/or".
 - Call each thing by one name everywhere. A doc that says "the gate", "the ratchet" and "the budget check" for one thing teaches three things. Leave names that did not change alone.
 - Skip idioms, colloquialisms, Latin abbreviations and metaphors.
 
-## PRs, commits and code samples
+## Commits and code samples
 
-- PR descriptions and commit messages are writing too. Every layer except Diátaxis applies. A PR body is a briefing a reviewer reads in under a minute. Link logs, SHA lists and metric tables instead of pasting them.
+- Commit messages are writing too: every layer except Diátaxis applies. PR titles and bodies follow `pr-description`.
 - Product UI strings are not documentation. Use the project's copy guidelines for those.
 - Format code samples the way the project formats code. Write real paths. Make every count or tree claim true at the commit that lands it, and include the command that regenerates it.
 

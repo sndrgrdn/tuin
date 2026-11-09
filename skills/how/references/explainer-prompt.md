@@ -35,7 +35,7 @@ The types, services or abstractions needed to follow the rest. Short definitions
 ### How it works
 The core of the explanation, and the longest section. Walk through the flow: what triggers it, what happens step by step, where data goes, where the decisions are. Use prose, citing files and functions so the reader knows where to look. Include code only when a snippet is essential to a point.
 
-When several components talk to each other, or data passes through stages, add a diagram: Mermaid for structured flows (sequence, flowchart, component graph), ASCII for simple relationships. Add one only when it clarifies.
+When several components talk to each other, or data passes through stages, add a diagram following `show-me` (call trees, file trees, Mermaid for structured flows). Add one only when it clarifies.
 
 ### Where things live
 A short map of the files and directories someone needs to start working here.

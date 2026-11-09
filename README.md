@@ -12,22 +12,27 @@ Derived from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/p
 |---|---|
 | `mori-mode` | The lead. You invoke it with `/mori-mode`. Holds the working agreement, delegation rules, the six always-on principles, the run log and the playbook index. |
 | `mori-mode/principles/` | The other principles, grouped by when they apply: `design.md`, `change.md`, `evidence.md`. |
-| `mori-mode/playbooks/` | Feature, bug fix, refactoring, investigation, prototype, opening a PR, session pickup. |
+| `mori-mode/playbooks/` | Feature, bug fix, refactoring, investigation, prototype, perf issue, multi-phase plan, babysit, authoring a skill, opening a PR, session pickup. |
 | `mori-agent` | The brief every subagent reads first. |
+| `mori-how`, `mori-architect`, `mori-interrogate` | Understand, design and attack a change. |
+| `mori-tdd`, `mori-deslop`, `mori-no-comments` | Fix test-first, and clean a diff before commit and review. |
+| `mori-unslop`, `mori-technical-writing` | Prose and documentation standards. |
+| `mori-create-verification`, `mori-maintain-verification` | Build and maintain a project skill that drives the app like a user. |
+| `mori-create-formal-verification`, `mori-maintain-formal-verification` | Build and maintain formal verification for costly, hard-to-test properties. |
 
 ## Install into a project
 
 Copy the skills into the folder your harness reads, usually `.agents/skills/`:
 
 ```sh
-cp -R skills/mori-mode skills/mori-agent <project>/.agents/skills/
+cp -R skills/* <project>/.agents/skills/
 ```
 
 Copy instead of symlinking when cloud agents (Amp orbs, Codex cloud, background agents) must see the files, because they only see what is committed.
 
 ## What the project provides
 
-mori-mode relies on the project's `AGENTS.md` to say:
+A project with established conventions, such as one with an `AGENTS.md` that points to its working rules, CI and verify skill, needs nothing extra. For a new project, mori-mode relies on the project's `AGENTS.md` to say:
 
 - how to verify a change on the real surface;
 - the command that gates a merge;

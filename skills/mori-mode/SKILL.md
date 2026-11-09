@@ -126,7 +126,32 @@ Match the task to one playbook and read it in full from `playbooks/`.
 | `refactoring.md` | A change to structure that keeps behaviour the same |
 | `investigation.md` | A read-only question: how does X work, why is Y so, should we do X or Y |
 | `prototype.md` | A throwaway sketch to settle a design or behaviour fork by observing it |
+| `perf-issue.md` | A measured slowness to trace and improve against a baseline |
+| `multi-phase-plan.md` | Work that spans phases or several PRs: write the plan, not the code |
+| `babysit.md` | Driving a PR or a stack to merge-ready: conflicts, review threads, CI |
+| `authoring-a-skill.md` | Writing or changing a skill |
 | `opening-a-pr.md` | The last step of every playbook that changes code |
 | `session-pickup.md` | Resuming your own or another agent's in-flight work |
 
 When no playbook fits, say so, write a short plan with a check at the end of each step, and follow it.
+
+## Skills
+
+Playbooks call these by name. They live beside this skill, at `<skills>/<name>/SKILL.md`. Read the skill in full when a step calls it.
+
+| Skill | Does |
+|---|---|
+| `mori-how` | Explains how a part of the codebase works, through parallel read-only explorers |
+| `mori-architect` | Sketches types and module structure with competing designs from several models, then implements against the sketch |
+| `mori-interrogate` | Adversaries on different models try to break a change; only findings proven by a run survive |
+| `mori-tdd` | Fixes a bug test-first when a cheap test path exists |
+| `mori-deslop` | Removes AI slop from a diff before commit |
+| `mori-no-comments` | A fresh reviewer deletes needless comments and flags the code they excuse |
+| `mori-unslop` | Removes AI tells from prose |
+| `mori-technical-writing` | The standard for docs, PR descriptions and commit messages |
+| `mori-create-verification` | Generates a project skill that drives the app like a user, with a feature map |
+| `mori-maintain-verification` | Keeps that skill and its feature map in line with the app |
+| `mori-create-formal-verification` | Generates a project skill that formally verifies a costly, hard-to-test property |
+| `mori-maintain-formal-verification` | Brings formal verification back in line after the code changed |
+
+When the project has no scripted way to prove behaviour on its real surface, propose `mori-create-verification` before relying on Prove It Works.

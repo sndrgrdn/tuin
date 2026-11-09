@@ -7,6 +7,8 @@ mori started from pstack, by Lauren Tan, MIT licensed.
 
 Review upstream changes by hand. Automatic syncing would undo the rewrites below.
 
+What was ported was decided by usage: every skill or playbook an agent ran for real work at least once, in the session scan described below. Skills that were only read while reviewing pstack itself were left out.
+
 ## Why it changed
 
 A scan of 1,263 Pi session logs (October and November 2026) measured how pstack was used:
@@ -25,8 +27,10 @@ The conclusion: agents follow what is in the file in front of them and skip chai
 |---|---|
 | `poteto-mode` core, ~3,400 words, about 20 triggers routing to other skills | `mori-mode` core: working agreement, delegation, six principles in full, run log, playbook index |
 | 24 principle files behind "read the leaf for any principle you apply" | Six principles in the core; the other 18 grouped into `design.md`, `change.md`, `evidence.md`, each read as a playbook step |
-| 23 playbooks | 7: feature, bug fix, refactoring, investigation, prototype, opening a PR, session pickup |
-| Routed skills (`how`, `architect`, `interrogate`, `deslop`, `no-comments`, `unslop`, `technical-writing`) | Written as plain steps inside the playbooks |
+| 23 playbooks | 11 that were used at least once: feature, bug fix, refactoring, investigation, prototype, perf issue, multi-phase plan, babysit, authoring a skill, opening a PR, session pickup |
+| 40 non-principle skills | 12 that were used at least once, as `mori-*`: how, architect, interrogate, tdd, deslop, no-comments, unslop, technical-writing, and the four verification skills. Playbook steps call them by name. |
+| `arena`, `swarm`, `statechart`, `why`, `benchmark-checklist` and the `comment-sicko` agent | Not ported. The parts other skills relied on are written into those skills: parallel runners and grafting in `mori-architect`, adversary fan-out in `mori-interrogate`, history reading for why questions, Explain the Number for benchmarks, the reviewer brief in `mori-no-comments`, plain-words counterexamples in the formal verification skills |
+| `watch-pr` script, Origin forge, `/loop`, cloud-VM swarm lanes | `gh` commands, and live lanes through the project's own verify method |
 | Model tiers and `/setup-pstack` | The project's rules, or a one-line default |
 | `pstack-pi` adapter and Pi extension | None; plain skills work in every harness |
 | Compaction reminder via the Pi extension | The run log, with standing grants, re-read after compaction |

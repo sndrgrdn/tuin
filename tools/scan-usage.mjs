@@ -19,7 +19,7 @@ const principles = [
   "Build the Lever", "Encode Lessons in Structure",
 ];
 
-const fileRe = /mori-(?:mode|agent)\/(?:SKILL\.md|principles\/[a-z-]+\.md|playbooks\/[a-z-]+\.md)|tmp\/runs\/[^"\s\\]+\.md/g;
+const fileRe = /mori-[a-z-]+\/(?:SKILL\.md|principles\/[a-z-]+\.md|playbooks\/[a-z-]+\.md|references\/[a-z-]+\.md)|tmp\/runs\/[^"\s\\]+\.md/g;
 
 function walk(dir, acc = []) {
   for (const name of readdirSync(dir)) {

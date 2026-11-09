@@ -21,7 +21,8 @@ Derived from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/p
 | `prove-it`, `create-verification`, `maintain-verification` | Prove work on the real surface, and build and maintain the project skill that drives it. |
 | `create-formal-verification`, `maintain-formal-verification` | Formal verification for costly, hard-to-test properties. |
 | `pr-description`, `technical-writing`, `unslop` | PR bodies, docs and commits, and prose without AI tells. |
-| `handoff` | Hands the work to a fresh session through the run log. |
+| `code-review` | Reviews a diff for defects and needless complexity. |
+| `handoff`, `retro`, `reprompt` | Hand work to a fresh session, learn from a finished one, and sharpen a prompt. |
 | `writing-for-agents` | How to write skills, `AGENTS.md` files and briefs. |
 
 ## Install into a project

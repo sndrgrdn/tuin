@@ -19,7 +19,7 @@ const principles = [
   "Build the Lever", "Encode Lessons in Structure",
 ];
 
-const fileRe = /(?<!upstream\/skills\/)(?<!team-kit\/)(?<![a-z-])(?:mori-mode|mori-agent|writing-for-agents|simplify|handoff|prove-it|grill-me|research|deep-research|domain-modeling|show-me|pr-description|how|architect|interrogate|tdd|no-comments|unslop|technical-writing|create-verification|maintain-verification|create-formal-verification|maintain-formal-verification)\/(?:SKILL\.md|principles\/[a-z-]+\.md|playbooks\/[a-z-]+\.md|references\/[a-z-]+\.md)|tmp\/runs\/[^"\s\\]+\.md/g;
+const fileRe = /(?<!upstream\/skills\/)(?<!team-kit\/)(?<![a-z-])(?:mori-mode|mori-agent|writing-for-agents|simplify|handoff|prove-it|grill-me|research|deep-research|domain-modeling|show-me|pr-description|code-review|retro|reprompt|how|architect|interrogate|tdd|no-comments|unslop|technical-writing|create-verification|maintain-verification|create-formal-verification|maintain-formal-verification)\/(?:SKILL\.md|principles\/[a-z-]+\.md|playbooks\/[a-z-]+\.md|references\/[a-z-]+\.md)|tmp\/runs\/[^"\s\\]+\.md/g;
 
 function walk(dir, acc = []) {
   for (const name of readdirSync(dir)) {

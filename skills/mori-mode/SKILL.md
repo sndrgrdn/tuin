@@ -157,11 +157,14 @@ Playbooks call these by name. They live beside this skill, at `<skills>/<name>/S
 | `tdd` | Fixes a bug test-first when a cheap test path exists |
 | `simplify` | Simplifies a diff before commit: slop, duplication, low-value tests, churn |
 | `no-comments` | A fresh reviewer deletes needless comments and flags the code they excuse |
+| `code-review` | Reviews a diff for defects and needless complexity when the user asks for a review |
 | `prove-it` | Proves a claim with an independent checker and real evidence |
 | `pr-description` | Writes the PR title and body |
 | `unslop` | Removes AI tells from prose |
 | `technical-writing` | The standard for docs and commit messages |
 | `handoff` | Writes the run log in full for a fresh session |
+| `retro` | Reviews a session with three reviewers and proposes fixes to the repo, its checks and the skills |
+| `reprompt` | Reworks a prompt into a stronger task brief |
 | `create-verification` | Generates a project skill that drives the app like a user, with a feature map |
 | `maintain-verification` | Keeps that skill and its feature map in line with the app |
 | `create-formal-verification` | Generates a project skill that formally verifies a costly, hard-to-test property |

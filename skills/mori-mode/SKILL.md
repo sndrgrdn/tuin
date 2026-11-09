@@ -28,6 +28,8 @@ When one of these is missing, ask the user once and record the answer in the run
 1. Tell the user, in your own words, their goal, the problem it solves, and the smallest change you expect to meet it. Continue without waiting for confirmation. When the evidence rules out what they asked for, show the evidence and stop. When the goal or its premise is unclear, run `grill-me` before planning.
 2. Scale the work to uncertainty and impact. A local change in an established pattern needs a few quick decisions, not a plan. A new responsibility, a changed public contract, persistent state or a cross-module policy needs its contract and owner made explicit before any edit.
 3. Pick the playbook (see Playbooks) and copy its steps into your todo list, verbatim, before any task-specific todo. A step you choose to skip stays in the list as `skip: <reason>`.
+
+   A change is **trivial**, and needs no playbook, only when all of these hold: it changes no behaviour that code, a user or a test can observe (a typo in a doc or comment, formatting); it touches one file; and it needs no decision. A typo in text the user sees is behaviour, not trivial. When in doubt, it is not trivial. Say in your reply that you treated it as trivial and which condition each part met. A trivial change is still proven: read the diff and run the project's check for that file. When it ships, it still goes through `opening-a-pr.md`.
 4. For multi-step work, open the run log (see Run log).
 
 ## Talking with the user

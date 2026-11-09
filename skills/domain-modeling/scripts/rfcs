@@ -42,7 +42,7 @@ Dir.glob("#{dir}/[0-9]*.md", base: root).sort.each do |path|
   statements.each { it[:lines].pop while it[:lines].last&.empty? }
 
   failures << "#{path}: has statements under ## Statements" if statements.empty? && meta["status"] != "superseded"
-  failures << "#{path}: an enforced RFC has a MUST or MUST NOT statement" if meta["status"] == "enforced" && statements.none? { it[:level].start_with?("MUST") }
+  failures << "#{path}: is enforced but has no MUST or MUST NOT statement, so nothing in it can block" if meta["status"] == "enforced" && statements.none? { it[:level].start_with?("MUST") }
   statements.each { failures << "#{path}: statement #{it[:prefix]}.#{it[:id]} belongs to RFC-#{it[:prefix]}" unless it[:prefix] == number }
   ids = statements.map { it[:id] }
   failures << "#{path}: statement numbers repeat" unless ids.uniq.size == ids.size

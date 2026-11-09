@@ -1,6 +1,6 @@
 ---
 name: domain-modeling
-description: Build and sharpen a project's domain model: its glossary and its RFCs. Use when discussing codebase terminology, editing GLOSSARY.md, recording a decision or rule as an RFC, or setting up docs/rfcs in a project.
+description: "Build and sharpen a project's domain model: its glossary and its RFCs. Use when discussing codebase terminology, editing GLOSSARY.md, recording a decision or rule as an RFC, or setting up docs/rfcs in a project."
 ---
 
 # Domain Modeling

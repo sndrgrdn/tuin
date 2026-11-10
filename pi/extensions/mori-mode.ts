@@ -1,8 +1,8 @@
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
 import { convertToLlm, serializeConversation } from "@earendil-works/pi-coding-agent";
 import { uuidv7 } from "@earendil-works/pi-ai";
-import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { existsSync, readFileSync, statSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
@@ -12,7 +12,7 @@ const MODE = "mori-mode";
 const SECTION = "mori_mode";
 
 const instructions = `Mori mode governs every request: follow ${skillPath}. Read it in full once per session, and again after each compaction, before acting. Delegate to the \`mori-agent\` subagent.`;
-const rereadReminder = `The conversation was compacted, so the mori-mode skill, the run log and the active playbook are no longer in context. Before acting, read ${skillPath} in full, then the run log in tmp/runs/, then the active playbook.`;
+const rereadReminder = `The conversation was compacted, so the mori-mode skill, the run log and the active playbook are no longer in context. Before acting, read ${skillPath} in full, then the run log this session keeps in tmp/runs/ if there is one, then the active playbook.`;
 
 const handoverPrompt = (conversation: string, previousSummary?: string, runLog?: string, focus?: string) => `Write the handover for the lead agent of a mori-mode session. The conversation below is about to leave the lead's context. Your summary replaces it, next to the most recent messages, which stay word for word. The lead must be able to continue without asking the user anything the user already answered.
 
@@ -36,7 +36,9 @@ The next steps, in order, each with the check that ends it.
 ## Critical context
 The exact values needed to continue: paths, commands, IDs, URLs, numbers and error messages.
 
-Quote the user wherever their exact words carry the meaning. Write exact identifiers, not descriptions of them.${runLog ? `\n\nThe run log below is the lead's own record. Keep everything in it, except what the conversation shows has changed.\n\n<run-log>\n${runLog}\n</run-log>` : ""}${previousSummary ? `\n\nThe previous handover below covers the conversation before this one. Carry forward everything in it that is still true.\n\n<previous-handover>\n${previousSummary}\n</previous-handover>` : ""}${focus ? `\n\nThe user asked this compaction to focus on: ${focus}` : ""}
+Quote the user wherever their exact words carry the meaning. Write exact identifiers, not descriptions of them.
+
+Keep it short: one line per item, and no item the lead can recover from the repository, the run log file or the recent messages. Drop finished work unless it limits what comes next. Drop anything superseded; keep only the current state.${runLog ? `\n\nThe run log below is the lead's own record. Keep everything in it, except what the conversation shows has changed.\n\n<run-log>\n${runLog}\n</run-log>` : ""}${previousSummary ? `\n\nThe previous handover below covers the conversation before this one. Carry forward everything in it that is still true.\n\n<previous-handover>\n${previousSummary}\n</previous-handover>` : ""}${focus ? `\n\nThe user asked this compaction to focus on: ${focus}` : ""}
 
 The handover is done when a fresh lead, reading only it and the recent messages, would take the same next step and ask the user nothing already answered. Reply with the handover only, in Markdown.
 
@@ -44,22 +46,22 @@ The handover is done when a fresh lead, reading only it and the recent messages,
 ${conversation}
 </conversation>`;
 
-const latestRunLog = (cwd: string) => {
-  const dir = join(cwd, "tmp", "runs");
-  if (!existsSync(dir)) return undefined;
-  const newest = readdirSync(dir)
-    .filter((name) => name.endsWith(".md"))
-    .map((name) => ({ path: join(dir, name), mtime: statSync(join(dir, name)).mtimeMs }))
-    .sort((a, b) => b.mtime - a.mtime)[0];
-  return newest && `${newest.path}\n\n${readFileSync(newest.path, "utf8")}`;
-};
-
 const list = (value: unknown): string[] => (value instanceof Set || Array.isArray(value) ? [...value].map(String) : []);
 
-const fileLists = (fileOps: Record<string, unknown> | undefined) => {
-  const read = list(fileOps?.readFiles ?? fileOps?.read);
-  const modified = [...new Set([...list(fileOps?.modifiedFiles), ...list(fileOps?.edited), ...list(fileOps?.written)])];
+const fileLists = (fileOps: Record<string, unknown> | undefined, previous: Record<string, unknown> | undefined) => {
+  const modified = [...new Set([...list(previous?.modifiedFiles), ...list(fileOps?.modifiedFiles), ...list(fileOps?.edited), ...list(fileOps?.written)])];
+  const read = [...new Set([...list(previous?.readFiles), ...list(fileOps?.readFiles ?? fileOps?.read)])];
   return { readFiles: read.filter((path) => !modified.includes(path)), modifiedFiles: modified };
+};
+
+const sessionRunLog = (cwd: string, files: { readFiles: string[]; modifiedFiles: string[] }) => {
+  const newest = [...files.modifiedFiles, ...files.readFiles]
+    .filter((path) => /(^|\/)tmp\/runs\/[^/]+\.md$/.test(path))
+    .map((path) => resolve(cwd, path))
+    .filter((path) => existsSync(path))
+    .map((path) => ({ path, mtime: statSync(path).mtimeMs }))
+    .sort((a, b) => b.mtime - a.mtime)[0];
+  return newest && `${newest.path}\n\n${readFileSync(newest.path, "utf8")}`;
 };
 
 type Brief = { agent?: unknown; task?: unknown };
@@ -88,9 +90,11 @@ export default function (pi: ExtensionAPI) {
 
   pi.on("session_before_compact", async (event, ctx) => {
     if (!on || !ctx.model) return;
-    const { preparation, customInstructions, signal } = event;
+    const { preparation, branchEntries, customInstructions, signal } = event;
+    const previous = branchEntries.filter((entry) => entry.type === "compaction").pop() as { details?: Record<string, unknown> } | undefined;
+    const files = fileLists(preparation.fileOps as Record<string, unknown> | undefined, previous?.details);
     const conversation = serializeConversation(convertToLlm([...preparation.messagesToSummarize, ...preparation.turnPrefixMessages]));
-    const prompt = handoverPrompt(conversation, preparation.previousSummary, latestRunLog(ctx.cwd), customInstructions);
+    const prompt = handoverPrompt(conversation, preparation.previousSummary, sessionRunLog(ctx.cwd, files), customInstructions);
     try {
       const response = await ctx.modelRegistry.complete(
         ctx.model,
@@ -99,7 +103,6 @@ export default function (pi: ExtensionAPI) {
       );
       const handover = response.content.filter((part) => part.type === "text").map((part) => part.text).join("\n").trim();
       if (!handover) return;
-      const files = fileLists(preparation.fileOps as Record<string, unknown> | undefined);
       const tags = [
         files.readFiles.length ? `<read-files>\n${files.readFiles.join("\n")}\n</read-files>` : "",
         files.modifiedFiles.length ? `<modified-files>\n${files.modifiedFiles.join("\n")}\n</modified-files>` : "",

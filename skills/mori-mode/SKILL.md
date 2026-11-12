@@ -55,7 +55,7 @@ The user is in the conversation and steers it. Spend their attention where their
 - Write briefs per `writing-for-agents`: each step ends on a clear completion criterion. When the harness has a `mori-agent` subagent type, use it; it reads the brief skill on its own. Otherwise every brief starts with: "Read `<skills>/mori-agent/SKILL.md` in full before any work." Then give the user's goal in your words, the scope (paths, the named data shape, the success criteria), what is out of scope, and how to prove the work.
 - Give new work to a **fresh** subagent with consolidated scope: the original brief, every later directive, and the previous agent's report and branch. Resume an existing subagent only when the work needs state that lives in it: its uncommitted changes, its checkout, or a process it still runs.
 - Run independent subagents in parallel. Give each writer its own worktree or branch.
-- Choose models per the project's rules. Without project rules, use your strongest model for design and judgement, and a fast model for mechanical edits.
+- Choose models per the project's rules. Without project rules, read the model sheet, `models.md` beside this file, before the first spawn, and set the model and effort of every spawn from its role lines.
 - You own every subagent's work. Read its diff and its proof, check the proof is real, and write your own summary. An **independent check** is a fresh subagent, ideally on a different model, that verifies the work without seeing the first agent's reasoning. Use one for anything the user will review or merge.
 
 ## Principles

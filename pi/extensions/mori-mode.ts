@@ -78,7 +78,7 @@ const withBriefPath = (brief: Brief) => {
 };
 
 const missingModel = (input: Brief & { action?: unknown; workflow?: unknown; args?: { tasks?: unknown } }) => {
-  if (input.action || input.workflow === true || typeof input.workflow === "string") return false;
+  if (input.action || (input.workflow && input.workflow !== "parallel")) return false;
   const tasks = Array.isArray(input.args?.tasks) ? (input.args.tasks as Brief[]) : [input];
   return tasks.some((task) => typeof task.agent === "string" && !task.model && !input.model);
 };

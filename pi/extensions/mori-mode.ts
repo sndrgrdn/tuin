@@ -23,7 +23,7 @@ Use these sections, in this order. Leave a section out only when it has nothing 
 The user's goal in their own words, then in yours.
 
 ## Standing grants
-Every permission the user gave that outlives one action, such as "merge on lgtm" or "no need to ask again", quoted exactly, with what it covers and any limit the user set.
+Every permission the user gave that outlives one action, such as "merge on lgtm" or "no need to ask again", in the user's exact words and at the scope they named. List a grant only with those quoted words; move a grant without them, including one from the run log, to Decisions as the lead's own proposal, which the user has not granted.
 
 ## Decisions
 Each decision, its reason, and who made it: the user or the lead. Include what the user rejected, so the lead does not propose it again.

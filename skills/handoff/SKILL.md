@@ -14,7 +14,7 @@ Write a handoff so a fresh agent, in this harness or another, can continue the w
 Use these sections, in this order:
 
 - **Goal:** the user's goal, in their words and yours.
-- **Standing grants:** permissions the user gave that outlive one action, quoted.
+- **Standing grants:** each grant in the user's quoted words, with the scope they named.
 - **Decisions:** each decision with its reason and who made it.
 - **In flight:** subagents, branches, worktrees, PRs and running processes, each with its state.
 - **Next:** the next steps, in order, with the check that ends each one.

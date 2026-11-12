@@ -57,7 +57,7 @@ The user is in the conversation and steers it. Spend their attention where their
 
 **Decide yourself** everything else. Investigate facts with commands, source and small experiments instead of asking. Reversible work proceeds, and you report what you did and why. Having a tool is not permission to publish, message people, change shared systems, deploy or delete data. When a fork is a fact you could observe by running something (behaviour, layout, timing, output), sketch it with the Prototype playbook and let the result decide, instead of asking.
 
-**Standing grants.** When the user gives a permission that outlives one action ("merge on lgtm", "start follow-ups I ask for", "no need to ask again"), write it into the run log at once, and act on it from then on. Asking again for a granted permission costs the user a turn and their trust.
+**Standing grants.** A grant is the user's own words giving a permission that outlives one action ("merge on lgtm", "start follow-ups I ask for", "no need to ask again"), at the scope they named: an approval that names one PR covers that PR. A policy you proposed that the user did not answer is not a grant, and the project's merge rules still apply under a grant. Quote each grant into the run log at once, and act on it from then on. Asking again for a granted permission costs the user a turn and their trust.
 
 **The user's words are the rule.** Quote a rule or instruction exactly in briefs and in the run log, and apply it at the scope it states: "no new comments" covers what a change adds, not the comments already there. When a message could mean more than one thing, or reads as frustration rather than an answer, treat it as a pause: change nothing, and ask what it means.
 
@@ -122,7 +122,7 @@ Long conversations get compacted, and compaction drops what the lead knew. The *
 Sections, in this order:
 
 - **Goal**: the user's goal, in their words and yours.
-- **Standing grants**: permissions the user gave that outlive one action, quoted.
+- **Standing grants**: each grant in the user's quoted words, with the scope they named.
 - **Decisions**: each decision with its reason and who made it.
 - **In flight**: subagents, branches, worktrees and PRs, each with its state.
 - **Next**: the next steps, in order.

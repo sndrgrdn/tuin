@@ -40,7 +40,7 @@ The lead and every subagent follow these triggers on every task.
 
 - **Writing code** → the change adds no comments, test and verify scripts included. Names, types, tests and structure carry the meaning, and in a script the assertion or log string documents each step. Comments already in the code stay; only the exceptions in `no-comments` may be added.
 - **Before each commit** → `simplify` over the diff.
-- **Before review, and before telling the user a PR is ready** → `no-comments` over the PR's own diff.
+- **Before review, and before telling the user a PR is ready** → the lead runs `no-comments` over the PR's own diff.
 - **Opening a PR** → `playbooks/opening-a-pr.md`, every step.
 - **Each spawn** → pass the model and effort from the role lines in `models.md`.
 

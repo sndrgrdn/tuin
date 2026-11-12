@@ -57,7 +57,7 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 ### PR mechanics
 
 - [ ] Each owner works in its own worktree or branch.
-- [ ] Run `simplify` before each commit and `no-comments` before review.
+- [ ] Run `simplify` before each commit. Before review, the lead runs `no-comments` on the PR's diff.
 - [ ] Run the project's linters and merge gate before the PR-facing push.
 - [ ] Open each PR ready for review, per `opening-a-pr.md`. A stack child targets its parent branch.
 - [ ] Triage review-bot comments per `mori-mode/references/bot-triage.md`.

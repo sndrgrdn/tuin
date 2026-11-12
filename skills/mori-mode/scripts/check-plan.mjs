@@ -17,7 +17,7 @@ const SUB_BLOCKS = [
 	"Merge.",
 ];
 const PROGRAM_H3 = ["Arm the program", "Owners", "PR mechanics", "Verdict and merge", "Live recipe"];
-const PROGRAM_MARKERS = ["run log", "simplify", "independent check"];
+const PROGRAM_MARKERS = ["explicit go", "simplify", "independent check"];
 const HOW_TO_READ_MARKERS = [
 	"One box is one unit of work",
 	"names the evidence",

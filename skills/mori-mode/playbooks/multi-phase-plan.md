@@ -8,7 +8,7 @@ You own the plan, not the code. The plan is a checklist that subagents run box b
 4. **Read `principles/change.md`,** and every other principle file whose topic the program touches. Then copy the skeleton below into the plan file and fill every placeholder. Unless the user names a path, write it to the project's scratch folder (default `tmp/plans/<slug>.md`). Keep every heading and sub-block, in the order shown. One section per PR, and one PR is one change with its own evidence (Sequence Work into Verifiable Units).
 5. **Write it** under `technical-writing`, then `unslop`. The body is a how-to; the appendices hold explanation and reference. Each heading states the task or the finding. No long dashes, no mid-sentence colons.
 6. **Run the check:** `node <skills>/mori-mode/scripts/check-plan.mjs <plan.md>`, and fix every line it prints (Encode Lessons in Structure).
-7. **Hand back.** Post the plan path and the script's output, then stop. Execution starts on the user's explicit go. Record that go, and any grants that come with it, in the run log.
+7. **Hand back.** Post the plan path and the script's output, then stop. Execution starts on the user's explicit go. Take that go, and any grants that come with it, from the user's own words in the conversation.
 
 ## Verification rule
 
@@ -38,7 +38,7 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 
 ### Arm the program
 
-- [ ] State this plan to the user, then stop. Start only on the user's explicit go, and record it in the run log.
+- [ ] State this plan to the user, then stop. Start only on the user's explicit go.
 - [ ] Re-read these at program start and at each phase boundary.
   - [ ] `mori-mode/SKILL.md` and the playbook each PR runs.
   - [ ] The project's verify skill or method.
@@ -122,7 +122,7 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 - [ ] A clean verdict at the exact head commit.
 - [ ] Review-bot triage done.
 - [ ] Rebased onto current main after the verdict, with no change to the patch.
-- [ ] <Who merges, per the project's rules and the run log's grants.>
+- [ ] <Who merges, per the project's rules and the user's standing grants.>
 
 ## Close the program
 

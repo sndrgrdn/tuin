@@ -2,7 +2,7 @@
 
 You own the merge frontier. Declare a mode, clear one PR at a time, and stop where the user's call begins.
 
-Babysitting starts when the user asks for it, usually once a phase or a whole stack is built, not when a PR opens. Merging is a separate step that needs the user's go, or a standing grant in the run log, and the project's merge rules.
+Babysitting starts when the user asks for it, usually once a phase or a whole stack is built, not when a PR opens. Merging is a separate step that needs the user's go or a standing grant, and the project's merge rules.
 
 The commands below use the GitHub CLI (`gh`). Use the project's forge if it differs.
 

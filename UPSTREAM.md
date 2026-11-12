@@ -74,3 +74,12 @@ From https://github.com/sndrgrdn/skills, branch `master` at `1fb1bec`.
 ## Prototype playbook
 
 `playbooks/prototype.md` and `playbooks/prototype-picker.md` are tuin's own text. The method (one decision per run, real divergence, a dev-only surface, one full-size variant at a time behind a picker, a neutral tradeoff table) is inspired by Emil Kowalski's `prototype` skill, https://github.com/emilkowalski/skills, MIT licensed. The variant-count sentence in step 3 is quoted from it word for word; no other text or markup is copied.
+
+## anti-slop
+
+`tools/oxlint/anti-slop` is Dillon Mulroy's anti-slop Oxlint plugin, MIT licensed. Its license is in `tools/oxlint/anti-slop/LICENSE`.
+
+- Repository: https://github.com/dmmulroy/anti-slop, path `skills/install-anti-slop/assets/anti-slop`, the skill's copy of `src/` without the tests
+- Commit: `13909c9e07590f5a85d93c62712259fe14a883f7`
+
+The files are copied unchanged by the skill's `scripts/install.mjs`, plus the root `LICENSE`. `oxlint.config.ts` enables every generic rule and `oxc/no-accumulating-spread`, and sets `no-runtime-typeof` to allow `typeof` inside type guards, the option the upstream README gives for projects without a schema library. The Effect rules are copied but not registered. Upstream pins `oxlint` and `@oxlint/plugins` at 1.78.0; tuin uses 1.93.0.

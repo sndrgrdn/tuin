@@ -1,13 +1,26 @@
 {
   "name": "tuin",
-  "private": true,
   "version": "0.1.0",
+  "private": true,
   "description": "Sander's harness-neutral agent skill kit, with a Pi extension and subagent for tuin-mode.",
   "keywords": [
     "pi-package"
   ],
   "license": "MIT",
   "type": "module",
+  "scripts": {
+    "lint": "oxlint",
+    "format": "oxfmt '**/*.{ts,mjs,json}' '!tools/oxlint/anti-slop/**'",
+    "format:check": "npm run format -- --check"
+  },
+  "devDependencies": {
+    "@oxlint/plugins": "1.93.0",
+    "oxfmt": "0.78.0",
+    "oxlint": "1.93.0"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*"
+  },
   "pi": {
     "skills": [
       "./skills"
@@ -20,8 +33,5 @@
         "./pi/agents"
       ]
     }
-  },
-  "peerDependencies": {
-    "@earendil-works/pi-coding-agent": "*"
   }
 }

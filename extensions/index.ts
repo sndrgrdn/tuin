@@ -1,5 +1,14 @@
-import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
-import { convertToLlm, serializeConversation } from "@earendil-works/pi-coding-agent";
+import type {
+  CompactionEntry,
+  ExtensionAPI,
+  ExtensionContext,
+  FileOperations,
+} from "@earendil-works/pi-coding-agent";
+import {
+  convertToLlm,
+  isToolCallEventType,
+  serializeConversation,
+} from "@earendil-works/pi-coding-agent";
 import { uuidv7 } from "@earendil-works/pi-ai";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -14,7 +23,11 @@ const SECTION = "tuin_mode";
 const instructions = `Tuin mode governs every request: follow ${skillPath}. Read it in full once per session, and again after each compaction, before acting. Delegate to the \`tuin-agent\` subagent.`;
 const rereadReminder = `The conversation was compacted, so the tuin-mode skill and the active playbook are no longer in context. Before acting, read ${skillPath} in full, then the active playbook. The next new piece of work, such as a new PR, is a new task: run Start of every task for it and pick its playbook.`;
 
-const handoverPrompt = (conversation: string, previousSummary?: string, focus?: string) => `Write the handover for the lead agent of a tuin-mode session. The conversation below is about to leave the lead's context. Your summary replaces it, next to the most recent messages, which stay word for word. The lead must be able to continue without asking the user anything the user already answered.
+const handoverPrompt = (
+  conversation: string,
+  previousSummary?: string,
+  focus?: string,
+) => `Write the handover for the lead agent of a tuin-mode session. The conversation below is about to leave the lead's context. Your summary replaces it, next to the most recent messages, which stay word for word. The lead must be able to continue without asking the user anything the user already answered.
 
 Use these sections, in this order. Leave a section out only when it has nothing to say.
 
@@ -46,30 +59,61 @@ The handover is done when a fresh lead, reading only it and the recent messages,
 ${conversation}
 </conversation>`;
 
-const list = (value: unknown): string[] => (value instanceof Set || Array.isArray(value) ? [...value].map(String) : []);
+type FileLists = { readFiles: string[]; modifiedFiles: string[] };
 
-const fileLists = (fileOps: Record<string, unknown> | undefined, previous: Record<string, unknown> | undefined) => {
-  const modified = [...new Set([...list(previous?.modifiedFiles), ...list(fileOps?.modifiedFiles), ...list(fileOps?.edited), ...list(fileOps?.written)])];
-  const read = [...new Set([...list(previous?.readFiles), ...list(fileOps?.readFiles ?? fileOps?.read)])];
+const previousFileLists = (entry: CompactionEntry | undefined): FileLists => {
+  const details = entry?.details instanceof Object ? entry.details : {};
+
+  return {
+    readFiles:
+      "readFiles" in details && Array.isArray(details.readFiles)
+        ? details.readFiles.map(String)
+        : [],
+    modifiedFiles:
+      "modifiedFiles" in details && Array.isArray(details.modifiedFiles)
+        ? details.modifiedFiles.map(String)
+        : [],
+  };
+};
+
+const fileLists = (fileOps: FileOperations, previous: FileLists): FileLists => {
+  const modified = [...new Set([...previous.modifiedFiles, ...fileOps.edited, ...fileOps.written])];
+
+  const read = [...new Set([...previous.readFiles, ...fileOps.read])];
+
   return { readFiles: read.filter((path) => !modified.includes(path)), modifiedFiles: modified };
 };
 
-type Brief = { agent?: unknown; task?: unknown; model?: unknown };
+type Brief = { agent?: string; task?: string; model?: string };
 
-const briefPaths: Record<string, string> = {
-  "tuin-agent": `tuin-agent skill: ${agentSkillPath}`,
-  "comment-reviewer": `comment-reviewer brief: ${reviewerBriefPath}`,
-};
+type SubagentInput = Brief & { action?: string; workflow?: string | true; args?: unknown };
+
+const isBrief = (value: unknown): value is Brief =>
+  value instanceof Object &&
+  (!("agent" in value) || typeof value.agent === "string") &&
+  (!("task" in value) || typeof value.task === "string");
+
+const tasksOf = ({ args }: SubagentInput) =>
+  args instanceof Object && "tasks" in args && Array.isArray(args.tasks)
+    ? args.tasks.filter(isBrief)
+    : undefined;
+
+const briefPaths = new Map([
+  ["tuin-agent", `tuin-agent skill: ${agentSkillPath}`],
+  ["comment-reviewer", `comment-reviewer brief: ${reviewerBriefPath}`],
+]);
 
 const withBriefPath = (brief: Brief) => {
-  const path = typeof brief.agent === "string" ? briefPaths[brief.agent] : undefined;
-  if (path && typeof brief.task === "string" && !brief.task.includes(path)) brief.task = `${brief.task}\n\n${path}`;
+  const path = brief.agent === undefined ? undefined : briefPaths.get(brief.agent);
+
+  if (path && brief.task !== undefined && !brief.task.includes(path))
+    brief.task = `${brief.task}\n\n${path}`;
 };
 
-const missingModel = (input: Brief & { action?: unknown; workflow?: unknown; args?: { tasks?: unknown } }) => {
+const missingModel = (input: SubagentInput, tasks: Brief[] | undefined) => {
   if (input.action || (input.workflow && input.workflow !== "parallel")) return false;
-  const tasks = Array.isArray(input.args?.tasks) ? (input.args.tasks as Brief[]) : [input];
-  return tasks.some((task) => typeof task.agent === "string" && !task.model && !input.model);
+
+  return (tasks ?? [input]).some((task) => task.agent !== undefined && !task.model && !input.model);
 };
 
 export default function (pi: ExtensionAPI) {
@@ -79,9 +123,12 @@ export default function (pi: ExtensionAPI) {
 
   const restore = (ctx: ExtensionContext) => {
     on = false;
+
     for (const entry of ctx.sessionManager.getBranch()) {
-      if (entry.type === "custom" && entry.customType === MODE) on = Boolean((entry.data as { on?: boolean })?.on);
+      if (entry.type === "custom" && entry.customType === MODE)
+        on = entry.data instanceof Object && "on" in entry.data && Boolean(entry.data.on);
     }
+
     showStatus(ctx);
   };
 
@@ -91,22 +138,42 @@ export default function (pi: ExtensionAPI) {
   pi.on("session_before_compact", async (event, ctx) => {
     if (!on || !ctx.model) return;
     const { preparation, branchEntries, customInstructions, signal } = event;
-    const previous = branchEntries.filter((entry) => entry.type === "compaction").pop() as { details?: Record<string, unknown> } | undefined;
-    const files = fileLists(preparation.fileOps as Record<string, unknown> | undefined, previous?.details);
-    const conversation = serializeConversation(convertToLlm([...preparation.messagesToSummarize, ...preparation.turnPrefixMessages]));
+
+    const previous = branchEntries.findLast((entry) => entry.type === "compaction");
+    const files = fileLists(preparation.fileOps, previousFileLists(previous));
+
+    const conversation = serializeConversation(
+      convertToLlm([...preparation.messagesToSummarize, ...preparation.turnPrefixMessages]),
+    );
+
     const prompt = handoverPrompt(conversation, preparation.previousSummary, customInstructions);
+
     try {
       const response = await ctx.modelRegistry.complete(
         ctx.model,
-        { messages: [{ role: "user", content: [{ type: "text", text: prompt }], timestamp: Date.now() }] },
+        {
+          messages: [
+            { role: "user", content: [{ type: "text", text: prompt }], timestamp: Date.now() },
+          ],
+        },
         { maxTokens: 8192, signal, cacheRetention: "none", sessionId: uuidv7() },
       );
-      const handover = response.content.filter((part) => part.type === "text").map((part) => part.text).join("\n").trim();
+
+      const handover = response.content
+        .filter((part) => part.type === "text")
+        .map((part) => part.text)
+        .join("\n")
+        .trim();
+
       if (!handover) return;
+
       const tags = [
         files.readFiles.length ? `<read-files>\n${files.readFiles.join("\n")}\n</read-files>` : "",
-        files.modifiedFiles.length ? `<modified-files>\n${files.modifiedFiles.join("\n")}\n</modified-files>` : "",
+        files.modifiedFiles.length
+          ? `<modified-files>\n${files.modifiedFiles.join("\n")}\n</modified-files>`
+          : "",
       ].filter(Boolean);
+
       return {
         compaction: {
           summary: [handover, ...tags].join("\n\n"),
@@ -117,13 +184,22 @@ export default function (pi: ExtensionAPI) {
         },
       };
     } catch (error) {
-      if (!signal.aborted) ctx.ui.notify(`tuin compaction failed, using Pi's: ${error instanceof Error ? error.message : error}`, "warning");
+      if (!signal.aborted)
+        ctx.ui.notify(
+          `tuin compaction failed, using Pi's: ${error instanceof Error ? error.message : error}`,
+          "warning",
+        );
+
       return;
     }
   });
 
   pi.on("session_compact", async () => {
-    if (on) pi.sendMessage({ customType: MODE, content: rereadReminder, display: false }, { deliverAs: "steer" });
+    if (on)
+      pi.sendMessage(
+        { customType: MODE, content: rereadReminder, display: false },
+        { deliverAs: "steer" },
+      );
   });
 
   pi.on("before_agent_start", async (event) => {
@@ -132,13 +208,21 @@ export default function (pi: ExtensionAPI) {
   });
 
   pi.on("tool_call", async (event) => {
-    if (event.toolName !== "subagent") return;
-    const input = event.input as Brief & { action?: unknown; workflow?: unknown; args?: { tasks?: unknown } };
-    if (on && missingModel(input)) {
-      return { block: true, reason: `Pass model and effort on every spawn, from the role lines in ${join(root, "skills", "tuin-mode", "models.md")}, such as "anthropic/claude-opus-5-5:high".` };
+    if (!isToolCallEventType<"subagent", SubagentInput>("subagent", event)) return;
+
+    const { input } = event;
+    const tasks = tasksOf(input);
+
+    if (on && missingModel(input, tasks)) {
+      return {
+        block: true,
+        reason: `Pass model and effort on every spawn, from the role lines in ${join(root, "skills", "tuin-mode", "models.md")}, such as "anthropic/claude-opus-5-5:high".`,
+      };
     }
+
     withBriefPath(input);
-    if (Array.isArray(input.args?.tasks)) input.args.tasks.forEach((task: Brief) => withBriefPath(task));
+
+    tasks?.forEach(withBriefPath);
   });
 
   pi.registerCommand("tuin-mode", {

@@ -15,7 +15,7 @@ Tests follow Test Behavior, Not Implementation, and the project's testing rules.
 ## Steps
 
 1. **Understand the bug:** the intended behaviour, the current behaviour, the affected path, and the smallest observable reproduction.
-2. **Choose the narrowest executable check.** Prefer the closest unit, component, integration or regression test the project already uses for that code path. When no practical test path is obvious, take the fallback below instead of building one from scratch.
+2. **Choose the highest executable check that reaches the bug reliably.** Prefer the end-to-end, integration, component or unit test the project already uses for that code path, in that order, and go down a level only when the one above cannot reach the bug reliably. When no practical test path is obvious, take the fallback below instead of building one from scratch.
 3. **Write the failing test first:** the smallest test that would have caught the bug, asserting the intended behaviour, not the current implementation.
 4. **Run it before fixing.** Confirm it fails for the intended reason. When it passes, or fails for another reason, fix the test or the reproduction before touching the implementation.
 5. **Fix the bug** with the smallest production change that gives the intended behaviour and keeps nearby contracts.

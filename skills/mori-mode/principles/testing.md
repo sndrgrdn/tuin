@@ -26,6 +26,8 @@ Prefer tests in this order of confidence:
 3. focused and property tests for pure domain modules;
 4. unit tests for meaningful behaviour, never for implementation details.
 
+Start at the top of this order, and go down only for behaviour the level above cannot reach reliably. A unit or integration test never repeats what an end-to-end or system test already covers.
+
 **No module-level replacement of imported dependencies.** Replace behaviour through real seams instead: dependency-injected interfaces or protocols, a local database substitute such as SQLite, faithful in-memory implementations, or fake external implementations when needed.
 
 Assert observable outcomes: returned values and errors, persisted state, emitted events and messages, rendered responses, sent emails captured by a recording or local implementation. A spy assertion is right only when the interaction itself is the observable behaviour; otherwise prefer a recording implementation and inspect its public records.

@@ -5,8 +5,8 @@ One line per role: the model and its starting effort. Pass both on each spawn, i
 - **search**: Claude Haiku 5.5, medium. File search, log reading, summaries, explorers.
 - **scoped**: Claude Sonnet 5.5, medium. Scoped edits, spec-driven work, repeated checks, verification runs, research threads.
 - **judgment**: Claude Opus 5.5, high. Design, debugging with an unclear cause, cross-module changes, performance work, explainers, independent checks of a scoped build.
-- **hardest**: Claude Fable 5.1, medium. Large refactors and migrations, and work that failed on the judgment line.
-- **panel**: Claude Opus 5.5 high, Claude Fable 5.1 medium. Runners and adversaries that need different models.
+- **hardest**: Claude Fable 5.2, medium, then high. Large refactors and migrations, and work that failed on the judgment line.
+- **panel**: Claude Opus 5.5 high, Claude Fable 5.2 medium. Runners and adversaries that need different models.
 
 Adjust effort per spawn, one step at a time on `low` < `medium` < `high` < `xhigh` < `max`:
 

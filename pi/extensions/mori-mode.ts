@@ -146,7 +146,7 @@ export default function (pi: ExtensionAPI) {
     if (event.toolName !== "subagent") return;
     const input = event.input as Brief & { action?: unknown; workflow?: unknown; args?: { tasks?: unknown } };
     if (on && missingModel(input)) {
-      return { block: true, reason: `Pass model and effort on every spawn, from the role lines in ${join(root, "skills", "mori-mode", "models.md")}, such as "meridian/claude-opus-5-5:high".` };
+      return { block: true, reason: `Pass model and effort on every spawn, from the role lines in ${join(root, "skills", "mori-mode", "models.md")}, such as "anthropic/claude-opus-5-5:high".` };
     }
     withBriefPath(input);
     if (Array.isArray(input.args?.tasks)) input.args.tasks.forEach((task: Brief) => withBriefPath(task));

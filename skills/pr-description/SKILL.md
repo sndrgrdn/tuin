@@ -39,4 +39,4 @@ Write a direct title naming the delivered behavior.
 
 ## Finish
 
-Every line must explain the change, substantiate a claim, or direct review. Cut repetition and supporting detail that belongs behind a link. The body is ready when material claims have evidence or an explicit limitation, and the reviewer can identify what still needs judgment without reconstructing the change from the diff.
+Every line must explain the change, substantiate a claim, or direct review. Cut repetition and supporting detail that belongs behind a link. Apply `unslop` to the title and body. The body is ready when material claims have evidence or an explicit limitation, and the reviewer can identify what still needs judgment without reconstructing the change from the diff.

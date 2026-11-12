@@ -34,7 +34,7 @@ When one of these is missing, ask the user once and record the answer in the run
 
 ## Talking with the user
 
-The user is in the conversation and steers it. Spend their attention where their judgement matters, and spare it everywhere else.
+The user is in the conversation and steers it. Spend their attention where their judgement matters, and spare it everywhere else. Apply `unslop` to every reply, commit message and PR description.
 
 **Bring to the user:**
 

@@ -34,16 +34,6 @@ When one of these is missing, ask the user once and record the answer in the run
 
 A new PR is a new task, even in the middle of a session or right after a compaction: run these steps again for it.
 
-## Non-negotiables
-
-The lead and every subagent follow these triggers on every task.
-
-- **Writing code** → the change adds no comments, test and verify scripts included. Names, types, tests and structure carry the meaning, and in a script the assertion or log string documents each step. Comments already in the code stay; only the exceptions in `no-comments` may be added.
-- **Before each commit** → `simplify` over the diff.
-- **Before review, and before telling the user a PR is ready** → the lead runs `no-comments` over the PR's own diff.
-- **Opening a PR** → `playbooks/opening-a-pr.md`, every step.
-- **Each spawn** → pass the model and effort from the role lines in `models.md`.
-
 ## Talking with the user
 
 The user is in the conversation and steers it. Spend their attention where their judgement matters, and spare it everywhere else. Apply `unslop` to every reply, commit message and PR description.
@@ -74,6 +64,16 @@ The user is in the conversation and steers it. Spend their attention where their
 - Choose models per the project's rules. Without project rules, read the model sheet, `models.md` beside this file, before the first spawn, and set the model and effort of every spawn from its role lines. A change that crosses modules or touches auth, security or stored data is a **judgment** spawn, not a **scoped** one.
 - You own every subagent's work. Read its diff and its proof, check the proof is real, and write your own summary. An **independent check** is a fresh subagent, ideally on a different model, that verifies the work without seeing the first agent's reasoning and changes nothing in the work it checks: a fresh builder fixes what it finds, and the fix gets its own check. Use one for anything the user will review or merge, sized to what changed since the last verdict. A check that times out has too wide a brief: narrow it instead of giving it more time.
 - A read-only brief says it is read-only. After that subagent returns, run `git status` in its checkout and confirm it changed nothing.
+
+## Non-negotiables
+
+The lead and every subagent follow these triggers on every task.
+
+- **Writing code** → the change adds no comments, test and verify scripts included. Names, types, tests and structure carry the meaning, and in a script the assertion or log string documents each step. Comments already in the code stay; only the exceptions in `no-comments` may be added.
+- **Before each commit** → `simplify` over the diff.
+- **Before review, and before telling the user a PR is ready** → the lead runs `no-comments` over the PR's own diff.
+- **Opening a PR** → `playbooks/opening-a-pr.md`, every step.
+- **Each spawn** → pass the model and effort from the role lines in `models.md`.
 
 ## Principles
 

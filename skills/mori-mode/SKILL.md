@@ -21,7 +21,7 @@ This skill relies on the project to say:
 - where decisions and conventions live;
 - who merges, and when.
 
-When one of these is missing, ask the user once and record the answer in the run log.
+When one of these is missing, ask the user once.
 
 ## Start of every task
 
@@ -30,9 +30,10 @@ When one of these is missing, ask the user once and record the answer in the run
 3. Pick the playbook (see Playbooks) and copy its steps into your todo list, verbatim, before any task-specific todo. A step you choose to skip stays in the list as `skip: <reason>`.
 
    A change is **trivial**, and needs no playbook, only when all of these hold: it changes no behaviour that code, a user or a test can observe (a typo in a doc or comment, formatting); it touches one file; and it needs no decision. A typo in text the user sees is behaviour, not trivial. When in doubt, it is not trivial. Say in your reply that you treated it as trivial and which condition each part met. A trivial change is still proven: read the diff and run the project's check for that file. When it ships, it still goes through `opening-a-pr.md`.
-4. For multi-step work, open the run log (see Run log).
 
 A new PR is a new task, even in the middle of a session or right after a compaction: run these steps again for it.
+
+**After a compaction, or when you resume a session:** before acting, read this file in full, then the active playbook. The summary a compaction leaves is a pointer to these files, not a replacement for them.
 
 ## Talking with the user
 
@@ -47,9 +48,9 @@ The user is in the conversation and steers it. Spend their attention where their
 
 **Decide yourself** everything else. Investigate facts with commands, source and small experiments instead of asking. Reversible work proceeds, and you report what you did and why. Having a tool is not permission to publish, message people, change shared systems, deploy or delete data. When a fork is a fact you could observe by running something (behaviour, layout, timing, output), sketch it with the Prototype playbook and let the result decide, instead of asking.
 
-**Standing grants.** A grant is the user's own words giving a permission that outlives one action ("merge on lgtm", "start follow-ups I ask for", "no need to ask again"), at the scope they named: an approval that names one PR covers that PR. A policy you proposed that the user did not answer is not a grant, and the project's merge rules still apply under a grant. Quote each grant into the run log at once, and act on it from then on. Asking again for a granted permission costs the user a turn and their trust.
+**Standing grants.** A grant is the user's own words giving a permission that outlives one action ("merge on lgtm", "start follow-ups I ask for", "no need to ask again"), at the scope they named: an approval that names one PR covers that PR. A policy you proposed that the user did not answer is not a grant, and the project's merge rules still apply under a grant. Act on each grant from the moment the user gives it. Asking again for a granted permission costs the user a turn and their trust.
 
-**The user's words are the rule.** Quote a rule or instruction exactly in briefs and in the run log, and apply it at the scope it states: "no new comments" covers what a change adds, not the comments already there. When a message could mean more than one thing, or reads as frustration rather than an answer, treat it as a pause: change nothing, and ask what it means.
+**The user's words are the rule.** Quote a rule or instruction exactly in briefs, and apply it at the scope it states: "no new comments" covers what a change adds, not the comments already there. When a message could mean more than one thing, or reads as frustration rather than an answer, treat it as a pause: change nothing, and ask what it means.
 
 **Verified claims.** Before you state how the harness, a tool or a dependency behaves, check it in its source, config or a session file, or label the claim a guess.
 
@@ -60,7 +61,7 @@ The user is in the conversation and steers it. Spend their attention where their
 - Delegate code-writing, investigation and verification to subagents. **Guard the Context Window:** the lead's context holds decisions, review and the conversation. Send bulk reading, long logs, big diffs and fan-out work to subagents, and take back summaries with paths, not raw output.
 - Write briefs per `writing-for-agents`: each step ends on a clear completion criterion. When the harness has a `mori-agent` subagent type, use it; it reads the brief skill on its own. Otherwise every brief starts with: "Read `<skills>/mori-agent/SKILL.md` in full before any work." Then give the user's goal in your words, the scope (paths, the named data shape, the success criteria), what is out of scope, and how to prove the work. Name every file the subagent needs, the project's rule files and verify skill included, by path for it to read, instead of pasting or restating what they say.
 - Give new work to a **fresh** subagent with consolidated scope: the original brief, every later directive, and the previous agent's report and branch. Resume an existing subagent only when the work needs state that lives in it: its uncommitted changes, its checkout, or a process it still runs.
-- Run independent subagents in parallel. An async spawn wakes you when it finishes: wait for it instead of polling or sleeping. The PR the user is waiting on comes first: side work you start on your own waits in the run log's Next until that PR merges, unless the side work unblocks it. Stack no side work on that PR. Give each writer its own worktree or branch.
+- Run independent subagents in parallel. An async spawn wakes you when it finishes: wait for it instead of polling or sleeping. The PR the user is waiting on comes first: side work you start on your own waits until that PR merges, unless the side work unblocks it. Stack no side work on that PR. Give each writer its own worktree or branch.
 - Choose models per the project's rules. Without project rules, read the model sheet, `models.md` beside this file, before the first spawn, and set the model and effort of every spawn from its role lines. A change that crosses modules or touches auth, security or stored data is a **judgment** spawn, not a **scoped** one.
 - You own every subagent's work. Read its diff and its proof, check the proof is real, and write your own summary.
 - An **independent check** is a fresh subagent, ideally on a different model, that verifies the work without seeing the first agent's reasoning and changes nothing in the work it checks: a fresh builder fixes what it finds, and the fix gets its own check. Use one for anything the user will review or merge, sized to what changed since the last verdict. A check that times out has too wide a brief: narrow it instead of giving it more time. A second opinion or check on the same question gets the same brief as the first, so the two answers compare.
@@ -116,22 +117,6 @@ A test is a claim about what users of the code can observe. Keep a test only if 
 
 Reversible work proceeds without asking. Do it, then present it with your reasons, and let the user correct course. Product direction and irreversible actions stay with the user, as Talking with the user describes.
 
-## Run log
-
-Long conversations get compacted, and compaction drops what the lead knew. The **run log** is the lead's memory that survives it. Keep it at the path the project uses for scratch work (default `tmp/runs/<task-slug>.md`, untracked).
-
-Sections, in this order:
-
-- **Goal**: the user's goal, in their words and yours.
-- **Standing grants**: each grant in the user's quoted words, with the scope they named.
-- **Decisions**: each decision with its reason and who made it.
-- **In flight**: subagents, branches, worktrees and PRs, each with its state.
-- **Next**: the next steps, in order.
-
-Update it whenever one of these changes, before you reply to the user. `handoff` writes the same file in full, with suggested skills, when the user wants another session to take over.
-
-**After a compaction, or when you resume a session:** before acting, read this file in full, then the run log, then the active playbook. The summary a compaction leaves is a pointer to these files, not a replacement for them.
-
 ## Writing the reply
 
 - Lead with the outcome, measured against the user's goal, and name the goal when the outcome doesn't make it plain. One idea per paragraph.
@@ -182,7 +167,7 @@ Playbooks call these by name. They live beside this skill, at `<skills>/<name>/S
 | `pr-description` | Writes the PR title and body |
 | `unslop` | Removes AI tells from prose |
 | `technical-writing` | The standard for docs and commit messages |
-| `handoff` | Writes the run log in full for a fresh session |
+| `handoff` | Writes a one-time handoff file when another session takes over |
 | `retro` | Reviews a session with three reviewers and proposes fixes to the repo, its checks and the skills |
 | `reprompt` | Reworks a prompt into a stronger task brief |
 | `create-verification` | Generates a project skill that drives the app like a user, with a feature map |

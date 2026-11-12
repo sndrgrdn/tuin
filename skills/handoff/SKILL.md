@@ -7,7 +7,7 @@ disable-model-invocation: true
 
 # Handoff
 
-Write a handoff so a fresh agent, in this harness or another, can continue the work without this conversation. The handoff is the run log described in `mori-mode`, written in full. Save it at the project's scratch path, `tmp/runs/<task-slug>.md` by default; when no project is involved, use the OS temporary directory (`$TMPDIR`, else `/tmp`). If a run log already exists for this task, update it rather than starting a second file.
+Write a handoff so a fresh agent, in this harness or another, can continue the work without this conversation. It is a snapshot of this moment, written once from this conversation. Save it at the project's scratch path, `tmp/handoffs/<task-slug>.md` by default; when no project is involved, use the OS temporary directory (`$TMPDIR`, else `/tmp`).
 
 ## Contents
 

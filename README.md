@@ -10,7 +10,7 @@ Derived from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/p
 
 | Skill | Role |
 |---|---|
-| `mori-mode` | The lead. You invoke it with `/mori-mode`. Holds the working agreement, delegation rules, the six always-on principles, the run log and the playbook index. |
+| `mori-mode` | The lead. You invoke it with `/mori-mode`. Holds the working agreement, delegation rules, the six always-on principles and the playbook index. |
 | `mori-mode/principles/` | The engineering principles, one file per topic: `design`, `data`, `change`, `runtime`, `security`, `testing`, `evidence`. |
 | `mori-mode/playbooks/` | Feature, bug fix, refactoring, investigation, prototype, perf issue, multi-phase plan, babysit, authoring a skill, opening a PR, session pickup. |
 | `mori-agent` | The brief every subagent reads first. |

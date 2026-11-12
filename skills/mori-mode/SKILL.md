@@ -161,7 +161,7 @@ When no playbook fits, say so, write a short plan with a check at the end of eac
 
 ## Skills
 
-Playbooks call these by name. They live beside this skill, at `<skills>/<name>/SKILL.md`. Read the skill in full when a step calls it.
+Playbooks call these by name. They live beside this skill, at `<skills>/<name>/SKILL.md`. Read the skill in full when a step calls it. When a skill breaks mid-task, say so and fix it in its own PR instead of working around it silently.
 
 | Skill | Does |
 |---|---|

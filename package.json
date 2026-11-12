@@ -30,7 +30,7 @@
     ],
     "subagents": {
       "agents": [
-        "./pi/agents"
+        "./agents"
       ]
     }
   }

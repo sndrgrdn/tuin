@@ -33,7 +33,7 @@ The repo is a Pi package. Install it from the local checkout, which loads in pla
 pi install ~/Developer/mori
 ```
 
-This loads every skill, the `mori-agent` subagent (for `pi-subagents`), and the `mori-mode` extension. `/mori-mode` toggles mori mode for the session and shows `mori` in the status bar. While it is on, every request follows the skill. Compaction writes a mori handover instead of Pi's summary: goal, standing grants quoted word for word, decisions, work in flight, next steps and critical context, using the run log in `tmp/runs/` that the session read or wrote, when there is one. After the compaction, the agent rereads the skill, the run log and the active playbook.
+This loads every skill, the `mori-agent` subagent (for `pi-subagents`), and the `mori-mode` extension. `/mori-mode` toggles mori mode for the session and shows `mori` in the status bar. While it is on, every request follows the skill. Compaction writes a mori handover instead of Pi's summary: goal, standing grants quoted word for word, decisions, work in flight, next steps and critical context. After the compaction, the agent rereads the skill and the active playbook.
 
 ## Install into a project
 

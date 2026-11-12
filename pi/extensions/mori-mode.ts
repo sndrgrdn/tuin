@@ -1,8 +1,7 @@
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
 import { convertToLlm, serializeConversation } from "@earendil-works/pi-coding-agent";
 import { uuidv7 } from "@earendil-works/pi-ai";
-import { existsSync, readFileSync, statSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
@@ -13,9 +12,9 @@ const MODE = "mori-mode";
 const SECTION = "mori_mode";
 
 const instructions = `Mori mode governs every request: follow ${skillPath}. Read it in full once per session, and again after each compaction, before acting. Delegate to the \`mori-agent\` subagent.`;
-const rereadReminder = `The conversation was compacted, so the mori-mode skill, the run log and the active playbook are no longer in context. Before acting, read ${skillPath} in full, then the run log this session keeps in tmp/runs/ if there is one, then the active playbook. The next new piece of work, such as a new PR, is a new task: run Start of every task for it and pick its playbook.`;
+const rereadReminder = `The conversation was compacted, so the mori-mode skill and the active playbook are no longer in context. Before acting, read ${skillPath} in full, then the active playbook. The next new piece of work, such as a new PR, is a new task: run Start of every task for it and pick its playbook.`;
 
-const handoverPrompt = (conversation: string, previousSummary?: string, runLog?: string, focus?: string) => `Write the handover for the lead agent of a mori-mode session. The conversation below is about to leave the lead's context. Your summary replaces it, next to the most recent messages, which stay word for word. The lead must be able to continue without asking the user anything the user already answered.
+const handoverPrompt = (conversation: string, previousSummary?: string, focus?: string) => `Write the handover for the lead agent of a mori-mode session. The conversation below is about to leave the lead's context. Your summary replaces it, next to the most recent messages, which stay word for word. The lead must be able to continue without asking the user anything the user already answered.
 
 Use these sections, in this order. Leave a section out only when it has nothing to say.
 
@@ -23,7 +22,7 @@ Use these sections, in this order. Leave a section out only when it has nothing 
 The user's goal in their own words, then in yours.
 
 ## Standing grants
-Every permission the user gave that outlives one action, such as "merge on lgtm" or "no need to ask again", in the user's exact words and at the scope they named. List a grant only with those quoted words; move a grant without them, including one from the run log, to Decisions as the lead's own proposal, which the user has not granted.
+Every permission the user gave that outlives one action, such as "merge on lgtm" or "no need to ask again", in the user's exact words and at the scope they named. List a grant only with those quoted words; move a grant without them to Decisions as the lead's own proposal, which the user has not granted.
 
 ## Decisions
 Each decision, its reason, and who made it: the user or the lead. Include what the user rejected, so the lead does not propose it again.
@@ -39,7 +38,7 @@ The exact values needed to continue: paths, commands, IDs, URLs, numbers and err
 
 Quote the user wherever their exact words carry the meaning. Write exact identifiers, not descriptions of them.
 
-Keep it short: one line per item, and no item the lead can recover from the repository, the run log file, the recent messages, or a skill, playbook or project rule file; name that file instead. Drop finished work unless it limits what comes next. Drop anything superseded; keep only the current state.${runLog ? `\n\nThe run log below is the lead's own record. Keep everything in it, except what the conversation shows has changed.\n\n<run-log>\n${runLog}\n</run-log>` : ""}${previousSummary ? `\n\nThe previous handover below covers the conversation before this one. Carry forward everything in it that is still true.\n\n<previous-handover>\n${previousSummary}\n</previous-handover>` : ""}${focus ? `\n\nThe user asked this compaction to focus on: ${focus}` : ""}
+Keep it short: one line per item, and no item the lead can recover from the repository, the recent messages, or a skill, playbook or project rule file; name that file instead. Drop finished work unless it limits what comes next. Drop anything superseded; keep only the current state.${previousSummary ? `\n\nThe previous handover below covers the conversation before this one. Carry forward everything in it that is still true.\n\n<previous-handover>\n${previousSummary}\n</previous-handover>` : ""}${focus ? `\n\nThe user asked this compaction to focus on: ${focus}` : ""}
 
 The handover is done when a fresh lead, reading only it and the recent messages, would take the same next step and ask the user nothing already answered. Reply with the handover only, in Markdown.
 
@@ -53,16 +52,6 @@ const fileLists = (fileOps: Record<string, unknown> | undefined, previous: Recor
   const modified = [...new Set([...list(previous?.modifiedFiles), ...list(fileOps?.modifiedFiles), ...list(fileOps?.edited), ...list(fileOps?.written)])];
   const read = [...new Set([...list(previous?.readFiles), ...list(fileOps?.readFiles ?? fileOps?.read)])];
   return { readFiles: read.filter((path) => !modified.includes(path)), modifiedFiles: modified };
-};
-
-const sessionRunLog = (cwd: string, files: { readFiles: string[]; modifiedFiles: string[] }) => {
-  const newest = [...files.modifiedFiles, ...files.readFiles]
-    .filter((path) => /(^|\/)tmp\/runs\/[^/]+\.md$/.test(path))
-    .map((path) => resolve(cwd, path))
-    .filter((path) => existsSync(path))
-    .map((path) => ({ path, mtime: statSync(path).mtimeMs }))
-    .sort((a, b) => b.mtime - a.mtime)[0];
-  return newest && `${newest.path}\n\n${readFileSync(newest.path, "utf8")}`;
 };
 
 type Brief = { agent?: unknown; task?: unknown; model?: unknown };
@@ -105,7 +94,7 @@ export default function (pi: ExtensionAPI) {
     const previous = branchEntries.filter((entry) => entry.type === "compaction").pop() as { details?: Record<string, unknown> } | undefined;
     const files = fileLists(preparation.fileOps as Record<string, unknown> | undefined, previous?.details);
     const conversation = serializeConversation(convertToLlm([...preparation.messagesToSummarize, ...preparation.turnPrefixMessages]));
-    const prompt = handoverPrompt(conversation, preparation.previousSummary, sessionRunLog(ctx.cwd, files), customInstructions);
+    const prompt = handoverPrompt(conversation, preparation.previousSummary, customInstructions);
     try {
       const response = await ctx.modelRegistry.complete(
         ctx.model,

@@ -4,7 +4,7 @@ import { uuidv7 } from "@earendil-works/pi-ai";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const root = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
+const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const skillPath = join(root, "skills", "tuin-mode", "SKILL.md");
 const agentSkillPath = join(root, "skills", "tuin-agent", "SKILL.md");
 const reviewerBriefPath = join(root, "skills", "no-comments", "references", "reviewer-brief.md");

@@ -32,7 +32,7 @@ The conclusion: agents follow what is in the file in front of them and skip chai
 | `arena`, `swarm`, `statechart`, `why`, `benchmark-checklist` and the `comment-sicko` agent | Not ported; `comment-sicko` became the `comment-reviewer` agent. The parts other skills relied on are written into those skills: parallel runners and grafting in `architect`, adversary fan-out in `interrogate`, history reading for why questions, Explain the Number for benchmarks, including the checklist's run count and tuning rule, the reviewer brief in `no-comments`, plain-words counterexamples in the formal verification skills |
 | `watch-pr` script, Origin forge, `/loop`, cloud-VM swarm lanes | `gh` commands, and live lanes through the project's own verify method |
 | Model tiers and `/setup-pstack` | The project's rules, or the role lines in `tuin-mode/models.md`; the Pi extension blocks a spawn without a model |
-| `pstack-pi` adapter and Pi extension | Plain skills that work in every harness, plus a small Pi package: the `tuin-mode` extension and the `tuin-agent` and `comment-reviewer` agents in `pi/` |
+| `pstack-pi` adapter and Pi extension | Plain skills that work in every harness, plus a small Pi package: the `tuin-mode` extension in `extensions/`, and the `tuin-agent` and `comment-reviewer` agents in `pi/agents/` |
 | Compaction reminder via the Pi extension | The Pi extension writes the compaction handover, with the standing grants, and sends the re-read reminder; `handoff` writes a one-time file when another session takes over. A run log kept by the lead was removed, because it went stale and the handover copied its stale notes forward. |
 | Always-autonomous lead | A lead that talks with the user, with an explicit list of what goes to the user |
 

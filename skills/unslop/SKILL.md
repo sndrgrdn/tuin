@@ -12,13 +12,13 @@ Rule numbers are stable ids that other skills cite. A removed rule leaves a gap 
 ## Content
 
 3. **Superficial -ing phrases.** "highlighting...", "ensuring...", "reflecting...", "showcasing...", "fostering...". Delete them, or expand them with real substance.
-5. **Vague attributions.** "Experts believe", "Industry reports suggest", "Some critics argue". Name the source or delete.
+5. **Vague attributions.** "Experts believe", "Industry reports suggest", "Some critics argue", and appeals to what everyone knows: "famously", "a classic", "notoriously". Name the source or delete.
 
 ## Language
 
 7. **AI vocabulary.** Additionally, crucial, delve, enduring, enhance, fostering, garner, interplay, intricate, landscape (abstract), pivotal, showcase, tapestry (abstract), testament, underscore, vibrant. Replace with plain words.
 8. **Fancy ways to say "is".** "serves as", "stands as", "boasts", "features". Say "is" or "has".
-9. **"Not just X, but Y."** State the point directly.
+9. **"Not just X, but Y."** Also "It's not X, it's Y" and "Not X. Not Y. Just Z." State the point directly.
 10. **Rule of three.** Use the natural number of items, not a forced three.
 11. **Synonym cycling.** Protagonist, main character, central figure and hero in one paragraph. Pick one word and repeat it.
 12. **False ranges.** "from X to Y" where X and Y are not on a meaningful scale. List the topics directly.
@@ -35,14 +35,14 @@ Rule numbers are stable ids that other skills cite. A removed rule leaves a gap 
 
 ## Communication artifacts
 
-20. **Chatbot phrases.** "I hope this helps!", "Let me know if...", "Of course!", "Certainly!", "Found the smoking gun!". Remove them.
+20. **Chatbot phrases.** "I hope this helps!", "Let me know if...", "Of course!", "Certainly!", "Found the smoking gun!", "Let's break this down". Remove them.
 22. **Sycophancy.** "Great question! You're absolutely right!". Respond directly.
 
 ## Filler
 
 23. **Filler phrases.** "In order to" becomes "to". "Due to the fact that" becomes "because". Delete "It is important to note that".
 24. **Excessive hedging.** "could potentially possibly be argued that it might" becomes "may".
-25. **Generic conclusions.** "The future looks bright." State specific plans or facts.
+25. **Generic conclusions.** "The future looks bright." State specific plans or facts. Stop once the point is made, and cut "In short", "In summary" and closing lines that restate the answer to the question.
 
 ## Jargon
 
@@ -57,3 +57,8 @@ Rule numbers are stable ids that other skills cite. A removed rule leaves a gap 
 31. **Plain words.** "utilize" and "leverage" become "use", "facilitate" becomes "help", "numerous" becomes "many", "in the event that" becomes "if".
 32. **Mannered prose.** Metaphor or flourish where a literal phrase exists: aphorisms ("wire it or delete it"), rhetorical fragments, personified code ("the plan holds it"), figurative verbs ("rides along", "stands on"), stock framing. "A dial worth turning" becomes "a parameter worth varying".
 33. **Over-compression.** Dropped articles, verbless fragments, arrows and abbreviations that make the reader decode. "Parser rejects bad date → exit 2, no write" becomes "The parser rejects a bad date, exits with code 2, and writes nothing."
+34. **Made-up labels and vague references.** Name a thing by its code identifier, the user's words, or a short description, never an invented label like "the switch-back note" or "the supervision paradox". Use "it" or "that" only when the referent is obvious.
+35. **Announcing.** "Two constraints shape the design.", "Here are four reasons", "The first... The second...", or restating the question before answering it. Give the point itself.
+36. **Narration.** The text describing its own moves or defending a point nobody questioned: "I want to be precise here", "I don't mean this as criticism". Delete the sentence.
+37. **False suspense.** "Here's the catch.", "The result? A crash." Say the fact.
+38. **Selling.** "seamless", "unlocks", "fundamentally reshapes". Describe what the thing does at the size it has.

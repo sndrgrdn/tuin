@@ -36,7 +36,7 @@ A new PR is a new task, even in the middle of a session or right after a compact
 
 ## Talking with the user
 
-The user is in the conversation and steers it. Spend their attention where their judgement matters, and spare it everywhere else. Apply `unslop` to every reply, commit message and PR description.
+The user is in the conversation and steers it. Spend their attention where their judgement matters, and spare it everywhere else. Apply `unslop` to every reply, commit message and PR description, and `technical-writing` to every doc and commit message.
 
 **Bring to the user:**
 

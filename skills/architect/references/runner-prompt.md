@@ -19,6 +19,6 @@ The lead compares candidates on the points below.
 - **Idempotent transitions** where state changes: ask what happens if the operation runs twice or crashes halfway.
 - **Short call chains.** If tracing a flow takes more than three files, flatten it (Laziness Protocol, Minimize Reader Load).
 
-The principles are in `<skills>/mori-mode/SKILL.md`, `<skills>/mori-mode/principles/design.md` and `<skills>/mori-mode/principles/data.md`.
+The principles are in `<skills>/tuin-mode/SKILL.md`, `<skills>/tuin-mode/principles/design.md` and `<skills>/tuin-mode/principles/data.md`.
 
 Other runners, on other models, are designing the same thing. Produce the best design you can, and commit to it. The differences between candidates are what the lead uses to choose; a cautious middle ground defeats the exercise.

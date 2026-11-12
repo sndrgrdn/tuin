@@ -19,7 +19,7 @@ const principles = [
   "Build the Lever", "Encode Lessons in Structure",
 ];
 
-const fileRe = /(?<!upstream\/skills\/)(?<!team-kit\/)(?<![a-z-])(?:mori-mode|mori-agent|writing-for-agents|simplify|handoff|prove-it|grill-me|research|deep-research|domain-modeling|show-me|pr-description|code-review|retro|reprompt|how|architect|interrogate|tdd|no-comments|unslop|technical-writing|create-verification|maintain-verification|create-formal-verification|maintain-formal-verification)\/(?:SKILL\.md|principles\/[a-z-]+\.md|playbooks\/[a-z-]+\.md|references\/[a-z-]+\.md)|tmp\/runs\/[^"\s\\]+\.md/g;
+const fileRe = /(?<!upstream\/skills\/)(?<!team-kit\/)(?<![a-z-])(?:tuin-mode|tuin-agent|mori-mode|mori-agent|writing-for-agents|simplify|handoff|prove-it|grill-me|research|deep-research|domain-modeling|show-me|pr-description|code-review|retro|reprompt|how|architect|interrogate|tdd|no-comments|unslop|technical-writing|create-verification|maintain-verification|create-formal-verification|maintain-formal-verification)\/(?:SKILL\.md|principles\/[a-z-]+\.md|playbooks\/[a-z-]+\.md|references\/[a-z-]+\.md)|tmp\/runs\/[^"\s\\]+\.md/g;
 
 function walk(dir, acc = []) {
   for (const name of readdirSync(dir)) {
@@ -38,36 +38,36 @@ const textOf = (content) =>
 
 const sessionsWith = {};
 const citedIn = {};
-let moriSessions = 0;
+let tuinSessions = 0;
 let total = 0;
 
 for (const file of walk(root)) {
   total++;
   const touched = new Set();
   const cited = new Set();
-  let mori = false;
+  let tuin = false;
   for await (const line of createInterface({ input: createReadStream(file) })) {
-    if (!line.includes("mori")) {
-      if (!mori) continue;
+    if (!/tuin|mori/.test(line)) {
+      if (!tuin) continue;
     }
     let entry;
     try { entry = JSON.parse(line); } catch { continue; }
     const message = entry.message;
     if (entry.type !== "message" || !message) continue;
-    if (message.role === "user" && /mori-mode/.test(textOf(message.content))) mori = true;
+    if (message.role === "user" && /(?:tuin|mori)-mode/.test(textOf(message.content))) tuin = true;
     if (message.role !== "assistant" || !Array.isArray(message.content)) continue;
     for (const part of message.content) {
       if (part.type !== "toolCall") continue;
       for (const match of JSON.stringify(part.arguments ?? {}).matchAll(fileRe)) {
-        mori = true;
-        touched.add(match[0].startsWith("tmp/runs/") ? "run log" : match[0]);
+        tuin = true;
+        touched.add(match[0].startsWith("tmp/runs/") ? "run log" : match[0].replace(/^mori-/, "tuin-"));
       }
     }
     const text = textOf(message.content).toLowerCase();
     for (const name of principles) if (text.includes(name.toLowerCase())) cited.add(name);
   }
-  if (!mori) continue;
-  moriSessions++;
+  if (!tuin) continue;
+  tuinSessions++;
   for (const key of touched) sessionsWith[key] = (sessionsWith[key] ?? 0) + 1;
   for (const key of cited) citedIn[key] = (citedIn[key] ?? 0) + 1;
 }
@@ -78,7 +78,7 @@ const table = (counts) =>
     .map(([key, n]) => `${String(n).padStart(5)}  ${key}`)
     .join("\n");
 
-console.log(`${moriSessions} of ${total} sessions used mori\n`);
+console.log(`${tuinSessions} of ${total} sessions used tuin\n`);
 console.log("Files read (sessions):");
 console.log(table(sessionsWith) || "  none");
 console.log("\nPrinciples named in agent text (sessions):");

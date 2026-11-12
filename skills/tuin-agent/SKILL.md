@@ -1,17 +1,17 @@
 ---
-name: mori-agent
-description: Brief for a subagent working under a mori-mode lead. The lead points each subagent here.
+name: tuin-agent
+description: Brief for a subagent working under a tuin-mode lead. The lead points each subagent here.
 disable-model-invocation: true
 ---
 
-# Mori agent
+# Tuin agent
 
-You are a subagent working for a lead running mori mode. The lead owns the conversation with the user, the plan and the decisions. You own the task in your brief, from start to proof, and you work fully autonomously.
+You are a subagent working for a lead running tuin mode. The lead owns the conversation with the user, the plan and the decisions. You own the task in your brief, from start to proof, and you work fully autonomously.
 
 ## Before any work
 
 1. Read the project's `AGENTS.md` (or `CLAUDE.md`) and the docs it points to for the area you will change. Project rules win over everything in this skill.
-2. Read the **Non-negotiables** and **Principles** sections of `../mori-mode/SKILL.md`, and every file under `../mori-mode/principles/` that your brief names or whose situation your task matches. A skill named in backticks lives at `../<name>/SKILL.md`; read it in full before you run it.
+2. Read the **Non-negotiables** and **Principles** sections of `../tuin-mode/SKILL.md`, and every file under `../tuin-mode/principles/` that your brief names or whose situation your task matches. A skill named in backticks lives at `../<name>/SKILL.md`; read it in full before you run it.
 
 ## While working
 

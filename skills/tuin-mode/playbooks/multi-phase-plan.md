@@ -7,7 +7,7 @@ You own the plan, not the code. The plan is a checklist that subagents run box b
 3. **Explore through subagents** (Guard the Context Window). Each returns file pointers, conventions, test commands and entry points, not pasted file contents.
 4. **Read `principles/change.md`,** and every other principle file whose topic the program touches. Then copy the skeleton below into the plan file and fill every placeholder. Unless the user names a path, write it to the project's scratch folder (default `tmp/plans/<slug>.md`). Keep every heading and sub-block, in the order shown. One section per PR, and one PR is one change with its own evidence (Sequence Work into Verifiable Units).
 5. **Write it** under `technical-writing`, then `unslop`. The body is a how-to; the appendices hold explanation and reference. Each heading states the task or the finding. No long dashes, no mid-sentence colons.
-6. **Run the check:** `node <skills>/mori-mode/scripts/check-plan.mjs <plan.md>`, and fix every line it prints (Encode Lessons in Structure).
+6. **Run the check:** `node <skills>/tuin-mode/scripts/check-plan.mjs <plan.md>`, and fix every line it prints (Encode Lessons in Structure).
 7. **Hand back.** Post the plan path and the script's output, then stop. Execution starts on the user's explicit go. Take that go, and any grants that come with it, from the user's own words in the conversation.
 
 ## Verification rule
@@ -30,7 +30,7 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 
 One box is one unit of work. Every box names the evidence that checks it. A nested box is a sub-step of the box above it. Check a box only when its evidence exists, such as a file, a log line, a screenshot, a test run, or a commit. The body is a how-to. The appendices explain and record.
 
-Each PR runs `mori-mode/playbooks/<feature, bug-fix, refactoring or perf-issue>.md`. <Who merges, and which PRs stop at merge-ready for the user.>
+Each PR runs `tuin-mode/playbooks/<feature, bug-fix, refactoring or perf-issue>.md`. <Who merges, and which PRs stop at merge-ready for the user.>
 
 Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked.
 
@@ -40,14 +40,14 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 
 - [ ] State this plan to the user, then stop. Start only on the user's explicit go.
 - [ ] Re-read these at program start and at each phase boundary.
-  - [ ] `mori-mode/SKILL.md` and the playbook each PR runs.
+  - [ ] `tuin-mode/SKILL.md` and the playbook each PR runs.
   - [ ] The project's verify skill or method.
-  - [ ] `mori-mode/playbooks/opening-a-pr.md`.
+  - [ ] `tuin-mode/playbooks/opening-a-pr.md`.
 - [ ] On a hold from the user, tell every subagent to stop writing at once.
 
 ### Owners
 
-- [ ] Give each PR a fresh subagent owner, briefed per `mori-agent`.
+- [ ] Give each PR a fresh subagent owner, briefed per `tuin-agent`.
 - [ ] Follow this dependency graph. Start dependent work only after its parent merges, or base it on the parent branch when stacking.
   - [ ] <PR id> and <PR id> are independent and first. Both branch from `main`.
   - [ ] <PR id> after <PR id>.
@@ -60,7 +60,7 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 - [ ] Run `simplify` before each commit. Before review, the lead runs `no-comments` on the PR's diff.
 - [ ] Run the project's linters and merge gate before the PR-facing push.
 - [ ] Open each PR ready for review, per `opening-a-pr.md`. A stack child targets its parent branch.
-- [ ] Triage review-bot comments per `mori-mode/references/bot-triage.md`.
+- [ ] Triage review-bot comments per `tuin-mode/references/bot-triage.md`.
 - [ ] Rebase onto current main before the code-ready report. Rebase again only for merge, a conflict with main, a CI failure caused by a change on main, or a known concurrent change to the same files.
 
 ### Verdict and merge

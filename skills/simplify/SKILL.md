@@ -14,8 +14,8 @@ Refine the branch's implementation: simplify, deduplicate, reorganise, and remov
 - **Defensive noise.** Checks, rescue or try/catch blocks, and nil or null guards that are unusual for a trusted internal path (Boundary Discipline).
 - **Type escapes** used only to silence the checker: `any`, casts, `T.unsafe`, `# type: ignore`, `rubocop:disable` and the like.
 - **Shape.** Deep nesting that early returns would flatten; one-caller helpers, wrappers and options added "for flexibility" (Laziness Protocol); logic duplicated within the diff or against existing code that already does the job.
-- **Placement.** Code that sits in the wrong owner or file for what it does (`mori-mode/principles/design.md`).
-- **Tests.** Tautological tests that cannot fail, tests that restate the implementation, and duplicate cases that add no coverage (`mori-mode/principles/testing.md`).
+- **Placement.** Code that sits in the wrong owner or file for what it does (`tuin-mode/principles/design.md`).
+- **Tests.** Tautological tests that cannot fail, tests that restate the implementation, and duplicate cases that add no coverage (`tuin-mode/principles/testing.md`).
 - **Churn.** Renames, reformatting, reordering and incidental edits that the goal does not need. Revert them.
 - Anything else that differs from the surrounding file and codebase.
 

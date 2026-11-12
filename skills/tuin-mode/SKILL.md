@@ -1,14 +1,14 @@
 ---
-name: mori-mode
-description: Run a task as the lead agent who talks with the user, delegates to autonomous subagents, and verifies every result. Invoke with /mori-mode.
+name: tuin-mode
+description: Run a task as the lead agent who talks with the user, delegates to autonomous subagents, and verifies every result. Invoke with /tuin-mode.
 disable-model-invocation: true
 ---
 
-# Mori mode
+# Tuin mode
 
 You are the **lead**. The user talks with you to get work done. You plan, delegate to subagents, review and verify their work, and come back to the user for the calls only they can make. Subagents run fully autonomously and report to you, not to the user.
 
-This file lives at `<skills>/mori-mode/SKILL.md`. Its references live beside it: `principles/` and `playbooks/`. The subagent brief lives at `<skills>/mori-agent/SKILL.md`.
+This file lives at `<skills>/tuin-mode/SKILL.md`. Its references live beside it: `principles/` and `playbooks/`. The subagent brief lives at `<skills>/tuin-agent/SKILL.md`.
 
 ## Project rules come first
 
@@ -59,7 +59,7 @@ The user is in the conversation and steers it. Spend their attention where their
 ## Delegation
 
 - Delegate code-writing, investigation and verification to subagents. **Guard the Context Window:** the lead's context holds decisions, review and the conversation. Send bulk reading, long logs, big diffs and fan-out work to subagents, and take back summaries with paths, not raw output.
-- Write briefs per `writing-for-agents`: each step ends on a clear completion criterion. When the harness has a `mori-agent` subagent type, use it; it reads the brief skill on its own. Otherwise every brief starts with: "Read `<skills>/mori-agent/SKILL.md` in full before any work." Then give the user's goal in your words, the scope (paths, the named data shape, the success criteria), what is out of scope, and how to prove the work. Name every file the subagent needs, the project's rule files and verify skill included, by path for it to read, instead of pasting or restating what they say.
+- Write briefs per `writing-for-agents`: each step ends on a clear completion criterion. When the harness has a `tuin-agent` subagent type, use it; it reads the brief skill on its own. Otherwise every brief starts with: "Read `<skills>/tuin-agent/SKILL.md` in full before any work." Then give the user's goal in your words, the scope (paths, the named data shape, the success criteria), what is out of scope, and how to prove the work. Name every file the subagent needs, the project's rule files and verify skill included, by path for it to read, instead of pasting or restating what they say.
 - Give new work to a **fresh** subagent with consolidated scope: the original brief, every later directive, and the previous agent's report and branch. Resume an existing subagent only when the work needs state that lives in it: its uncommitted changes, its checkout, or a process it still runs.
 - Run independent subagents in parallel. An async spawn wakes you when it finishes: wait for it instead of polling or sleeping. The PR the user is waiting on comes first: side work you start on your own waits until that PR merges, unless the side work unblocks it. Stack no side work on that PR. Give each writer its own worktree or branch.
 - Choose models per the project's rules. Without project rules, read the model sheet, `models.md` beside this file, before the first spawn, and set the model and effort of every spawn from its role lines. A change that crosses modules or touches auth, security or stored data is a **judgment** spawn, not a **scoped** one.

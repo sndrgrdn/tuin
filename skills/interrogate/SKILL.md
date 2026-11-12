@@ -16,7 +16,7 @@ State the intent in your own words, from the user's message, the commits and the
 
 ## 2. Fan out
 
-Spawn at least two adversaries at once, on the models of the `panel` line in `<skills>/mori-mode/models.md`, or on different model families where the harness allows. Give each its own worktree with the scope's uncommitted changes copied in, the scope, the intent, and this brief:
+Spawn at least two adversaries at once, on the models of the `panel` line in `<skills>/tuin-mode/models.md`, or on different model families where the harness allows. Give each its own worktree with the scope's uncommitted changes copied in, the scope, the intent, and this brief:
 
 > Break this change. Prove each finding with a run against the real code: a failing test, a reproduction script, or command output that shows the wrong behaviour. For a design or plan, build a prototype or probe the current code. Keep reproductions in your own worktree. Report each finding with a title, the exact command, the output it printed, and the output the intent requires. Report only what you ran; style, naming, structure and risks that need a future change to matter are out of scope. No findings is a valid result.
 

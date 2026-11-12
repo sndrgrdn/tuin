@@ -1,8 +1,8 @@
 {
-  "name": "mori",
+  "name": "tuin",
   "private": true,
   "version": "0.1.0",
-  "description": "Sander's harness-neutral agent skill kit, with a Pi extension and subagent for mori-mode.",
+  "description": "Sander's harness-neutral agent skill kit, with a Pi extension and subagent for tuin-mode.",
   "keywords": [
     "pi-package"
   ],

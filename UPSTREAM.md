@@ -1,6 +1,6 @@
 # Upstream
 
-mori started from pstack, by Lauren Tan, MIT licensed.
+tuin started from pstack, by Lauren Tan, MIT licensed. It was called mori before.
 
 - Repository: https://github.com/cursor/plugins, path `pstack`
 - Commit: `2776ddd2355d6d6c8747d3964600f28daf62f049` (pstack 0.15.36)
@@ -19,20 +19,20 @@ A scan of 1,263 Pi session logs (October and November 2026) measured how pstack 
 - The routed skills the core made mandatory (`architect`, `how`, `deslop`, `unslop`, `no-comments`, `interrogate`) were loaded in 0 to 5 sessions each.
 - The Pi adapter, about 1,100 words translating Cursor terms, was read in 175 sessions.
 
-The conclusion: agents follow what is in the file in front of them and skip chains of "now read another file". mori puts what every task needs in one file, and moves the rest into files that playbooks read as explicit steps.
+The conclusion: agents follow what is in the file in front of them and skip chains of "now read another file". tuin puts what every task needs in one file, and moves the rest into files that playbooks read as explicit steps.
 
 ## What changed
 
-| pstack | mori |
+| pstack | tuin |
 |---|---|
-| `poteto-mode` core, ~3,400 words, about 20 triggers routing to other skills | `mori-mode` core: working agreement, delegation, six always-on principles, playbook index |
+| `poteto-mode` core, ~3,400 words, about 20 triggers routing to other skills | `tuin-mode` core: working agreement, delegation, six always-on principles, playbook index |
 | 24 principle files behind "read the leaf for any principle you apply" | Merged with Sander's `standards` skill into seven topic files (`design`, `data`, `change`, `runtime`, `security`, `testing`, `evidence`), each read as a playbook step and ending on a completion criterion. pstack's principle names are kept as headings. |
 | 23 playbooks | 11 that were used at least once: feature, bug fix, refactoring, investigation, prototype, perf issue, multi-phase plan, babysit, authoring a skill, opening a PR, session pickup |
 | 40 non-principle skills | 12 that were used at least once, under their upstream names: how, architect, interrogate, tdd, no-comments, unslop, technical-writing, the four verification skills, and deslop (merged into `simplify`). Playbook steps call them by name. |
 | `arena`, `swarm`, `statechart`, `why`, `benchmark-checklist` and the `comment-sicko` agent | Not ported; `comment-sicko` became the `comment-reviewer` agent. The parts other skills relied on are written into those skills: parallel runners and grafting in `architect`, adversary fan-out in `interrogate`, history reading for why questions, Explain the Number for benchmarks, including the checklist's run count and tuning rule, the reviewer brief in `no-comments`, plain-words counterexamples in the formal verification skills |
 | `watch-pr` script, Origin forge, `/loop`, cloud-VM swarm lanes | `gh` commands, and live lanes through the project's own verify method |
-| Model tiers and `/setup-pstack` | The project's rules, or the role lines in `mori-mode/models.md`; the Pi extension blocks a spawn without a model |
-| `pstack-pi` adapter and Pi extension | Plain skills that work in every harness, plus a small Pi package: the `mori-mode` extension and the `mori-agent` and `comment-reviewer` agents in `pi/` |
+| Model tiers and `/setup-pstack` | The project's rules, or the role lines in `tuin-mode/models.md`; the Pi extension blocks a spawn without a model |
+| `pstack-pi` adapter and Pi extension | Plain skills that work in every harness, plus a small Pi package: the `tuin-mode` extension and the `tuin-agent` and `comment-reviewer` agents in `pi/` |
 | Compaction reminder via the Pi extension | The Pi extension writes the compaction handover, with the standing grants, and sends the re-read reminder; `handoff` writes a one-time file when another session takes over. A run log kept by the lead was removed, because it went stale and the handover copied its stale notes forward. |
 | Always-autonomous lead | A lead that talks with the user, with an explicit list of what goes to the user |
 
@@ -56,7 +56,7 @@ From https://github.com/sndrgrdn/skills, branch `master` at `1fb1bec`.
 
 | Skill | How it came in |
 |---|---|
-| `standards` | Merged into `mori-mode/principles/`; the working loop became the completion criteria in the `feature`, `bug-fix` and `refactoring` playbooks. No longer a separate skill. |
+| `standards` | Merged into `tuin-mode/principles/`; the working loop became the completion criteria in the `feature`, `bug-fix` and `refactoring` playbooks. No longer a separate skill. |
 | `simplify` | Kept its name; absorbed pstack's `deslop` checklist. |
 | `no-em-dashes` | Merged into `unslop` rule 13, which now triggers on its own whenever prose is written. |
 | `pr-description` | Unchanged except one line deferring to project PR rules; it now owns the PR body for `opening-a-pr`. |
@@ -67,10 +67,10 @@ From https://github.com/sndrgrdn/skills, branch `master` at `1fb1bec`.
 | `research` | Unchanged. Originally derived from Matt Pocock's `research`. |
 | `show-me` | Unchanged. |
 | `domain-modeling` | Taken from the local version, which replaces ADRs with RFCs: numbered MUST and SHOULD statements, a generated `docs/rfcs/INDEX.md`, setup and migration steps, and a `bin/rfcs` check (`scripts/rfcs`). The glossary part is unchanged from Matt Pocock's `skills/engineering/domain-modeling`. |
-| `code-review` | Principle links repointed from `standards/references/` to `mori-mode`'s routing table, keeping the review notes per topic. Absorbed pstack's `blast-radius`: look where search stops, and the evidence ladder for the fact a change's safety rests on. Runs only when asked; no playbook calls it, since pstack gets good results without a review step. |
-| `retro` | Kept its categories; absorbed pstack's `reflect` (three parallel reviewers and a synthesizer, prompts in `references/`, made harness-neutral) and the proof rule from pstack's `correct` (a new check must fail on a real past mistake). Links repointed from `standards` to `mori-mode/principles/`. |
+| `code-review` | Principle links repointed from `standards/references/` to `tuin-mode`'s routing table, keeping the review notes per topic. Absorbed pstack's `blast-radius`: look where search stops, and the evidence ladder for the fact a change's safety rests on. Runs only when asked; no playbook calls it, since pstack gets good results without a review step. |
+| `retro` | Kept its categories; absorbed pstack's `reflect` (three parallel reviewers and a synthesizer, prompts in `references/`, made harness-neutral) and the proof rule from pstack's `correct` (a new check must fail on a real past mistake). Links repointed from `standards` to `tuin-mode/principles/`. |
 | `reprompt` | Unchanged. Covers pstack's `sharpen`, which is left out. |
 
 ## Prototype playbook
 
-`playbooks/prototype.md` and `playbooks/prototype-picker.md` are mori's own text. The method (one decision per run, real divergence, a dev-only surface, one full-size variant at a time behind a picker, a neutral tradeoff table) is inspired by Emil Kowalski's `prototype` skill, https://github.com/emilkowalski/skills, MIT licensed. The variant-count sentence in step 3 is quoted from it word for word; no other text or markup is copied.
+`playbooks/prototype.md` and `playbooks/prototype-picker.md` are tuin's own text. The method (one decision per run, real divergence, a dev-only surface, one full-size variant at a time behind a picker, a neutral tradeoff table) is inspired by Emil Kowalski's `prototype` skill, https://github.com/emilkowalski/skills, MIT licensed. The variant-count sentence in step 3 is quoted from it word for word; no other text or markup is copied.

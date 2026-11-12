@@ -5,16 +5,16 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
-const skillPath = join(root, "skills", "mori-mode", "SKILL.md");
-const agentSkillPath = join(root, "skills", "mori-agent", "SKILL.md");
+const skillPath = join(root, "skills", "tuin-mode", "SKILL.md");
+const agentSkillPath = join(root, "skills", "tuin-agent", "SKILL.md");
 const reviewerBriefPath = join(root, "skills", "no-comments", "references", "reviewer-brief.md");
-const MODE = "mori-mode";
-const SECTION = "mori_mode";
+const MODE = "tuin-mode";
+const SECTION = "tuin_mode";
 
-const instructions = `Mori mode governs every request: follow ${skillPath}. Read it in full once per session, and again after each compaction, before acting. Delegate to the \`mori-agent\` subagent.`;
-const rereadReminder = `The conversation was compacted, so the mori-mode skill and the active playbook are no longer in context. Before acting, read ${skillPath} in full, then the active playbook. The next new piece of work, such as a new PR, is a new task: run Start of every task for it and pick its playbook.`;
+const instructions = `Tuin mode governs every request: follow ${skillPath}. Read it in full once per session, and again after each compaction, before acting. Delegate to the \`tuin-agent\` subagent.`;
+const rereadReminder = `The conversation was compacted, so the tuin-mode skill and the active playbook are no longer in context. Before acting, read ${skillPath} in full, then the active playbook. The next new piece of work, such as a new PR, is a new task: run Start of every task for it and pick its playbook.`;
 
-const handoverPrompt = (conversation: string, previousSummary?: string, focus?: string) => `Write the handover for the lead agent of a mori-mode session. The conversation below is about to leave the lead's context. Your summary replaces it, next to the most recent messages, which stay word for word. The lead must be able to continue without asking the user anything the user already answered.
+const handoverPrompt = (conversation: string, previousSummary?: string, focus?: string) => `Write the handover for the lead agent of a tuin-mode session. The conversation below is about to leave the lead's context. Your summary replaces it, next to the most recent messages, which stay word for word. The lead must be able to continue without asking the user anything the user already answered.
 
 Use these sections, in this order. Leave a section out only when it has nothing to say.
 
@@ -57,7 +57,7 @@ const fileLists = (fileOps: Record<string, unknown> | undefined, previous: Recor
 type Brief = { agent?: unknown; task?: unknown; model?: unknown };
 
 const briefPaths: Record<string, string> = {
-  "mori-agent": `mori-agent skill: ${agentSkillPath}`,
+  "tuin-agent": `tuin-agent skill: ${agentSkillPath}`,
   "comment-reviewer": `comment-reviewer brief: ${reviewerBriefPath}`,
 };
 
@@ -75,7 +75,7 @@ const missingModel = (input: Brief & { action?: unknown; workflow?: unknown; arg
 export default function (pi: ExtensionAPI) {
   let on = false;
 
-  const showStatus = (ctx: ExtensionContext) => ctx.ui.setStatus(MODE, on ? "mori" : undefined);
+  const showStatus = (ctx: ExtensionContext) => ctx.ui.setStatus(MODE, on ? "tuin" : undefined);
 
   const restore = (ctx: ExtensionContext) => {
     on = false;
@@ -117,7 +117,7 @@ export default function (pi: ExtensionAPI) {
         },
       };
     } catch (error) {
-      if (!signal.aborted) ctx.ui.notify(`mori compaction failed, using Pi's: ${error instanceof Error ? error.message : error}`, "warning");
+      if (!signal.aborted) ctx.ui.notify(`tuin compaction failed, using Pi's: ${error instanceof Error ? error.message : error}`, "warning");
       return;
     }
   });
@@ -135,19 +135,19 @@ export default function (pi: ExtensionAPI) {
     if (event.toolName !== "subagent") return;
     const input = event.input as Brief & { action?: unknown; workflow?: unknown; args?: { tasks?: unknown } };
     if (on && missingModel(input)) {
-      return { block: true, reason: `Pass model and effort on every spawn, from the role lines in ${join(root, "skills", "mori-mode", "models.md")}, such as "anthropic/claude-opus-5-5:high".` };
+      return { block: true, reason: `Pass model and effort on every spawn, from the role lines in ${join(root, "skills", "tuin-mode", "models.md")}, such as "anthropic/claude-opus-5-5:high".` };
     }
     withBriefPath(input);
     if (Array.isArray(input.args?.tasks)) input.args.tasks.forEach((task: Brief) => withBriefPath(task));
   });
 
-  pi.registerCommand("mori-mode", {
-    description: "Toggle mori-mode for this session",
+  pi.registerCommand("tuin-mode", {
+    description: "Toggle tuin-mode for this session",
     handler: async (_args, ctx) => {
       on = !on;
       pi.appendEntry(MODE, { on });
       showStatus(ctx);
-      ctx.ui.notify(`mori-mode ${on ? "on" : "off"}`, "info");
+      ctx.ui.notify(`tuin-mode ${on ? "on" : "off"}`, "info");
     },
   });
 }

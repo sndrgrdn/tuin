@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Answer "how does X work?" with an architectural explanation: enough for a senior engineer new to the area to build a working mental model, without reading like annotated source code. Also use it for placement questions: where should this live, which module owns this, is this the right layer.
 
-Every subagent here is read-only. Explorers use the `search` line and the explainer the `judgment` line of the model sheet at `<skills>/mori-mode/models.md`, unless the project's rules say otherwise.
+Every subagent here is read-only. Explorers use the `search` line and the explainer the `judgment` line of the model sheet at `<skills>/tuin-mode/models.md`, unless the project's rules say otherwise.
 
 ## 1. Assess the scope
 

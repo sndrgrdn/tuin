@@ -1,6 +1,6 @@
 # Change principles
 
-Read this file in full for refactors, migrations, sweeps of similar edits, work that crosses system boundaries, several actors writing at once, and stacking commits or PRs. Apply every section whose situation matches, and name the principle in your reply with the choice it changed.
+Read this file in full for refactors, migrations, sweeps of similar edits, work that crosses system boundaries, several actors writing at once, and stacking commits or PRs. Apply the sections whose situation matches.
 
 ## Sequence Work into Verifiable Units
 
@@ -44,7 +44,3 @@ If you cite this principle and the diff contains no tool, you did not apply it.
 ## Separate Before Serializing Shared State
 
 Before running work concurrently, identify every shared mutable target: files, branches, keys, records, worktrees, ports, databases. Usually the actors publish independent facts, so give each its own owner and write target, and merge only where the results are read. When one canonical target is a real invariant, enforce coordination in structure: a transaction, lock, single writer or atomic conditional operation. Instructions to avoid collisions are not synchronisation.
-
-## Complete when
-
-Required behaviour is pinned and stays equivalent, callers are accounted for, and temporary scaffolding and obsolete surfaces are removed, or kept for a stated compatibility need. Each unproven cross-boundary path had a tracer bullet before expansion, and each slice completes a caller-visible behaviour with its own check. Automation matches the intended transformation, and concurrent writes have structural ownership.

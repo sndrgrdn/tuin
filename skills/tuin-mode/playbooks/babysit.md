@@ -33,7 +33,6 @@ The commands below use the GitHub CLI (`gh`). Use the project's forge if it diff
 
 After the user's go, or under a standing grant:
 
-- Merge only when an independent check's verdict covers the PR's current head. Green CI alone never authorises a merge.
 - Reach green by fixing the code. A disabled, skipped or soft-failed check, or a loosened gate, stays out of the PR.
 - After merging, read the PR back with `gh pr view <pr> --json state,mergedAt,baseRefName` and report the state the forge shows. A queued merge or an armed auto-merge reports success without merging.
 - When the merged PR had a stacked child, move the child onto main per `opening-a-pr.md`.

@@ -1,6 +1,6 @@
 # Evidence principles
 
-Read this file in full when debugging, when two fixes in a row have failed, before you measure something or act on a number, when a product or UX tradeoff comes up, and when you notice a mistake or correction you have seen before. Apply every section whose situation matches, and name the principle in your reply with the choice it changed.
+Read this file in full when debugging, when two fixes in a row have failed, before you measure something or act on a number, when a product or UX tradeoff comes up, and when you notice a mistake or correction you have seen before. Apply the sections whose situation matches.
 
 ## Fix Root Causes
 
@@ -15,19 +15,7 @@ Fix the first broken contract or unhandled legitimate state, not the place where
 - A workaround that needs a paragraph-long comment means the code is wrong.
 - When the deciding fact took a deep dig to find, propose the cheap, always-on signal that would have shown it at first look.
 
-**Regression test first** when there is a reliable, proportionate path through a real interface (`tdd`): confirm it fails for the intended reason, fix, and rerun. When that path is impractical, use the closest trustworthy reproduction or executable check and report the coverage gap. An inconvenient harness does not silently waive the coverage `testing.md` requires.
-
-## Mistake-proofing
-
-When correcting a defect, identify the condition that made it possible, and where practical remove it at the narrowest owner shared by every demonstrated recurrence path. Prefer the smallest enforceable mechanism, in this order:
-
-1. an existing domain representation or invariant;
-2. a narrower API or workflow;
-3. a storage or configuration constraint;
-4. existing compiler, static-analysis or CI enforcement;
-5. detection through an existing test seam, when prevention is impractical.
-
-Prevent the demonstrated failure class, not hypothetical variants. New mechanisms still pass YAGNI and the deletion test (`design.md`).
+**Regression test first** when there is a reliable, proportionate path through a real interface (`tdd`): confirm it fails for the intended reason, fix, and rerun. When that path is impractical, use the closest trustworthy reproduction or executable check and report the coverage gap.
 
 ## Attack the Premise
 
@@ -63,8 +51,4 @@ Foundations decide the order of the work. Experience decides its target.
 
 ## Encode Lessons in Structure
 
-When a demonstrated mistake recurs, or the user corrects the same thing twice, look first for an owning representation, interface, constraint or existing enforcement path that prevents it (see Mistake-proofing). Add a focused regression test when prevention is impractical. Change written instructions only when the lesson needs judgement the system cannot enforce. Record a rule that applies across the codebase as an RFC statement with `domain-modeling` when the project keeps RFCs; otherwise put it where it will be read, with an example of the mistake. Keep the mechanism proportional to the demonstrated recurrence, and verify it rejects the mistake without rejecting required behaviour.
-
-## Complete when
-
-The enabling condition of each defect is corrected, or its remaining recurrence path is explicit, and the reproduction passes after the fix with before and after evidence, or its absence reported. Each failed-twice premise was written down and tested. Every reported number is no stronger than its measurements, with the evidence needed to reproduce or challenge it. Each recurring lesson has an enforceable fix or a specific, justified judgement rule.
+When a demonstrated mistake recurs, or the user corrects the same thing twice, look first for an owning representation, interface, constraint or existing enforcement path that prevents it. Add a focused regression test when prevention is impractical. Change written instructions only when the lesson needs judgement the system cannot enforce. Record a rule that applies across the codebase as an RFC statement with `domain-modeling` when the project keeps RFCs; otherwise put it where it will be read, with an example of the mistake. Keep the mechanism proportional to the demonstrated recurrence, and verify it rejects the mistake without rejecting required behaviour.

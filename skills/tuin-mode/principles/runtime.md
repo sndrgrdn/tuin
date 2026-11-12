@@ -1,6 +1,6 @@
 # Runtime principles
 
-Read this file in full when a change touches configuration, startup, resources, background jobs or other asynchronous work, time or randomness, stored data, migrations, transactions, retries, or calls that change a remote system. Apply every section whose situation matches, and name the principle in your reply with the choice it changed.
+Read this file in full when a change touches configuration, startup, resources, background jobs or other asynchronous work, time or randomness, stored data, migrations, transactions, retries, or calls that change a remote system. Apply the sections whose situation matches.
 
 ## Configuration
 
@@ -64,7 +64,3 @@ If any answer is "it depends on what was left behind", add a reconciliation step
 ## Uncertain remote outcomes
 
 A timeout or missing response from a remote mutation leaves the outcome unknown. Keep the request identity, receipts, checkpoints and recovery intent needed to reconcile, retry or compensate safely, and define the operation's point of no return.
-
-## Complete when
-
-Every configuration value is parsed once at an owning boundary, malformed values fail, and precedence is explicit. Every acquired resource has a valid scope and release strategy, runtime work happens in its owning phase, module loading is inert, and ambient mutable state stays contained. Persistence mechanics stay private to a cohesive capability, data with its own lifecycle has its own owner, migrations commit only validated state, and transactions contain only atomic database work. Every duplicate path, retry, repeated operation and uncertain remote mutation has an explicit owner and safety policy.

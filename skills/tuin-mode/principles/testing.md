@@ -1,6 +1,6 @@
 # Testing principles
 
-Read this file in full when you write, change, keep or delete a test, or decide how a change will be proven. Apply every section whose situation matches, and name the principle in your reply with the choice it changed. The project's testing rules win where they differ. For fixing a bug test-first, also follow `tdd`.
+Read this file in full when you write, change, keep or delete a test, or decide how a change will be proven. Apply the sections whose situation matches. The project's testing rules win where they differ. For fixing a bug test-first, also follow `tdd`.
 
 ## Test Behavior, Not Implementation
 
@@ -17,8 +17,6 @@ The contract decides, not the shape of the assertion. When "an empty cart never 
 
 ## Test through real interfaces
 
-Every caller-visible feature gets an end-to-end happy-path test through its real public entrypoint, when the normal test environment can run it reliably. Add end-to-end coverage for the expected error paths the entrypoint can exercise reliably, and cover the remaining important failures at the closest real interface. When unreliable third parties or unreasonable setup, runtime or cost make end-to-end coverage impractical, report why.
-
 Prefer tests in this order of confidence:
 
 1. end-to-end tests through real public entrypoints;
@@ -32,20 +30,6 @@ Start at the top of this order, and go down only for behaviour the level above c
 
 Assert observable outcomes: returned values and errors, persisted state, emitted events and messages, rendered responses, sent emails captured by a recording or local implementation. A spy assertion is right only when the interaction itself is the observable behaviour; otherwise prefer a recording implementation and inspect its public records.
 
-## Property tests
-
-Consider property-based testing for every changed invariant, transition, normalisation, equivalence, ordering, idempotence or round-trip, and add property tests when generated inputs cover meaningful cases beyond a short list of examples. This applies especially to parsers, smart constructors, refined types, state machines, serialisation and lawful combinators.
-
-- Use the repository's established property-testing framework, and derive generators from the owning runtime schemas where it supports that.
-- Keep reusable generators beside the domain module they support (for example `invoice_number.rb` beside its generator, or `invoice-number.ts` beside `invoice-number.arbitrary.ts`). Add a shared test-data entrypoint only when several consumers need one.
-- Valid generated data passes through production parsers or constructors. Rejection tests build invalid external representations independently of the schema under test and enter through its real boundary; otherwise removing the very rule being tested can weaken the fixture too.
-
-## Parsing and recovery regressions
-
-Test the application's own transformations, cross-field rules, representation selection and public failure behaviour, rather than restating a library's ordinary mechanics. For a changed boundary, include positive current and legacy cases and negative malformed or hybrid cases where they apply. Assert that rejected stored data stays intact and that migration and state writes do not partially commit.
-
-When removing a read, parse or checkpoint, verify its distinct invariant and observable work through the owning interface. A deliberate-regression probe can show that a test fails when a rule or precedence check is removed. Keep recovery claims bounded: a local database rebuild, a runtime restart and a deployed recovery are different evidence.
-
 ## Test implementations
 
 A dependency interface represents real ownership or variation, not a wish to mock.
@@ -57,11 +41,3 @@ A dependency interface represents real ownership or variation, not a wish to moc
 - Call an implementation in-memory only when it faithfully keeps the complete observable contract under test.
 
 Production branches, exports, flags and behaviour exist for production needs only. When no real dependency interface exists, test through an existing public interface or a faithful inert harness.
-
-## Compile-time behaviour
-
-When static type inference is public behaviour, add compile-time tests with ordinary call sites and no rescue annotations or casts. For parser or service API changes, assert the complete contract: input, arity or options, success, expected failures and required capabilities. Include rejected calls as well as inferred results.
-
-## Complete when
-
-Every changed caller-visible behaviour has an end-to-end happy path or a reported concrete blocker. Each expected error path is covered at the highest reliable real interface or has a reported blocker. Every changed property named above has been considered for property tests, and applicable ones exist. Tests cross real interfaces without module mocks, and each would fail if its behaviour broke and survive an internal restructure. Generated valid data keeps production invariants while invalid fixtures challenge them independently. Production surfaces exist for production needs, and every reusable test implementation matches its name and its full observable contract.

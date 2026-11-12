@@ -1,6 +1,6 @@
 # Security and observability principles
 
-Read this file in full when a change touches personal data, secrets or credentials, authentication or authorisation, or logging, tracing, metrics and error reporting. Apply every section whose situation matches, and name the principle in your reply with the choice it changed.
+Read this file in full when a change touches personal data, secrets or credentials, authentication or authorisation, or logging, tracing, metrics and error reporting. Apply the sections whose situation matches.
 
 ## Sensitive data
 
@@ -26,7 +26,3 @@ Keep four responsibilities separate:
 - the outer boundary translates missing credentials and denied operations into protocol outcomes.
 
 Parameter filtering is not authorisation.
-
-## Complete when
-
-Every diagnostic field is safe and necessary, secrets stay out of every observable output, established telemetry stays connected, and correlation context crosses the relevant boundaries. Credential verification, permission policy, enforcement and protocol translation each have an explicit owner.

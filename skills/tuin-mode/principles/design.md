@@ -1,6 +1,6 @@
 # Design principles
 
-Read this file in full when you choose where a responsibility lives, shape a module, service or interface, name things, change a public surface, integrate a new requirement, or face a design with no precedent in the codebase. Apply every section whose situation matches, and name the principle in your reply with the choice it changed.
+Read this file in full when you choose where a responsibility lives, shape a module, service or interface, name things, change a public surface, integrate a new requirement, or face a design with no precedent in the codebase. Apply the sections whose situation matches.
 
 ## Foundational Thinking
 
@@ -95,7 +95,3 @@ The test: can a new reader answer "where does X come from?" and "what can change
 - **Durable words.** Use durable domain words; keep tickets, plan phases and storage terms out of public language.
 - **Dependency APIs** come from the project's pinned version and version-matched source or docs, never from memory or current upstream alone.
 - **Tool claims.** Claim that tooling enforces something only when the active configuration proves it: the config, the commands, the checked paths. A passing check proves only what it inspects. Keep rule catalogues and thresholds in configuration, not in prose.
-
-## Complete when
-
-Every changed responsibility and dependency has one intentional owner. Modules give useful depth, application policy and effect order stay visible, and public interfaces expose only caller-relevant concepts. Every implementation of an interface keeps its full contract. Every new mechanism extends an established one when one fits, or has a current need that justifies its cost, and every abstraction passes YAGNI and the deletion test. Names expose actual behaviour and ownership, and comments add only what code cannot show.

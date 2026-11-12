@@ -27,11 +27,9 @@ When one of these is missing, ask the user once.
 
 1. Tell the user, in your own words, their goal, the problem it solves, and the smallest change you expect to meet it. Continue without waiting for confirmation. When the evidence rules out what they asked for, show the evidence and stop. When the goal or its premise is unclear, run `grill-me` before planning.
 2. Scale the work to uncertainty and impact. A local change in an established pattern needs a few quick decisions, not a plan. A new responsibility, a changed public contract, persistent state or a cross-module policy needs its contract and owner made explicit before any edit.
-3. Pick the playbook (see Playbooks) and copy its steps into your todo list, verbatim, before any task-specific todo. A step you choose to skip stays in the list as `skip: <reason>`.
+3. Pick the playbook (see Playbooks) and copy its steps into your todo list before any task-specific todo. Skip a step the change does not need.
 
-   A change is **trivial**, and needs no playbook, only when all of these hold: it changes no behaviour that code, a user or a test can observe (a typo in a doc or comment, formatting); it touches one file; and it needs no decision. A typo in text the user sees is behaviour, not trivial. When in doubt, it is not trivial. Say in your reply that you treated it as trivial and which condition each part met. A trivial change is still proven: read the diff and run the project's check for that file. When it ships, it still goes through `opening-a-pr.md`.
-
-A new PR is a new task, even in the middle of a session or right after a compaction: run these steps again for it.
+   A small, local change in an established pattern needs no playbook: make it, check it, and ship it through `opening-a-pr.md`.
 
 **After a compaction, or when you resume a session:** before acting, read this file in full, then the active playbook. The summary a compaction leaves is a pointer to these files, not a replacement for them.
 
@@ -50,7 +48,7 @@ The user is in the conversation and steers it. Spend their attention where their
 
 **Standing grants.** A grant is the user's own words giving a permission that outlives one action ("merge on lgtm", "start follow-ups I ask for", "no need to ask again"), at the scope they named: an approval that names one PR covers that PR. A policy you proposed that the user did not answer is not a grant, and the project's merge rules still apply under a grant. Act on each grant from the moment the user gives it. Asking again for a granted permission costs the user a turn and their trust.
 
-**The user's words are the rule.** Quote a rule or instruction exactly in briefs, and apply it at the scope it states: "no new comments" covers what a change adds, not the comments already there. When a message could mean more than one thing, or reads as frustration rather than an answer, treat it as a pause: change nothing, and ask what it means.
+**The user's words are the rule.** Quote a rule or instruction exactly in briefs, and apply it at the scope it states: "no new comments" covers what a change adds, not the comments already there. When the user is frustrated, stop the work they object to, say what you got wrong and propose the fix. Ask only what the session cannot tell you.
 
 **Verified claims.** Before you state how the harness, a tool or a dependency behaves, check it in its source, config or a session file, or label the claim a guess.
 
@@ -63,9 +61,9 @@ The user is in the conversation and steers it. Spend their attention where their
 - Give new work to a **fresh** subagent with consolidated scope: the original brief, every later directive, and the previous agent's report and branch. Resume an existing subagent only when the work needs state that lives in it: its uncommitted changes, its checkout, or a process it still runs.
 - Run independent subagents in parallel. An async spawn wakes you when it finishes: wait for it instead of polling or sleeping. The PR the user is waiting on comes first: side work you start on your own waits until that PR merges, unless the side work unblocks it. Stack no side work on that PR. Give each writer its own worktree or branch.
 - Choose models per the project's rules. Without project rules, read the model sheet, `models.md` beside this file, before the first spawn, and set the model and effort of every spawn from its role lines. A change that crosses modules or touches auth, security or stored data is a **judgment** spawn, not a **scoped** one.
-- You own every subagent's work. Read its diff and its proof, check the proof is real, and write your own summary.
-- An **independent check** is a fresh subagent, ideally on a different model, that verifies the work without seeing the first agent's reasoning and changes nothing in the work it checks: a fresh builder fixes what it finds, and the fix gets its own check. Use one for anything the user will review or merge, sized to what changed since the last verdict. A check that times out has too wide a brief: narrow it instead of giving it more time. A second opinion or check on the same question gets the same brief as the first, so the two answers compare.
-- A read-only brief says it is read-only. After that subagent returns, run `git status` in its checkout and confirm it changed nothing.
+- You own every subagent's work. Read its diff, open what it built yourself when that is a screen, and write your own summary.
+- An **independent check** is a fresh subagent that runs the change the way a user would, without seeing the builder's reasoning, and changes nothing in the work it checks. Run one, once, when the project's rules ask for it or the change is risky: auth, money, stored data or a shared foundation. Docs, config, dependency updates and prototypes get none. Brief it with the behaviours the change adds or alters and the smallest evidence that shows them, not with a hunt for edge cases. A fix for what it finds is proven by its test and your read of the diff, not by a second check.
+- A second opinion gets the same brief as the first, on a different model, so the two answers compare.
 
 ## Non-negotiables
 
@@ -79,7 +77,7 @@ The lead and every subagent follow these triggers on every task.
 
 ## Principles
 
-Six principles apply to every task, and are summarised below. The rest live in `principles/`, one file per topic. Read every file whose topic your change touches, in full, before you decide; playbooks name the usual ones as steps, and a change outside a playbook uses this table. Each file ends with a **Complete when** criterion that your work must meet or report against.
+Six principles apply to every task, and are summarised below. The rest live in `principles/`, one file per topic. Read the file whose topic your change touches when the decision is not obvious.
 
 | File | Read when the change touches |
 |---|---|
@@ -91,11 +89,9 @@ Six principles apply to every task, and are summarised below. The rest live in `
 | `principles/testing.md` | Writing, changing or deleting tests; deciding how to prove a change |
 | `principles/evidence.md` | Debugging, repeated failed fixes, measurements, product tradeoffs, recurring mistakes |
 
-In your reply, name each principle that shaped a decision and the specific choice it changed.
-
 ### Prove It Works
 
-Verify the real thing directly: run the feature on its real surface, read the actual value, inspect the actual diff. A proxy is not proof: "it compiles", a passing type check, a subagent's report, a file's timestamp or a cached screenshot. When a check fails, suspect the observation method before the system. Prefer a script that reruns the check over a one-time look, and keep its output where a reviewer can rerun it. "Inconclusive" or "checked on a different surface" is a failure to report, not a pass. Review the whole diff against the goal before calling it done, and report verified behaviour, inference and checks not run separately.
+Check the real thing directly: run the feature on its real surface, read the actual value, inspect the actual diff. "It compiles", a passing type check or a subagent's report is not proof. Size the proof to the change: one run of what changed, on the surface where a user meets it, is enough for most changes, and a property that a test already shows needs no second proof. When a check fails, suspect the observation method before the system.
 
 ### Laziness Protocol
 
@@ -175,5 +171,3 @@ Playbooks call these by name. They live beside this skill, at `<skills>/<name>/S
 | `create-formal-verification` | Generates a project skill that formally verifies a costly, hard-to-test property |
 | `maintain-formal-verification` | Brings formal verification back in line after the code changed |
 | `writing-for-agents` | How to write anything an agent reads: skills, `AGENTS.md`, subagent briefs |
-
-When the project has no scripted way to prove behaviour on its real surface, propose `create-verification` before relying on Prove It Works.

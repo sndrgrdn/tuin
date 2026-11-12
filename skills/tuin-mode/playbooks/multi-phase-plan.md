@@ -14,7 +14,7 @@ You own the plan, not the code. The plan is a checklist that subagents run box b
 
 Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked. That sentence is the rule, and every verification block opens with it.
 
-- **Live is mandatory.** Live lanes drive the real surface at the PR head through the project's verify method. Each lane is one box with a concrete scenario, the screenshot or output it saves, and its pass condition. Size the lane count to the change; three is a floor for an interaction change.
+- **Live is mandatory.** Live lanes drive the real surface at the PR head through the project's verify method. Each lane is one box with a concrete scenario, the screenshot or output it saves, and its pass condition. Size the lane count to the change.
 - **Lane 1 is the regression lane against main.** It runs the same main scenario on main and on the PR head. When main does not have the feature, the lane records that, and instead gates the behaviour the diff adds plus the end state the user waits for. It never invents a main result.
 - **Perf is two-sided.** Main and the head must both produce the named metric. When main lacks the feature, also isolate the work the diff adds and set an absolute budget for it and for the end state the user waits for. Never claim a ratio between unlike scenarios.
 - **Interaction changes are review-gated.** The user reviews them with screenshots and a recording before merge. A PR that changes no interaction writes `**Review gate.** None. <PR id> is not review-gated.` with no boxes under it.
@@ -65,7 +65,7 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 
 ### Verdict and merge
 
-- [ ] Run an independent check once at the code-ready head, covering the PR's live and perf blocks. Run another only for new behaviour, a redesign or a large new diff. A rebase, a conflict resolution or a small fix gets a single re-check of the affected lanes. A wording-only change gets none.
+- [ ] Run an independent check once at the code-ready head, covering the PR's live and perf blocks. Run another only for new behaviour, a redesign or a large new diff. A rebase, a conflict resolution, a small fix or a wording-only change gets none.
 - [ ] A finding blocks only when a run shows it, at the head, or when the PR made a doc wrong. A failure in the regression lane on main's behaviour is recorded against main and does not block the PR.
 - [ ] <The merge rule. Who merges, and on what signal.>
 

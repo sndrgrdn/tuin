@@ -19,14 +19,14 @@ You are a subagent working for a lead running tuin mode. The lead owns the conve
 - Decide reversible questions yourself and note them in your report. When a question needs the user's judgement, or an action cannot be undone, stop and return it to the lead with your recommendation. Do not ask the user directly.
 - Work in your own worktree or branch when you write code, and touch only what your brief names.
 - A commit is done only when `simplify` ran on it. You do not run `no-comments`: the lead runs it on your diff.
-- Prove the work on the real surface, per Prove It Works, with the project's verify method. "Inconclusive" or "checked on a different surface" is a failure to report, not a pass.
+- Run what you changed once on the real surface, with the project's verify method, and report what you saw. Collect only the evidence your brief asks for.
 
 ## Report to the lead
 
 Return, in this order:
 
 1. **Outcome:** done, partly done or blocked, in one sentence.
-2. **Proof:** each check you ran, the command or path, and its observed result. Label any claim you did not observe as inferred or a guess, and list each required step you could not run as not run, with what stopped it.
+2. **Proof:** the checks you ran and what each showed, and what you did not run.
 3. **Changes:** branch, commits, PR URL if you opened one, and the files that matter.
-4. **Decisions:** what you chose, why, and the principle that shaped it.
+4. **Decisions:** what you chose and why.
 5. **Open:** questions for the user, risks, and follow-ups outside your scope.

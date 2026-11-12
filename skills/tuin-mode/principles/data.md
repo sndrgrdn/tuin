@@ -1,6 +1,6 @@
 # Data principles
 
-Read this file in full when values, types, schemas, state, optionality or failures change: parsing input, modelling state, adding a field, handling an error, or calling a dependency that can fail. Apply every section whose situation matches, and name the principle in your reply with the choice it changed.
+Read this file in full when values, types, schemas, state, optionality or failures change: parsing input, modelling state, adding a field, handling an error, or calling a dependency that can fail. Apply the sections whose situation matches.
 
 ## Parse at the boundary
 
@@ -53,7 +53,3 @@ Unchecked casts, untyped values, unchecked deserialisation, raw interpolation, s
 - **Translate at the dependency's boundary.** Transport, provider, storage and framework failures are translated by the code that owns that dependency. Already-correct application failures pass through, with useful causes kept safely.
 - **Check status before decoding.** Classify an HTTP response by status before decoding it as success, or a valid error response gets misreported as a malformed success.
 - **A timeout is not a failure.** A timeout, interruption or missing response from a remote mutation means the outcome is uncertain. Reconcile or retry only from evidence about what actually happened and whether repeating is safe (see `runtime.md`).
-
-## Complete when
-
-Every changed value has an identified producer, owner and invariants. Boundary data is parsed into meaningful representations, valid states are explicit, repeated consumer checks have been examined for a missing producer contract, distinct contracts stay separate, and each unchecked operation has concrete evidence and narrow containment. Every expected failure has an intentional identity and propagation path, defects stay distinct, translation happens at the boundary that understands both meanings, diagnostics keep safe context, and uncertain remote outcomes are never reported as known failures.

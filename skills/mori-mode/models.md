@@ -2,7 +2,7 @@
 
 One line per role: the model and its starting effort. Pass both on each spawn, in the harness's own model id.
 
-- **search**: Claude Haiku 5.5, low. File search, log reading, summaries, explorers.
+- **search**: Claude Haiku 5.5, medium. File search, log reading, summaries, explorers.
 - **scoped**: Claude Sonnet 5.5, medium. Scoped edits, spec-driven work, repeated checks, verification runs, research threads.
 - **judgment**: Claude Opus 5.5, high. Design, debugging with an unclear cause, cross-module changes, performance work, explainers, independent checks of a scoped build.
 - **hardest**: Claude Fable 5.1, medium. Large refactors and migrations, and work that failed on the judgment line.

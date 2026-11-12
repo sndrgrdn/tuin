@@ -20,7 +20,7 @@ Use this template. Omit `Review notes` when there is nothing consequential to fl
 ```markdown
 ## Summary
 
-[Problem and delivered behavior, in a few sentences or one small visual.]
+[The user's goal, then the problem and delivered behavior, in a few sentences or one small visual.]
 
 ## Evidence
 

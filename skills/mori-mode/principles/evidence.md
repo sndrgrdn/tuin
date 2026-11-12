@@ -44,8 +44,8 @@ Apply before you measure, and before you trust, report or act on a measured numb
 
 - **State the claim and the decision first.** Name the result that would change a decision, and the noise level. Inspect what the harness actually measures.
 - **Check the work ran.** Confirm the intended work executed, its outputs are correct, and errors, skipped or cached work did not produce the result.
-- **Ask "why not double?"** Name what limits the result (a core, a lock, the disk, the network, the load generator itself) from runtime evidence such as a profile or counters, not from reading code.
-- **Compare like with like.** Use equivalent workloads and production-like settings. Repeat and interleave comparisons to expose noise and drift. Stop when run-to-run spread is larger than the effect.
+- **Ask "why not double?"** Name what limits the result (a core, a lock, the disk, the network, the load generator itself) from runtime evidence such as a profile or counters, not from reading code. Profile only in runs you don't report.
+- **Compare like with like.** Use equivalent workloads and production-like settings. Confirm the machine is idle first (`uptime`). Run each side at least 5 times, alternating, and report the median and range. Stop when run-to-run spread is larger than the effect. A side left on untuned settings means no winner.
 - **Report the evidence with the number:** units, sample count, spread, relevant settings and the limiter. Check that the result is physically plausible and matters end to end before extrapolating from a microbenchmark.
 
 A requested ballpark may use one run labelled as such, but still needs correct output and proof the work ran. Call close, confounded or unexplained comparisons inconclusive instead of picking a winner.

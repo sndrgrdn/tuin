@@ -29,11 +29,11 @@ The conclusion: agents follow what is in the file in front of them and skip chai
 | 24 principle files behind "read the leaf for any principle you apply" | Merged with Sander's `standards` skill into seven topic files (`design`, `data`, `change`, `runtime`, `security`, `testing`, `evidence`), each read as a playbook step and ending on a completion criterion. pstack's principle names are kept as headings. |
 | 23 playbooks | 11 that were used at least once: feature, bug fix, refactoring, investigation, prototype, perf issue, multi-phase plan, babysit, authoring a skill, opening a PR, session pickup |
 | 40 non-principle skills | 12 that were used at least once, under their upstream names: how, architect, interrogate, tdd, no-comments, unslop, technical-writing, the four verification skills, and deslop (merged into `simplify`). Playbook steps call them by name. |
-| `arena`, `swarm`, `statechart`, `why`, `benchmark-checklist` and the `comment-sicko` agent | Not ported. The parts other skills relied on are written into those skills: parallel runners and grafting in `architect`, adversary fan-out in `interrogate`, history reading for why questions, Explain the Number for benchmarks, the reviewer brief in `no-comments`, plain-words counterexamples in the formal verification skills |
+| `arena`, `swarm`, `statechart`, `why`, `benchmark-checklist` and the `comment-sicko` agent | Not ported; `comment-sicko` became the `comment-reviewer` agent. The parts other skills relied on are written into those skills: parallel runners and grafting in `architect`, adversary fan-out in `interrogate`, history reading for why questions, Explain the Number for benchmarks, including the checklist's run count and tuning rule, the reviewer brief in `no-comments`, plain-words counterexamples in the formal verification skills |
 | `watch-pr` script, Origin forge, `/loop`, cloud-VM swarm lanes | `gh` commands, and live lanes through the project's own verify method |
-| Model tiers and `/setup-pstack` | The project's rules, or a one-line default |
-| `pstack-pi` adapter and Pi extension | None; plain skills work in every harness |
-| Compaction reminder via the Pi extension | The run log, with standing grants, re-read after compaction |
+| Model tiers and `/setup-pstack` | The project's rules, or the role lines in `mori-mode/models.md`; the Pi extension blocks a spawn without a model |
+| `pstack-pi` adapter and Pi extension | Plain skills that work in every harness, plus a small Pi package: the `mori-mode` extension and the `mori-agent` and `comment-reviewer` agents in `pi/` |
+| Compaction reminder via the Pi extension | The run log, with standing grants, re-read after compaction; the Pi extension writes the compaction handover and sends the re-read reminder |
 | Always-autonomous lead | A lead that talks with the user, with an explicit list of what goes to the user |
 
 ## writing-for-agents

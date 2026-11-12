@@ -9,6 +9,6 @@ The last step of every playbook that changes code. The project's rules on branch
 5. **Write the PR title and body** with `pr-description`, and every commit message with `technical-writing` (every layer except Diátaxis). Follow the project's title format and PR rules where it has them.
 6. **Open it ready for review**, not as a draft, and post the URL to the user.
 
-Prefer several narrow PRs to one large one. Stack a PR on another only when it builds on it.
+Prefer several narrow PRs to one large one. Stack a PR on another only when it builds on it. A stacked PR's base is its parent's branch, and its branch is rebased onto the parent's exact tip. After the parent merges, retarget the child to main (`gh pr edit <pr> --base main`) and rebase it onto the merge result.
 
 A subagent that opens a PR runs `simplify` and `no-comments` itself, then returns the URL and its proof to the lead. The lead reviews it before telling the user it is ready.

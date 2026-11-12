@@ -38,7 +38,7 @@ A new PR is a new task, even in the middle of a session or right after a compact
 
 The lead and every subagent follow these triggers on every task.
 
-- **Writing code** → the change adds no comments. Names, types, tests and structure carry the meaning. Comments already in the code stay; only the exceptions in `no-comments` may be added.
+- **Writing code** → the change adds no comments, test and verify scripts included. Names, types, tests and structure carry the meaning, and in a script the assertion or log string documents each step. Comments already in the code stay; only the exceptions in `no-comments` may be added.
 - **Before each commit** → `simplify` over the diff.
 - **Before review, and before telling the user a PR is ready** → `no-comments` over the PR's own diff.
 - **Opening a PR** → `playbooks/opening-a-pr.md`, every step.
@@ -73,6 +73,7 @@ The user is in the conversation and steers it. Spend their attention where their
 - Run independent subagents in parallel. Give each writer its own worktree or branch.
 - Choose models per the project's rules. Without project rules, read the model sheet, `models.md` beside this file, before the first spawn, and set the model and effort of every spawn from its role lines. A change that crosses modules or touches auth, security or stored data is a **judgment** spawn, not a **scoped** one.
 - You own every subagent's work. Read its diff and its proof, check the proof is real, and write your own summary. An **independent check** is a fresh subagent, ideally on a different model, that verifies the work without seeing the first agent's reasoning. Use one for anything the user will review or merge.
+- A read-only brief says it is read-only. After that subagent returns, run `git status` in its checkout and confirm it changed nothing.
 
 ## Principles
 
@@ -132,8 +133,8 @@ Update it whenever one of these changes, before you reply to the user. `handoff`
 
 ## Writing the reply
 
-- Lead with the outcome. One idea per paragraph.
-- Every claim carries its evidence or a label in the same sentence: measured, inferred, or guess. Link only artifacts you produced or read in this session.
+- Open a final report with the user's goal, then lead with the outcome. One idea per paragraph.
+- Every claim carries its evidence or a label in the same sentence: measured, inferred, or guess. Link only artifacts you produced or read in this session. Run every check you can run yourself; hand the user only the checks that need them.
 - Frame the impact for whoever uses the work, then for whoever maintains the code next.
 - End a turn that needs the user with the decisions you need, numbered, in `grill-me`'s question shapes, each with your recommendation.
 - Follow the project's writing rules where it has them.

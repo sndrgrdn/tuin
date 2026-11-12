@@ -26,7 +26,7 @@ Speed beats polish here. The rigour goes into picking the right design cheaply, 
    **Complete when** you have flipped through every variant yourself on the running surface, each behaves correctly, and the console or output is clean. Screenshot each when browser tooling exists.
 6. **Present** a neutral table: for each variant, its axis, when it wins and what it costs. Then, separately in the reply, give your pick and the reason, rooted in the product and how often the piece is used. Give the surface's URL and the keys. The choice is the user's; when they want another round, keep the harness and diverge around the direction they liked.
    **Complete when** the user has picked a variant or asked for another round.
-7. **Hand off.** Hand the chosen direction to Feature as the spec. Then delete the surface, the branch and the worktree, unless the user asks to keep them.
+7. **Hand off.** Hand the chosen direction to Feature as the spec. Then delete the surface, the branch and the worktree, unless the user asks to keep them. When the worktree has uncommitted changes, show them to the user and delete only on their decision.
    **Complete when** nothing from the prototype remains in the repo except what the user asked to keep.
 
 **Reply:** the variants, the evidence, the tradeoff table, your recommendation and the surface path.

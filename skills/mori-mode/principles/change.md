@@ -32,9 +32,9 @@ In a planned rewrite or migration, aim for the verified end state rather than ke
 
 ## Build the Lever
 
-For error-prone sweeps, repeated transformations or complex comparisons, build the smallest deterministic tool that makes the work repeatable and reviewable: a codemod, script, query, generator or verification harness. A reviewer can rerun a tool instead of trusting you.
+For any non-trivial work (edits, migrations, analyses, checks), build the smallest deterministic tool that does or proves it: a codemod, script, query, generator or verification harness. Skip it only for a few obvious edits you can see at a glance. A reviewer can rerun a tool instead of trusting you.
 
-- Do the first unit by hand to establish the expected result, then build the tool and check it against that unit.
+- Do the first unit by hand to establish the expected result, then build the tool and check it against that unit. Make the tool safe to rerun.
 - Reuse existing tooling when possible. A direct edit or an existing command is enough when it is easier to verify than a new tool.
 - One script that processes every unit beats many subagents editing by hand. When subagents share a recipe, write it as one file they all read, outside what they may edit.
 - Build the smallest script that does the job, not a framework. Keep it when rerunning or auditing the work has lasting value.

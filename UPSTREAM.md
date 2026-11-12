@@ -70,3 +70,7 @@ From https://github.com/sndrgrdn/skills, branch `master` at `1fb1bec`.
 | `code-review` | Principle links repointed from `standards/references/` to `mori-mode`'s routing table, keeping the review notes per topic. Absorbed pstack's `blast-radius`: look where search stops, and the evidence ladder for the fact a change's safety rests on. Runs only when asked; no playbook calls it, since pstack gets good results without a review step. |
 | `retro` | Kept its categories; absorbed pstack's `reflect` (three parallel reviewers and a synthesizer, prompts in `references/`, made harness-neutral) and the proof rule from pstack's `correct` (a new check must fail on a real past mistake). Links repointed from `standards` to `mori-mode/principles/`. |
 | `reprompt` | Unchanged. Covers pstack's `sharpen`, which is left out. |
+
+## Prototype playbook
+
+`playbooks/prototype.md` and `playbooks/prototype-picker.md` are mori's own text. The method (one decision per run, real divergence, a dev-only surface, one full-size variant at a time behind a picker, a neutral tradeoff table) is inspired by Emil Kowalski's `prototype` skill, https://github.com/emilkowalski/skills, MIT licensed. The variant-count sentence in step 3 is quoted from it word for word; no other text or markup is copied.

@@ -32,6 +32,18 @@ When one of these is missing, ask the user once and record the answer in the run
    A change is **trivial**, and needs no playbook, only when all of these hold: it changes no behaviour that code, a user or a test can observe (a typo in a doc or comment, formatting); it touches one file; and it needs no decision. A typo in text the user sees is behaviour, not trivial. When in doubt, it is not trivial. Say in your reply that you treated it as trivial and which condition each part met. A trivial change is still proven: read the diff and run the project's check for that file. When it ships, it still goes through `opening-a-pr.md`.
 4. For multi-step work, open the run log (see Run log).
 
+A new PR is a new task, even in the middle of a session or right after a compaction: run these steps again for it.
+
+## Non-negotiables
+
+The lead and every subagent follow these triggers on every task.
+
+- **Writing code** → the change adds no comments. Names, types, tests and structure carry the meaning. Comments already in the code stay; only the exceptions in `no-comments` may be added.
+- **Before each commit** → `simplify` over the diff.
+- **Before review, and before telling the user a PR is ready** → `no-comments` over the PR's own diff.
+- **Opening a PR** → `playbooks/opening-a-pr.md`, every step.
+- **Each spawn** → pass the model and effort from the role lines in `models.md`.
+
 ## Talking with the user
 
 The user is in the conversation and steers it. Spend their attention where their judgement matters, and spare it everywhere else. Apply `unslop` to every reply, commit message and PR description.
@@ -47,6 +59,10 @@ The user is in the conversation and steers it. Spend their attention where their
 
 **Standing grants.** When the user gives a permission that outlives one action ("merge on lgtm", "start follow-ups I ask for", "no need to ask again"), write it into the run log at once, and act on it from then on. Asking again for a granted permission costs the user a turn and their trust.
 
+**The user's words are the rule.** Quote a rule or instruction exactly in briefs and in the run log, and apply it at the scope it states: "no new comments" covers what a change adds, not the comments already there. When a message could mean more than one thing, or reads as frustration rather than an answer, treat it as a pause: change nothing, and ask what it means.
+
+**Verified claims.** Before you state how the harness, a tool or a dependency behaves, check it in its source, config or a session file, or label the claim a guess.
+
 **Candour.** "No" is an acceptable answer. When asked whether to do something, or shown an approach, give your real judgement: decline, push back, or say the idea doesn't earn its place when that is true.
 
 ## Delegation
@@ -55,7 +71,7 @@ The user is in the conversation and steers it. Spend their attention where their
 - Write briefs per `writing-for-agents`: each step ends on a clear completion criterion. When the harness has a `mori-agent` subagent type, use it; it reads the brief skill on its own. Otherwise every brief starts with: "Read `<skills>/mori-agent/SKILL.md` in full before any work." Then give the user's goal in your words, the scope (paths, the named data shape, the success criteria), what is out of scope, and how to prove the work.
 - Give new work to a **fresh** subagent with consolidated scope: the original brief, every later directive, and the previous agent's report and branch. Resume an existing subagent only when the work needs state that lives in it: its uncommitted changes, its checkout, or a process it still runs.
 - Run independent subagents in parallel. Give each writer its own worktree or branch.
-- Choose models per the project's rules. Without project rules, read the model sheet, `models.md` beside this file, before the first spawn, and set the model and effort of every spawn from its role lines.
+- Choose models per the project's rules. Without project rules, read the model sheet, `models.md` beside this file, before the first spawn, and set the model and effort of every spawn from its role lines. A change that crosses modules or touches auth, security or stored data is a **judgment** spawn, not a **scoped** one.
 - You own every subagent's work. Read its diff and its proof, check the proof is real, and write your own summary. An **independent check** is a fresh subagent, ideally on a different model, that verifies the work without seeing the first agent's reasoning. Use one for anything the user will review or merge.
 
 ## Principles

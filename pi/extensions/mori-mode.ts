@@ -8,11 +8,12 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const skillPath = join(root, "skills", "mori-mode", "SKILL.md");
 const agentSkillPath = join(root, "skills", "mori-agent", "SKILL.md");
+const reviewerBriefPath = join(root, "skills", "no-comments", "references", "reviewer-brief.md");
 const MODE = "mori-mode";
 const SECTION = "mori_mode";
 
 const instructions = `Mori mode governs every request: follow ${skillPath}. Read it in full once per session, and again after each compaction, before acting. Delegate to the \`mori-agent\` subagent.`;
-const rereadReminder = `The conversation was compacted, so the mori-mode skill, the run log and the active playbook are no longer in context. Before acting, read ${skillPath} in full, then the run log this session keeps in tmp/runs/ if there is one, then the active playbook.`;
+const rereadReminder = `The conversation was compacted, so the mori-mode skill, the run log and the active playbook are no longer in context. Before acting, read ${skillPath} in full, then the run log this session keeps in tmp/runs/ if there is one, then the active playbook. The next new piece of work, such as a new PR, is a new task: run Start of every task for it and pick its playbook.`;
 
 const handoverPrompt = (conversation: string, previousSummary?: string, runLog?: string, focus?: string) => `Write the handover for the lead agent of a mori-mode session. The conversation below is about to leave the lead's context. Your summary replaces it, next to the most recent messages, which stay word for word. The lead must be able to continue without asking the user anything the user already answered.
 
@@ -64,12 +65,22 @@ const sessionRunLog = (cwd: string, files: { readFiles: string[]; modifiedFiles:
   return newest && `${newest.path}\n\n${readFileSync(newest.path, "utf8")}`;
 };
 
-type Brief = { agent?: unknown; task?: unknown };
+type Brief = { agent?: unknown; task?: unknown; model?: unknown };
 
-const withSkillPath = (brief: Brief) => {
-  if (brief.agent === "mori-agent" && typeof brief.task === "string" && !brief.task.includes(agentSkillPath)) {
-    brief.task = `${brief.task}\n\nmori-agent skill: ${agentSkillPath}`;
-  }
+const briefPaths: Record<string, string> = {
+  "mori-agent": `mori-agent skill: ${agentSkillPath}`,
+  "comment-reviewer": `comment-reviewer brief: ${reviewerBriefPath}`,
+};
+
+const withBriefPath = (brief: Brief) => {
+  const path = typeof brief.agent === "string" ? briefPaths[brief.agent] : undefined;
+  if (path && typeof brief.task === "string" && !brief.task.includes(path)) brief.task = `${brief.task}\n\n${path}`;
+};
+
+const missingModel = (input: Brief & { action?: unknown; workflow?: unknown; args?: { tasks?: unknown } }) => {
+  if (input.action || input.workflow === true || typeof input.workflow === "string") return false;
+  const tasks = Array.isArray(input.args?.tasks) ? (input.args.tasks as Brief[]) : [input];
+  return tasks.some((task) => typeof task.agent === "string" && !task.model && !input.model);
 };
 
 export default function (pi: ExtensionAPI) {
@@ -133,9 +144,12 @@ export default function (pi: ExtensionAPI) {
 
   pi.on("tool_call", async (event) => {
     if (event.toolName !== "subagent") return;
-    const input = event.input as Brief & { args?: { tasks?: unknown } };
-    withSkillPath(input);
-    if (Array.isArray(input.args?.tasks)) input.args.tasks.forEach((task: Brief) => withSkillPath(task));
+    const input = event.input as Brief & { action?: unknown; workflow?: unknown; args?: { tasks?: unknown } };
+    if (on && missingModel(input)) {
+      return { block: true, reason: `Pass model and effort on every spawn, from the role lines in ${join(root, "skills", "mori-mode", "models.md")}, such as "meridian/claude-opus-5-5:high".` };
+    }
+    withBriefPath(input);
+    if (Array.isArray(input.args?.tasks)) input.args.tasks.forEach((task: Brief) => withBriefPath(task));
   });
 
   pi.registerCommand("mori-mode", {

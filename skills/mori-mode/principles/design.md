@@ -92,7 +92,7 @@ The test: can a new reader answer "where does X come from?" and "what can change
 - Name capabilities by what they provide, not by today's consumer. Put use-case specifics in operation names.
 - Reference abstractions through their owning module or an intentional package entrypoint. Expose only what intended callers should use, and review every consumer, including those outside the repo when the code is published, before changing a public contract.
 - Organise files around cohesive, searchable subjects, not size limits. Keep private helpers beside their owner; move a helper when its meaning becomes generic and stable.
-- **Comments** only where code cannot show intent, ownership, invariants, tradeoffs or caller-visible contracts. Use durable domain words; keep tickets, plan phases and storage terms out of public language. `no-comments` enforces this.
+- **Durable words.** Use durable domain words; keep tickets, plan phases and storage terms out of public language.
 - **Dependency APIs** come from the project's pinned version and version-matched source or docs, never from memory or current upstream alone.
 - **Tool claims.** Claim that tooling enforces something only when the active configuration proves it: the config, the commands, the checked paths. A passing check proves only what it inspects. Keep rule catalogues and thresholds in configuration, not in prose.
 

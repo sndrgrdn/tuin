@@ -11,4 +11,4 @@ The last step of every playbook that changes code. The project's rules on branch
 
 Prefer several narrow PRs to one large one. Stack a PR on another only when it builds on it.
 
-A subagent that opens a PR returns the URL and its proof to the lead. The lead reviews it before telling the user it is ready.
+A subagent that opens a PR runs `simplify` and `no-comments` itself, then returns the URL and its proof to the lead. The lead reviews it before telling the user it is ready.

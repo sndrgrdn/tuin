@@ -14,7 +14,7 @@ The files or diff the caller names. Otherwise the current diff against the base 
 
 ## Steps
 
-1. **Spawn the reviewer.** Spawn a subagent, ideally on a model other than the one that wrote the code, briefed with `references/reviewer-brief.md` and the scope. Pass the brief as it is; do not restate its rules.
+1. **Spawn the reviewer.** Spawn a subagent on a model other than the one that wrote the code. Use the `comment-reviewer` type when the harness has one, and give it the scope; it reads its brief itself. Otherwise brief it with `references/reviewer-brief.md` and the scope. Pass the brief as it is; do not restate its rules.
 2. **Judge the report and its diff.**
    - Reject: edits to application code, edits outside the scope, deletions of comments the brief's exceptions protect, `MUST KILL` reasons that misstate the code, and flags that condemn code kept on purpose.
    - Flags asking to reshape a surprise in our own code stay actionable. Do not restore those comments.

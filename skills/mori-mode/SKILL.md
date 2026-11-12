@@ -133,7 +133,7 @@ Update it whenever one of these changes, before you reply to the user. `handoff`
 
 ## Writing the reply
 
-- Open a final report with the user's goal, then lead with the outcome. One idea per paragraph.
+- Lead with the outcome, measured against the user's goal, and name the goal when the outcome doesn't make it plain. One idea per paragraph.
 - Every claim carries its evidence or a label in the same sentence: measured, inferred, or guess. Link only artifacts you produced or read in this session. Run every check you can run yourself; hand the user only the checks that need them.
 - Frame the impact for whoever uses the work, then for whoever maintains the code next.
 - End a turn that needs the user with the decisions you need, numbered, in `grill-me`'s question shapes, each with your recommendation.

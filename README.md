@@ -27,10 +27,10 @@ Derived from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/p
 
 ## Install in Pi
 
-The repo is a Pi package. Install it from the local checkout, which loads in place without copying:
+The repo is a Pi package. Install it from inside your local checkout, which loads in place without copying:
 
 ```sh
-pi install ~/Developer/tuin
+pi install .
 ```
 
 This loads every skill, the `tuin-agent` subagent (for `pi-subagents`), and the `tuin-mode` extension. `/tuin-mode` toggles tuin mode for the session and shows `tuin` in the status bar. While it is on, every request follows the skill. Compaction writes a tuin handover instead of Pi's summary: goal, standing grants quoted word for word, decisions, work in flight, next steps and critical context. After the compaction, the agent rereads the skill and the active playbook.
